@@ -14,7 +14,7 @@ import type { Product } from "@/types/product";
 export function FeaturedProducts({ products }: { products: Product[] }) { 
   return (
     // py-24 adds vertical padding to the section.
-    <section className="py-24">
+    <section className="py-1 lg:py-24">
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           {/* FadeIn is a component from the framer-motion library that animates the text. */}

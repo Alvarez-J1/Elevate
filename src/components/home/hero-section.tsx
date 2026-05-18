@@ -39,7 +39,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* tracking adds letter spacing to the small uppercase text. */}
-          <p className="text-sm font-semibold uppercase tracking-[0.32em] #A7C7E7">
+          <p className="#A7C7E7 text-sm font-semibold uppercase tracking-[0.32em]">
             Premium technology goods
           </p>
           {/* sm: and lg: are responsive Tailwind prefixes for larger screens. */}

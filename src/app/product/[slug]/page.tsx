@@ -19,12 +19,12 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product not found | ELEVATE"
+      title: "Product not found | Elevate"
     };
   } 
 
   return {
-    title: `${product.name} | ELEVATE`,
+    title: `${product.name} | Elevate`,
     description: product.tagline
   };
 }

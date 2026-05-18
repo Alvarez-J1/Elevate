@@ -5,8 +5,6 @@ import { HeroSection } from "../components/home/hero-section";
 // import { PromoBanner } from "@/components/home/promo-banner";
 // import { Testimonials } from "@/components/home/testimonials";
 import { getFeaturedProducts, categories } from "@/lib/products";
-import { Container } from "@/components/ui/container";
-import { SectionHeader } from "@/components/ui/section-header";
 
 export default function HomePage() {
   return ( 

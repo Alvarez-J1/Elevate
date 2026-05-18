@@ -15,16 +15,16 @@ export function CartLineItem({ item }: { item: CartItem }) {
   const removeItem = useCartStore((state) => state.removeItem);
 
   return (
-    <article className="grid gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 sm:grid-cols-[7rem_1fr_auto]">
+    <article className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 sm:grid-cols-[7rem_1fr_auto]">
       <Link
-        className="relative aspect-square overflow-hidden rounded-lg bg-carbon"
+        className="relative aspect-square self-start overflow-hidden rounded-lg bg-carbon"
         href={`/product/${item.slug}`}
       >
         <Image
           alt={item.name}
           className="object-cover"
           fill
-          sizes="112px"
+          sizes="(min-width: 640px) 112px, 88px"
           src={item.image}
         />
       </Link>
@@ -46,7 +46,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
         </p>
       </div>
 
-      <div className="flex items-center justify-between gap-3 sm:flex-col sm:items-end">
+      <div className="col-span-2 flex items-center justify-between gap-3 sm:col-span-1 sm:flex-col sm:items-end">
         <QuantitySelector
           compact
           onChange={(quantity) => updateQuantity(item.key, quantity)}

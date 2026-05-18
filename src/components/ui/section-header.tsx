@@ -22,7 +22,7 @@ export function SectionHeader({
         {/* If eyebrow exists, render the small label. Otherwise render nothing. */}
         {eyebrow ? (
           /* mb-3 adds bottom margin. text-xs makes the text small. */
-          <p className="mb-3 font-semibold uppercase tracking-[0.28em] #A7C7E7 text-sm">
+          <p className="mb-3 #A7C7E7 text-sm font-semibold uppercase tracking-[0.28em]">
             {eyebrow}
           </p>
         ) : null}
