@@ -19,12 +19,12 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product not found | Noir Atelier"
+      title: "Product not found | ELEVATE"
     };
-  }
+  } 
 
   return {
-    title: `${product.name} | Noir Atelier`,
+    title: `${product.name} | ELEVATE`,
     description: product.tagline
   };
 }

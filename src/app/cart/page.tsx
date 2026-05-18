@@ -2,7 +2,7 @@ import { CartExperience } from "@/components/cart/cart-experience";
 import { Container } from "@/components/ui/container";
 
 export const metadata = {
-  title: "Cart | Noir Atelier"
+  title: "Cart | Elevate"
 };
 
 export default function CartPage() {
@@ -17,8 +17,7 @@ export default function CartPage() {
             Review your selected pieces.
           </h1>
           <p className="mt-5 text-base leading-7 text-silver">
-            Update quantities, remove items, and keep your cart persisted across
-            visits with local storage.
+          Update quantities, remove items, and review your order before checkout.
           </p>
         </div>
         <CartExperience />

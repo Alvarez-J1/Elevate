@@ -27,7 +27,7 @@ export function ProductDetails({
   return (
     <div className="pb-24 pt-10">
       <Container>
-        <div className="mb-8 #A7C7E7 text-sm">
+        <div className="mb-8 text-sm text-silver">
           <Link className="transition hover:text-platinum" href="/shop">
             Shop
           </Link>

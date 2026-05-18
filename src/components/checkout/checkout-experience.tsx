@@ -43,7 +43,7 @@ export function CheckoutExperience() {
 
     window.setTimeout(() => {
       setConfirmation({
-        id: `NOIR-${Math.floor(100000 + Math.random() * 900000)}`,
+        id: `ELEVATE-${Math.floor(100000 + Math.random() * 900000)}`,
         items,
         total: totals.total
       });
@@ -131,7 +131,7 @@ export function CheckoutExperience() {
               Sandbox checkout
             </h2>
             <p className="mt-1 text-sm text-silver">
-              Shipping and payment UI only. No transaction is submitted.
+            Demo checkout only. No real payment will be processed.
             </p>
           </div>
         </div>
@@ -201,7 +201,7 @@ export function CheckoutExperience() {
 
         <Button className="mt-8 w-full" disabled={isProcessing} size="lg" type="submit">
           {isProcessing ? <CreditCard size={18} /> : <Check size={18} />}
-          {isProcessing ? "Processing" : "Place sandbox order"}
+          {isProcessing ? "Processing" : "Place order"}
         </Button>
       </form>
 

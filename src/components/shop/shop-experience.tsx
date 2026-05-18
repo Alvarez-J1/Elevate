@@ -114,7 +114,7 @@ export function ShopExperience({
 
       <div className="mt-6 flex items-center justify-between text-sm text-silver">
         <p>{filteredProducts.length} products</p>
-        <p className="hidden sm:block">Premium catalog · sandbox storefront</p>
+        <p className="hidden sm:block">Premium Catalog</p>
       </div>
 
       {filteredProducts.length > 0 ? (

@@ -4,7 +4,7 @@ import { products } from "@/lib/products";
 import type { ProductCategory } from "@/types/product";
 
 export const metadata = {
-  title: "Shop | Noir Atelier"
+  title: "Shop | Elevate"
 };
 
 const categoryNames = Array.from(
@@ -20,11 +20,10 @@ export default function ShopPage() {
             Shop
           </p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-platinum sm:text-5xl">
-            Premium essentials, filtered for the way you work.
+          Explore premium technology designed for everyday use.
           </h1>
           <p className="mt-5 text-base leading-7 text-silver">
-            Search the complete catalog, compare categories, and sort by price
-            or rating without losing the calm of the experience.
+          Browse the catalog, compare categories, and sort products by price or rating.
           </p>
         </div>
         <ShopExperience categories={categoryNames} products={products} />
