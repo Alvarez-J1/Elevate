@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { Check, CreditCard, Lock, PackageCheck, ShoppingBag } from "lucide-react";
 
 import {
@@ -24,14 +24,10 @@ type Confirmation = {
 export function CheckoutExperience() {
   const items = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
   const [isProcessing, setIsProcessing] = useState(false);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
-  const [mounted, setMounted] = useState(false);
   const totals = useMemo(() => calculateOrderTotals(items), [items]);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -53,7 +49,7 @@ export function CheckoutExperience() {
     }, 900);
   }
 
-  if (!mounted) {
+  if (!hasHydrated) {
     return (
       <div className="grid gap-6 lg:grid-cols-[1fr_24rem]">
         <Skeleton className="h-[36rem]" />

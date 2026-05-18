@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
-import { useEffect, useState } from "react";
 
 import { CartLineItem } from "@/components/cart/cart-line-item";
 import { OrderSummary } from "@/components/cart/order-summary";
@@ -13,13 +12,9 @@ import { useCartStore } from "@/components/store/cart-store";
 
 export function CartExperience() {
   const items = useCartStore((state) => state.items);
-  const [mounted, setMounted] = useState(false);
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
+  if (!hasHydrated) {
     return (
       <div className="grid gap-6 lg:grid-cols-[1fr_24rem]">
         <div className="space-y-4">

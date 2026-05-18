@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Check, ShoppingBag } from "lucide-react";
 
 import { Button, type ButtonSize } from "@/components/ui/button";
-import { useCartStore } from "../store/cart-store";
+import { useCartStore } from "@/components/store/cart-store";
 import type { Product } from "@/types/product";
 
 export function AddToCartButton({

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation"; //usePathname is a hook that returns the current pathname.
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { getCartItemCount, useCartStore } from "@/components/store/cart-store";
 import { cn } from "@/lib/utils";
@@ -19,20 +19,13 @@ const navItems = [
 // isOpen tracks whether the mobile menu is open. It starts as false, so the menu is closed by default. When the hamburger button is clicked, setIsOpen(...) toggles it open or closed.
 export function Navbar() {
   const pathname = usePathname(); //
-  const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [openPathname, setOpenPathname] = useState<string | null>(null);
   const items = useCartStore((state) => state.items);
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
+  const isOpen = openPathname === pathname;
 
   // USeMemo is a hook that memoizes the cart item count.
   const count = useMemo(() => getCartItemCount(items), [items]); 
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   return (
     //top-0 means the navbar is at the top of the page.
@@ -81,7 +74,7 @@ export function Navbar() {
             <Search size={18} />
           </Link>
           <Link
-            aria-label={`Cart with ${mounted ? count : 0} items`}
+            aria-label={`Cart with ${hasHydrated ? count : 0} items`}
             className={buttonClassName({
               variant: "secondary",
               size: "icon",
@@ -91,7 +84,7 @@ export function Navbar() {
           >
             <ShoppingBag size={18} />
             {/* //mouned and count > 0 means the cart item count is displayed if the cart is not empty. */}
-            {mounted && count > 0 ? (
+            {hasHydrated && count > 0 ? (
               <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-glacier px-1 text-[11px] font-semibold text-obsidian">
                 {count}
               </span>
@@ -105,7 +98,9 @@ export function Navbar() {
               size: "icon",
               className: "md:hidden"
             })}
-            onClick={() => setIsOpen((value) => !value)} //setIsOpen is a function that toggles the mobile menu open or closed. value is the current state of the mobile menu. !value is the new state of the mobile menu.
+            onClick={() =>
+              setOpenPathname((value) => (value === pathname ? null : pathname))
+            }
             type="button"
           >
             {isOpen ? <X size={19} /> : <Menu size={19} />}
@@ -121,6 +116,7 @@ export function Navbar() {
                 className="rounded-lg px-4 py-3 text-sm text-silver transition hover:bg-white/[0.06] hover:text-platinum"
                 href={item.href}
                 key={item.href}
+                onClick={() => setOpenPathname(null)}
               >
                 {item.label}
               </Link>
