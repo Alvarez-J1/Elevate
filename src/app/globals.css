@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* Semantic page tokens (optional helpers) */
+:root {
+  --background: #050506;
+  --foreground: #f4f0e8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Ported from tailwind.config theme.extend.colors */
+  --color-obsidian: #050506;
+  --color-graphite: #141418;
+  --color-carbon: #202026;
+  --color-platinum: #f4f0e8;
+  --color-silver: #b8bdc7;
+  --color-muted: #7e8492;
+  --color-glacier: #7dd3fc;
+  --color-aurora: #a78bfa;
+  --color-ember: #f5c56b;
+
+  /* Geist from next/font in layout.tsx */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.32);
+  --shadow-glow: 0 0 40px rgba(125, 211, 252, 0.16);
+
+  --background-image-hero-vignette: radial-gradient(
+      circle at 52% 28%,
+      rgba(125, 211, 252, 0.24),
+      transparent 32%
+    ),
+    radial-gradient(circle at 72% 18%, rgba(167, 139, 250, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(5, 5, 6, 0.2), rgba(5, 5, 6, 0.92));
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+
+.input-shell {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.055);
+  color: #f4f0e8;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
