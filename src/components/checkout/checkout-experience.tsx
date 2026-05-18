@@ -11,8 +11,8 @@ import {
 import { Button, buttonClassName } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { CartItem } from "@/store/cart-store";
-import { useCartStore } from "../store/cart-store";
+import type { CartItem } from "@/components/store/cart-store";
+import { useCartStore } from "@/components/store/cart-store";
 import { formatCurrency } from "@/lib/utils";
 
 type Confirmation = {
