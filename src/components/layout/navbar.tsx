@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation"; //usePathname is a hook that returns the current pathname.
+import { usePathname } from "next/navigation";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -15,21 +15,16 @@ const navItems = [
   { label: "Cart", href: "/cart" }
 ];
 
-
-// isOpen tracks whether the mobile menu is open. It starts as false, so the menu is closed by default. When the hamburger button is clicked, setIsOpen(...) toggles it open or closed.
 export function Navbar() {
-  const pathname = usePathname(); //
+  const pathname = usePathname();
   const [openPathname, setOpenPathname] = useState<string | null>(null);
   const items = useCartStore((state) => state.items);
   const hasHydrated = useCartStore((state) => state.hasHydrated);
   const isOpen = openPathname === pathname;
 
-  // USeMemo is a hook that memoizes the cart item count.
-  const count = useMemo(() => getCartItemCount(items), [items]); 
+  const count = useMemo(() => getCartItemCount(items), [items]);
 
   return (
-    //top-0 means the navbar is at the top of the page.
-    //z-50 means the navbar is on top of other elements.
     <header className="sticky top-0 z-50 border-b border-white/10 bg-obsidian/76 backdrop-blur-2xl">
       <nav
         className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
@@ -40,7 +35,6 @@ export function Navbar() {
             Elevate
           </span>
         </Link>
-{/* //hidden means the div is not visible on small screens. */}
         <div className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
             const isActive =
@@ -83,7 +77,6 @@ export function Navbar() {
             href="/cart"
           >
             <ShoppingBag size={18} />
-            {/* //mouned and count > 0 means the cart item count is displayed if the cart is not empty. */}
             {hasHydrated && count > 0 ? (
               <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-glacier px-1 text-[11px] font-semibold text-obsidian">
                 {count}
@@ -91,7 +84,7 @@ export function Navbar() {
             ) : null}
           </Link>
           <button
-            aria-expanded={isOpen} //aria-expanded is a boolean attribute that indicates whether the navigation menu is expanded.
+            aria-expanded={isOpen}
             aria-label="Toggle navigation menu"
             className={buttonClassName({
               variant: "ghost",

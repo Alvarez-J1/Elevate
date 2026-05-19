@@ -2,17 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { FadeIn } from "@/components/motion/fade-in"; //FadeIn is a component from the components/motion/fade-in.tsx file.
+import { FadeIn } from "@/components/motion/fade-in";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section-header";
 import type { Category } from "@/types/product";
-
-
-// This first categories is the actual prop being pulled out of the props object. This is called destructuring.
-//The second categories is the TypeScript type for the props object.
-//Category[] means “that prop must be an array of Category objects.”
-
-
 
 export function CategoriesSection({ categories }: { categories: Category[] }) {
   return (
@@ -26,7 +19,7 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
           />
         </FadeIn>
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-          {categories.map((category, index) => (  
+          {categories.map((category, index) => (
             <FadeIn delay={index * 0.05} key={category.slug}>
               <Link
                 className="group block overflow-hidden rounded-lg border border-white/10 bg-white/[0.045]"

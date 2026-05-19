@@ -30,8 +30,8 @@ export function CartExperience() {
     return (
       <EmptyState
         icon={<ShoppingBag size={22} />}
-        title="Your cart is quiet"
-        description="Add a few premium pieces and they will stay here between visits."
+        title="Your cart is empty"
+        description="Browse the collection to add your selected products."
         action={
           <Link className={buttonClassName()} href="/shop">
             Browse collection

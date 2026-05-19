@@ -326,13 +326,13 @@ export function getProductBySlug(slug: string): Product | undefined {
 }
 
 export function getFeaturedProducts(): Product[] {
-  return products.filter((product) => product.badge).slice(0, 4); //.slice(0, 4) is a method that returns the first 4 products. 0 means the first product and 4 means the last product.
+  return products.filter((product) => product.badge).slice(0, 4);
 }
 
 
 export function getRelatedProducts(product: Product): Product[] {
   const sameCategory = products.filter(
-    (item) => item.category === product.category && item.id !== product.id  //item.category === product.category means the category of the item is the same as the category of the product. item.id !== product.id means the id of the item is not the same as the id of the product.
+    (item) => item.category === product.category && item.id !== product.id
   );
 
   return [...sameCategory, ...products.filter((item) => item.id !== product.id)]

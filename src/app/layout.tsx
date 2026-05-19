@@ -1,4 +1,4 @@
-import type { Metadata } from "next"; //Metadata is a type that describes the metadata for a page.
+import type { Metadata } from "next";
 
 import "./globals.css";
 
@@ -10,13 +10,6 @@ export const metadata: Metadata = {
   description:
     "A cinematic premium ecommerce experience for modern technology, workspace, audio, travel, and photography essentials."
 };
-//RootLayout is a function that renders the layout for the app.
-// children: React.ReactNode;
-// means:
-// “This layout accepts React content/components inside it.”
-// Readonly<{ children: React.ReactNode }>
-// means:
-// “The props object shouldn’t be mutated.”
 
 export default function RootLayout({
   children
@@ -26,8 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      {/* //noise is a class that adds a noise effect to the background. */}
-        <div className="noise" aria-hidden="true" /> 
+        <div className="noise" aria-hidden="true" />
         <Navbar />
         <main>{children}</main>
         <Footer />
@@ -35,4 +27,3 @@ export default function RootLayout({
     </html>
   );
 }
-

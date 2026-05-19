@@ -1,57 +1,12 @@
-// This file creates a global shopping cart store using Zustand.
-
-//  Features:
-// - stores cart items
-// - adds/removes/updates items
-// - saves cart to localStorage
-// - handles product variants like color
-// - calculates subtotal and total item count
-
-// 1. create<CartState>()
-// create<CartState>()
-// // Creates a global cart store.
-// // Components can access/update cart state from anywhere.
-
-// 2. persist
-// persist(...)
-// Saves cart data to localStorage
-// so the cart remains after page refresh.
-
-
-// 3. createCartKey
-// return `${productId}:${color ?? "default"}`;
-// Creates unique keys for product variants.
-// Example:
-// same product + different colors = different cart items.
-
-
-
-// 4. addItem
-// Checks if item already exists.
-// If not → adds item.
-// If yes → increases quantity.
-
-
-// 5. updateQuantity/removeItem
-// updateQuantity changes item quantity.
-// removeItem removes item from cart.
-
-// 6. reduce functions
-// // reduce calculates:
-// - cart subtotal
-// - total item count
-
-
-
 "use client";
 
-import { create } from "zustand"; //zustand is a library that provides a way to manage state in a React application.
-import { createJSONStorage, persist } from "zustand/middleware"; //createJSONStorage is a function that creates a JSON storage for the cart store. persist is a function that persists the cart store to the browser's local storage.
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 import type { Product } from "@/types/product";
-import { clamp } from "@/lib/utils"; //clamp is a function that clamps a value between a minimum and maximum value.
+import { clamp } from "@/lib/utils";
 
-export type CartItem = { 
+export type CartItem = {
   key: string;
   id: string;
   slug: string;
@@ -66,24 +21,15 @@ export type CartItem = {
 
 type CartState = {
   items: CartItem[];
-  hasHydrated: boolean; //hasHydrated is a boolean that indicates if the cart store has been hydrated (loaded from the browser's local storage).
-  addItem: (product: Product, quantity?: number, color?: string) => void; //void means the function does not return a value.
+  hasHydrated: boolean;
+  addItem: (product: Product, quantity?: number, color?: string) => void;
   updateQuantity: (key: string, quantity: number) => void;
   removeItem: (key: string) => void;
   clearCart: () => void;
   setHasHydrated: (value: boolean) => void;
 };
 
-// createCartKey generates a unique identifier for each cart item.
-  // Useful for tracking items in React lists or distinguishing
-  // products with different variants (size/color/etc).
-  
-function createCartKey(productId: string, color?: string): string { 
-  // Creates a unique cart item key using the product ID and color.
-// Example: "123:black"
-
-// ?? is the nullish coalescing operator.
-// If color is null or undefined, use "default" instead.
+function createCartKey(productId: string, color?: string): string {
   return `${productId}:${color ?? "default"}`;
 }
 

@@ -24,19 +24,17 @@ const columns = [
 
 export function Footer() {
   return (
-    //border-t is a border that goes from the top to the bottom of the footer. 
-    <footer className="border-t border-white/10 bg-obsidian/80 py-12"> 
+    <footer className="border-t border-white/10 bg-obsidian/80 py-12">
       <Container>
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
           <div>
-            <Link className="flex items-center gap-3" href="/"> 
-              {/* //tracking-[0.28em] is a tracking that adds space between the letters. */}
-              <span className="text-sm font-semibold uppercase tracking-[0.28em] text-platinum"> 
+            <Link className="flex items-center gap-3" href="/">
+              <span className="text-sm font-semibold uppercase tracking-[0.28em] text-platinum">
                 Elevate
               </span>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-6 text-silver">
-            Premium technology designed for focus, creativity, and daily use.
+              Premium technology designed for focus, creativity, and daily use.
             </p>
           </div>
 
@@ -50,7 +48,7 @@ export function Footer() {
                     href={link.href}
                     key={link.label}
                   >
-                    {link.label} 
+                    {link.label}
                     <ArrowUpRight
                       className="opacity-0 transition group-hover:opacity-100"
                       size={14}

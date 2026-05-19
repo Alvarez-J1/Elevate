@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -9,38 +9,29 @@ import { AddToCartButton } from "./add-to-cart-button";
 import { formatCurrency } from "@/lib/utils";
 import type { Product } from "@/types/product";
 
-// product: Product means the product prop must match the Product type.
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <>
-    {/* group lets child elements react when the whole card is hovered. */}
-    {/* motion.article is a framer-motion element that can animate. */}
     <motion.article
       className="group overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] shadow-soft"
       whileHover={{ y: -8 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       layout
     >
-      {/* product.slug creates a clean URL like /product/vanta-studio-headphones. */}
       <Link className="block" href={`/product/${product.slug}`}>
-        {/* aspect-[4/5] keeps the image box in a 4:5 ratio. */}
-        <div className="relative aspect-[4/5] overflow-hidden bg-carbon"> 
-          {/* group-hover:scale-105 zooms the image slightly when the card is hovered. */}
+        <div className="relative aspect-[4/5] overflow-hidden bg-carbon">
           <Image
             alt={product.name}
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-105" 
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             src={product.images[0]}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent" />
-          {/* If product.badge exists, show a small badge on the image. */}
           {product.badge ? (
             <span className="absolute left-4 top-4 rounded-lg border border-white/10 bg-obsidian/70 px-3 py-1 text-xs font-medium text-platinum backdrop-blur-md">
               {product.badge}
             </span>
           ) : null}
-          {/* This icon appears on hover because it starts at opacity-0. */}
           <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-obsidian/60 text-platinum opacity-0 backdrop-blur-md transition group-hover:opacity-100">
             <ArrowUpRight size={18} />
           </span>
@@ -49,11 +40,9 @@ export function ProductCard({ product }: { product: Product }) {
 
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between gap-3">
-          {/* text-xs makes the category text small. */}
           <p className="text-xs uppercase tracking-[0.24em] text-muted">
             {product.category}
           </p>
-          {/* text-ember applies the theme color for the rating area. */}
           <div className="flex items-center gap-1 text-xs text-ember">
             <Star size={13} fill="currentColor" />
             <span className="text-silver">{product.rating}</span>
@@ -61,38 +50,28 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         <Link href={`/product/${product.slug}`}>
-          {/* group-hover:text-white changes this title color when the card is hovered. */}
           <h3 className="text-lg font-semibold text-platinum transition group-hover:text-white">
             {product.name}
           </h3>
         </Link>
-        {/* line-clamp-2 keeps the tagline to two lines. */}
         <p className="mt-2 line-clamp-2 min-h-11 text-sm leading-6 text-silver">
           {product.tagline}
         </p>
 
         <div className="mt-5 flex items-center justify-between gap-3">
           <div>
-            {/* formatCurrency turns a number into a price like $299. */}
             <p className="text-lg font-semibold text-platinum">
               {formatCurrency(product.price)}
             </p>
             {product.originalPrice ? (
-              /* line-through draws a line through the original price. */
               <p className="text-xs text-muted line-through">
                 {formatCurrency(product.originalPrice)}
               </p>
             ) : null}
           </div>
-          {/* product is passed to the cart button so it knows what to add. */}
-          <AddToCartButton
-            label="Add"
-            product={product}
-            size="sm"
-          />
+          <AddToCartButton label="Add" product={product} size="sm" />
         </div>
       </div>
     </motion.article>
-    </>
   );
 }

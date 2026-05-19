@@ -21,8 +21,8 @@ export type Product = {
   rating: number;
   reviews: number;
   description: string;
-  features: string[]; //string array means an array of strings.
-  specs: Record<string, string>; //Record<K, V> is a TypeScript utility type.
+  features: string[];
+  specs: Record<string, string>;
   colors: ProductColor[];
   images: string[];
   badge?: string;
