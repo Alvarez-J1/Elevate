@@ -90,11 +90,12 @@ export function ProductDetails({
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <QuantitySelector value={quantity} onChange={setQuantity} />
               <AddToCartButton
-                className="flex-1"
+                className="min-h-[52px] flex-1 sm:min-h-0"
                 color={selectedColor}
                 label="Add to cart"
                 product={product}
                 quantity={quantity}
+                size="lg"
               />
               <Link
                 className={buttonClassName({

@@ -211,7 +211,7 @@ export const products: Product[] = [
     images: [
       "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1400&q=90",
       "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1400&q=90",
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1400&q=90"
+      "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=1400&q=90"
     ],
     stock: 31,
     accent: "#b8bdc7"
@@ -279,7 +279,7 @@ export const products: Product[] = [
     images: [
       "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=1400&q=90",
       "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1400&q=90",
-      "https://images.unsplash.com/photo-1595044426077-d36d9236d44a?auto=format&fit=crop&w=1400&q=90"
+      "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=1400&q=90"
     ],
     stock: 22,
     accent: "#a78bfa"
