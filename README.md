@@ -1,9 +1,8 @@
 # Elevate — Premium Ecommerce Storefront
-<img width="1898" height="908" alt="image" src="https://github.com/user-attachments/assets/d3a4b35b-35f9-46de-bb47-a0eb2b18c081" />
-
 Elevate is a responsive front-end ecommerce storefront built with Next.js, React, TypeScript, and Tailwind CSS.
-
 The project focuses on modern ecommerce UI design, responsive layouts, product-focused interfaces, cart functionality, and a polished checkout experience.
+
+<img width="1898" height="908" alt="image" src="https://github.com/user-attachments/assets/d3a4b35b-35f9-46de-bb47-a0eb2b18c081" />
 
 ## Live Demo
 
