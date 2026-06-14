@@ -10,8 +10,8 @@ import type { Product } from "@/types/product";
 
 export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
-    <section className="py-1 lg:py-24">
-      <Container>
+    <section className="py-1 lg:pb-24 lg:pt-16 min-[1600px]:pt-14 min-[1920px]:pt-16">
+      <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <FadeIn>
             <SectionHeader
@@ -31,7 +31,7 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
           </FadeIn>
         </div>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 min-[1600px]:gap-6 min-[1920px]:gap-7">
           {products.map((product, index) => (
             <FadeIn delay={index * 0.05} key={product.id}>
               <ProductCard product={product} />

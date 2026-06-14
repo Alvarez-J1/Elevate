@@ -10,7 +10,7 @@ import type { Category } from "@/types/product";
 export function CategoriesSection({ categories }: { categories: Category[] }) {
   return (
     <section className="border-y border-white/10 bg-white/[0.025] py-24">
-      <Container>
+      <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <FadeIn>
           <SectionHeader
             eyebrow="Categories"
@@ -18,7 +18,7 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
             description="Explore premium technology designed for work, travel, entertainment, and everyday use."
           />
         </FadeIn>
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5 min-[1600px]:gap-5 min-[1920px]:gap-6">
           {categories.map((category, index) => (
             <FadeIn delay={index * 0.05} key={category.slug}>
               <Link
