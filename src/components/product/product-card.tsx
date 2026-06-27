@@ -39,8 +39,8 @@ export function ProductCard({ product }: { product: Product }) {
       </Link>
 
       <div className="p-4">
-        <div className="mb-2 flex items-center justify-between gap-3">
-          <p className="text-xs uppercase tracking-[0.24em] text-muted">
+        <div className="mb-eyebrow-heading flex items-center justify-between gap-3">
+          <p className="text-xs uppercase tracking-[0.24em] text-eyebrow">
             {product.category}
           </p>
           <div className="flex items-center gap-1 text-xs text-ember">

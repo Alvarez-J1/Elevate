@@ -1,3 +1,4 @@
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700&display=swap");
 @import "tailwindcss";
 
 /* Semantic page tokens (optional helpers) */
@@ -18,12 +19,14 @@
   --color-silver: #b8bdc7;
   --color-muted: #7e8492;
   --color-glacier: #7dd3fc;
+  --color-eyebrow: #f4f0e8;
   --color-aurora: #a78bfa;
   --color-ember: #f5c56b;
 
-  /* Geist from next/font in layout.tsx */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --spacing-eyebrow-heading: 0.5rem;
 
   --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.32);
   --shadow-glow: 0 0 40px rgba(125, 211, 252, 0.16);
@@ -40,7 +43,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 

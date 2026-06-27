@@ -39,10 +39,10 @@ export function ProductDetails({
           <ProductGallery images={product.images} name={product.name} />
 
           <section className="lg:sticky lg:top-24">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-glacier">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-eyebrow">
               {product.category}
             </p>
-            <h1 className="mt-4 text-4xl font-semibold leading-tight text-platinum sm:text-5xl">
+            <h1 className="mt-eyebrow-heading text-4xl font-semibold leading-tight text-platinum sm:text-5xl">
               {product.name}
             </h1>
             <p className="mt-4 text-lg leading-8 text-silver">{product.tagline}</p>
@@ -161,8 +161,8 @@ export function ProductDetails({
         <Container>
           <SectionHeader
             eyebrow="Related"
-            title="Pairs beautifully with the same ritual."
-            description="A few adjacent pieces from the same premium catalog language."
+            title="Designed to complement your workspace setup."
+            description="Complete your workspace with matching pieces."
           />
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((item) => (

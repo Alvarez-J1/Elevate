@@ -10,7 +10,7 @@ export default function CheckoutPage() {
     <div className="pb-24 pt-14">
       <Container>
         <div className="mb-10 max-w-3xl">
-          {/* <p className="text-xs font-semibold uppercase tracking-[0.28em] text-glacier">
+          {/* <p className="text-xs font-semibold uppercase tracking-[0.28em] text-eyebrow">
             Checkout
           </p> */}
           <h1 className="mt-4 text-4xl font-semibold leading-tight text-platinum sm:text-5xl">

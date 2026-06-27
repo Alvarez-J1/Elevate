@@ -30,10 +30,10 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="#A7C7E7 text-sm font-semibold uppercase tracking-[0.32em] min-[1600px]:text-[0.95rem] min-[1920px]:text-base">
+          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-eyebrow min-[1600px]:text-[0.95rem] min-[1920px]:text-base">
             Premium technology goods
           </p>
-          <h1 className="mt-5 text-5xl font-semibold leading-[1.02] text-platinum sm:text-6xl lg:text-7xl min-[1600px]:text-[5.75rem] min-[1920px]:text-[6.5rem]">
+          <h1 className="mt-eyebrow-heading text-5xl font-semibold leading-[1.02] text-platinum sm:text-6xl lg:text-7xl min-[1600px]:text-[5.75rem] min-[1920px]:text-[6.5rem]">
             Elevate
           </h1>
 

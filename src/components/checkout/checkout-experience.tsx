@@ -64,10 +64,10 @@ export function CheckoutExperience() {
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-glacier/15 text-glacier">
           <PackageCheck size={28} />
         </div>
-        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-glacier">
+        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-eyebrow">
           Order confirmed
         </p>
-        <h1 className="mt-4 text-4xl font-semibold text-platinum">
+        <h1 className="mt-eyebrow-heading text-4xl font-semibold text-platinum">
           Your sandbox order is in.
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-silver">

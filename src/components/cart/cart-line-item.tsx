@@ -30,11 +30,11 @@ export function CartLineItem({ item }: { item: CartItem }) {
       </Link>
 
       <div className="min-w-0">
-        <p className="text-xs uppercase tracking-[0.22em] text-muted">
+        <p className="text-xs uppercase tracking-[0.22em] text-eyebrow">
           {item.category}
         </p>
         <Link href={`/product/${item.slug}`}>
-          <h2 className="mt-2 text-lg font-semibold text-platinum transition hover:text-white">
+          <h2 className="mt-eyebrow-heading text-lg font-semibold text-platinum transition hover:text-white">
             {item.name}
           </h2>
         </Link>

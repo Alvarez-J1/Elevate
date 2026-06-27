@@ -16,10 +16,10 @@ export default function ShopPage() {
     <div className="pb-24 pt-14">
       <Container>
         <div className="mb-10 max-w-3xl">
-          <p className="font-semibold uppercase tracking-[0.28em] #A7C7E7 text-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-eyebrow">
             Shop
           </p>
-          <h1 className="mt-4 text-4xl font-semibold leading-tight text-platinum sm:text-5xl">
+          <h1 className="mt-eyebrow-heading text-4xl font-semibold leading-tight text-platinum sm:text-5xl">
           Explore premium technology designed for everyday use.
           </h1>
           <p className="mt-5 text-base leading-7 text-silver">

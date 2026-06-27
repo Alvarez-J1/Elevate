@@ -14,7 +14,7 @@ export function SectionHeader({
   return (
     <div className={cn("max-w-3xl", className)}>
       {eyebrow ? (
-        <p className="mb-3 #A7C7E7 text-sm font-semibold uppercase tracking-[0.28em]">
+        <p className="mb-eyebrow-heading text-sm font-semibold uppercase tracking-[0.28em] text-eyebrow">
           {eyebrow}
         </p>
       ) : null}

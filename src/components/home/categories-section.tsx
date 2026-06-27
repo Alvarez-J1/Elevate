@@ -40,7 +40,7 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
                         {category.name}
                       </h3>
                       <ArrowUpRight
-                        className="text-glacier opacity-0 transition group-hover:opacity-100"
+                        className="text-white opacity-0 transition group-hover:opacity-100"
                         size={18}
                       />
                     </div>
