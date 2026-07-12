@@ -5,6 +5,14 @@
 :root {
   --background: #050506;
   --foreground: #f4f0e8;
+  --home-section-padding-y: 4rem;
+  --home-section-content-gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --home-section-padding-y: 4.5rem;
+  }
 }
 
 @theme inline {
@@ -44,6 +52,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+.home-section {
+  padding-block: var(--home-section-padding-y);
+}
+
+.home-section-content-gap {
+  margin-top: var(--home-section-content-gap);
 }
 
 button,

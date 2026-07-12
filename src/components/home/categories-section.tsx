@@ -9,7 +9,7 @@ import type { Category } from "@/types/product";
 
 export function CategoriesSection({ categories }: { categories: Category[] }) {
   return (
-    <section className="border-y border-white/10 bg-white/[0.025] py-24">
+    <section className="home-section bg-white/[0.025]">
       <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <FadeIn>
           <SectionHeader
@@ -18,12 +18,12 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
             description="Explore premium technology designed for work, travel, entertainment, and everyday use."
           />
         </FadeIn>
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-5 min-[1600px]:gap-5 min-[1920px]:gap-6">
+        <div className="home-section-content-gap grid gap-4 md:grid-cols-2 lg:grid-cols-5 min-[1600px]:gap-5 min-[1920px]:gap-6">
           {categories.map((category, index) => (
             <FadeIn delay={index * 0.05} key={category.slug}>
               <Link
                 className="group block overflow-hidden rounded-lg border border-white/10 bg-white/[0.045]"
-                href="/shop"
+                href={`/shop?category=${category.slug}`}
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image
@@ -33,7 +33,7 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
                     sizes="(min-width: 1024px) 20vw, (min-width: 768px) 50vw, 100vw"
                     src={category.image}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-obsidian/86 via-obsidian/18 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-obsidian/92 via-obsidian/26 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 p-4">
                     <div className="flex items-center justify-between gap-3">
                       <h3 className="text-lg font-semibold text-platinum">

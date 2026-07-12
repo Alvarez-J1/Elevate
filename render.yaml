@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: elevate-backend
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: elevate-postgres
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: elevate-postgres
+          property: password
+      - key: ELEVATE_JWT_SECRET
+        generateValue: true
+      - key: ELEVATE_FRONTEND_ORIGIN
+        sync: false
+      - key: ELEVATE_JWT_EXPIRATION_MS
+        value: "86400000"
+      - key: SPRINGDOC_API_DOCS_ENABLED
+        value: "false"
+      - key: SPRINGDOC_SWAGGER_UI_ENABLED
+        value: "false"
+
+databases:
+  - name: elevate-postgres
+    plan: basic-256mb
+    databaseName: elevate
+    user: elevate
+    postgresMajorVersion: "16"

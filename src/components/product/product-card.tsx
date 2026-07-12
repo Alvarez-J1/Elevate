@@ -21,7 +21,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="relative aspect-[4/5] overflow-hidden bg-carbon">
           <Image
             alt={product.name}
-            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover object-bottom transition duration-700 group-hover:scale-105"
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             src={product.images[0]}

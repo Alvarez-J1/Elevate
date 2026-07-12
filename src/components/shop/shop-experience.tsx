@@ -20,13 +20,17 @@ type SortOption = (typeof sortOptions)[number]["value"];
 
 export function ShopExperience({
   products,
-  categories
+  categories,
+  initialCategory = "All"
 }: {
   products: Product[];
   categories: ProductCategory[];
+  initialCategory?: ProductCategory | "All";
 }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<ProductCategory | "All">("All");
+  const [category, setCategory] = useState<ProductCategory | "All">(
+    initialCategory
+  );
   const [sort, setSort] = useState<SortOption>("featured");
 
   const filteredProducts = useMemo(() => {

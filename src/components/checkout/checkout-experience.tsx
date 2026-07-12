@@ -1,23 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useMemo, useState } from "react";
-import { Check, CreditCard, Lock, PackageCheck, ShoppingBag } from "lucide-react";
+import { FormEvent, useState } from "react";
+import { AlertCircle, Check, CreditCard, Lock, PackageCheck, ShoppingBag } from "lucide-react";
 
-import {
-  calculateOrderTotals,
-  OrderSummary
-} from "@/components/cart/order-summary";
+import { OrderSummary } from "@/components/cart/order-summary";
 import { Button, buttonClassName } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { CartItem } from "@/components/store/cart-store";
 import { useCartStore } from "@/components/store/cart-store";
+import { ApiError, checkout, type ApiOrderItem } from "@/lib/api";
+import { useAuth } from "@/lib/auth-context";
 import { formatCurrency } from "@/lib/utils";
 
 type Confirmation = {
-  id: string;
-  items: CartItem[];
+  orderNumber: string;
+  items: ApiOrderItem[];
   total: number;
 };
 
@@ -25,28 +23,61 @@ export function CheckoutExperience() {
   const items = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
   const hasHydrated = useCartStore((state) => state.hasHydrated);
+  const { token, user, isAuthenticated } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
-  const totals = useMemo(() => calculateOrderTotals(items), [items]);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (items.length === 0 || isProcessing) {
       return;
     }
 
+    setError(null);
     setIsProcessing(true);
 
-    window.setTimeout(() => {
+    const form = new FormData(event.currentTarget);
+    const orderedItems = items;
+
+    try {
+      const order = await checkout(
+        {
+          contactEmail: String(form.get("email") ?? "") || undefined,
+          shippingAddress: {
+            firstName: String(form.get("firstName") ?? ""),
+            lastName: String(form.get("lastName") ?? ""),
+            addressLine1: String(form.get("addressLine1") ?? ""),
+            city: String(form.get("city") ?? ""),
+            postalCode: String(form.get("postalCode") ?? ""),
+            country: String(form.get("country") ?? "")
+          },
+          items: orderedItems.map((item) => ({
+            productId: Number(item.id),
+            quantity: item.quantity,
+            color: item.color
+          }))
+        },
+        token
+      );
+
       setConfirmation({
-        id: `ELEVATE-${Math.floor(100000 + Math.random() * 900000)}`,
-        items,
-        total: totals.total
+        orderNumber: order.orderNumber,
+        items: order.items,
+        total: order.total
       });
       clearCart();
-      setIsProcessing(false);
+
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 900);
+    } catch (err) {
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : "Something went wrong placing your order. Please try again."
+      );
+    } finally {
+      setIsProcessing(false);
+    }
   }
 
   if (!hasHydrated) {
@@ -68,24 +99,27 @@ export function CheckoutExperience() {
           Order confirmed
         </p>
         <h1 className="mt-eyebrow-heading text-4xl font-semibold text-platinum">
-          Your sandbox order is in.
+          Your order is in.
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-silver">
-          Confirmation {confirmation.id} has been created for{" "}
-          {formatCurrency(confirmation.total)}. No real payment was processed.
+          Confirmation {confirmation.orderNumber} has been created for{" "}
+          {formatCurrency(confirmation.total)}.
         </p>
         <div className="mt-8 grid gap-3 text-left">
-          {confirmation.items.map((item) => (
+          {confirmation.items.map((item, index) => (
             <div
               className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.035] p-4"
-              key={item.key}
+              key={`${item.productId ?? "item"}:${item.productName}:${item.color ?? "default"}:${index}`}
             >
               <div>
-                <p className="font-medium text-platinum">{item.name}</p>
-                <p className="mt-1 text-sm text-muted">Qty {item.quantity}</p>
+                <p className="font-medium text-platinum">{item.productName}</p>
+                <p className="mt-1 text-sm text-muted">
+                  Qty {item.quantity}
+                  {item.color ? ` - ${item.color}` : ""}
+                </p>
               </div>
               <p className="text-sm text-silver">
-                {formatCurrency(item.price * item.quantity)}
+                {formatCurrency(item.lineTotal)}
               </p>
             </div>
           ))}
@@ -102,7 +136,7 @@ export function CheckoutExperience() {
       <EmptyState
         icon={<ShoppingBag size={22} />}
         title="Checkout is waiting for items"
-        description="Your cart is empty. Add products first, then return for the sandbox checkout flow."
+        description="Your cart is empty. Add products first, then return to check out."
         action={
           <Link className={buttonClassName()} href="/shop">
             Browse collection
@@ -123,37 +157,63 @@ export function CheckoutExperience() {
             <Lock size={20} />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-platinum">
-              Sandbox checkout
-            </h2>
+            <h2 className="text-xl font-semibold text-platinum">Checkout</h2>
             <p className="mt-1 text-sm text-silver">
-            Demo checkout only. No real payment will be processed.
+              {isAuthenticated
+                ? "Placing this order under your account."
+                : "Checking out as a guest. Create an account afterward to track orders."}
             </p>
           </div>
         </div>
+
+        {error ? (
+          <div className="mt-5 flex items-start gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200">
+            <AlertCircle className="mt-0.5 flex-none" size={16} />
+            <p>{error}</p>
+          </div>
+        ) : null}
 
         <section className="mt-6">
           <h3 className="text-lg font-semibold text-platinum">Shipping</h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block">
               <span className="mb-2 block text-sm text-silver">First name</span>
-              <input className="input-shell h-12 px-4" required />
+              <input className="input-shell h-12 px-4" name="firstName" required />
             </label>
             <label className="block">
               <span className="mb-2 block text-sm text-silver">Last name</span>
-              <input className="input-shell h-12 px-4" required />
+              <input className="input-shell h-12 px-4" name="lastName" required />
+            </label>
+            <label className="block sm:col-span-2">
+              <span className="mb-2 block text-sm text-silver">Email</span>
+              <input
+                className="input-shell h-12 px-4"
+                defaultValue={user?.email}
+                name="email"
+                required
+                type="email"
+              />
             </label>
             <label className="block sm:col-span-2">
               <span className="mb-2 block text-sm text-silver">Address</span>
-              <input className="input-shell h-12 px-4" required />
+              <input className="input-shell h-12 px-4" name="addressLine1" required />
             </label>
             <label className="block">
               <span className="mb-2 block text-sm text-silver">City</span>
-              <input className="input-shell h-12 px-4" required />
+              <input className="input-shell h-12 px-4" name="city" required />
             </label>
             <label className="block">
               <span className="mb-2 block text-sm text-silver">Postal code</span>
-              <input className="input-shell h-12 px-4" required />
+              <input className="input-shell h-12 px-4" name="postalCode" required />
+            </label>
+            <label className="block sm:col-span-2">
+              <span className="mb-2 block text-sm text-silver">Country</span>
+              <input
+                className="input-shell h-12 px-4"
+                defaultValue="United States"
+                name="country"
+                required
+              />
             </label>
           </div>
         </section>
@@ -164,6 +224,9 @@ export function CheckoutExperience() {
             <h3 className="text-lg font-semibold text-platinum">Payment</h3>
           </div>
           <div className="mt-4 rounded-lg border border-white/10 bg-obsidian/40 p-4">
+            <p className="mb-4 text-xs text-muted">
+              Portfolio project - payment details below are never sent anywhere; the order is created directly.
+            </p>
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block sm:col-span-2">
                 <span className="mb-2 block text-sm text-silver">Card number</span>

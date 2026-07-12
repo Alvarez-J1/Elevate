@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 
 import { buttonClassName } from "../ui/button";
+import { PageTitle } from "../ui/page-title";
 
 export function HeroSection() {
   return (
@@ -33,9 +34,7 @@ export function HeroSection() {
           <p className="text-sm font-semibold uppercase tracking-[0.32em] text-eyebrow min-[1600px]:text-[0.95rem] min-[1920px]:text-base">
             Premium technology goods
           </p>
-          <h1 className="mt-eyebrow-heading text-5xl font-semibold leading-[1.02] text-platinum sm:text-6xl lg:text-7xl min-[1600px]:text-[5.75rem] min-[1920px]:text-[6.5rem]">
-            Elevate
-          </h1>
+          <PageTitle>Elevate</PageTitle>
 
           <p className="mt-6 max-w-2xl text-lg leading-8 text-silver sm:text-xl min-[1600px]:max-w-[42rem] min-[1600px]:text-[1.375rem] min-[1600px]:leading-9 min-[1920px]:max-w-[44rem] min-[1920px]:text-2xl">
             Explore high-end headphones, watches, cameras, and workspace tech

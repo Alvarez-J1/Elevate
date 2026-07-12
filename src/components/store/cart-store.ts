@@ -3,8 +3,11 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+import type { ApiCartItem } from "@/lib/api";
 import type { Product } from "@/types/product";
 import { clamp } from "@/lib/utils";
+
+const FALLBACK_ACCENT = "#7dd3fc";
 
 export type CartItem = {
   key: string;
@@ -17,6 +20,12 @@ export type CartItem = {
   quantity: number;
   color?: string;
   accent: string;
+  /**
+   * Set once this line item is confirmed to exist in the signed-in user's
+   * server-side cart (see /backend CartController). Guests, and items added
+   * just before a background sync call resolves, won't have this yet.
+   */
+  serverItemId?: number;
 };
 
 type CartState = {
@@ -27,6 +36,8 @@ type CartState = {
   removeItem: (key: string) => void;
   clearCart: () => void;
   setHasHydrated: (value: boolean) => void;
+  attachServerId: (key: string, serverItemId: number) => void;
+  replaceWithServerCart: (serverItems: ApiCartItem[]) => void;
 };
 
 function createCartKey(productId: string, color?: string): string {
@@ -49,6 +60,22 @@ function productToCartItem(
     quantity,
     color,
     accent: product.accent
+  };
+}
+
+function serverItemToCartItem(item: ApiCartItem): CartItem {
+  return {
+    key: createCartKey(String(item.productId), item.color ?? undefined),
+    id: String(item.productId),
+    slug: item.productSlug,
+    name: item.productName,
+    category: "",
+    image: item.productImage ?? "",
+    price: item.unitPrice,
+    quantity: item.quantity,
+    color: item.color ?? undefined,
+    accent: FALLBACK_ACCENT,
+    serverItemId: item.id
   };
 }
 
@@ -99,7 +126,17 @@ export const useCartStore = create<CartState>()(
         }));
       },
       clearCart: () => set({ items: [] }),
-      setHasHydrated: (value) => set({ hasHydrated: value })
+      setHasHydrated: (value) => set({ hasHydrated: value }),
+      attachServerId: (key, serverItemId) => {
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.key === key ? { ...item, serverItemId } : item
+          )
+        }));
+      },
+      replaceWithServerCart: (serverItems) => {
+        set({ items: serverItems.map(serverItemToCartItem) });
+      }
     }),
     {
       name: "premium-ecommerce-cart",

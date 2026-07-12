@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: elevate-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-elevate}
+      POSTGRES_USER: ${DATABASE_USERNAME:-elevate}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in backend/.env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - elevate-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: elevate-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-docker}
+      DATABASE_URL: ${DATABASE_URL:-jdbc:postgresql://postgres:5432/elevate}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-elevate}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD in backend/.env}
+      ELEVATE_JWT_SECRET: ${ELEVATE_JWT_SECRET:?Set ELEVATE_JWT_SECRET in backend/.env}
+      ELEVATE_JWT_EXPIRATION_MS: ${ELEVATE_JWT_EXPIRATION_MS:-86400000}
+      ELEVATE_FRONTEND_ORIGIN: ${ELEVATE_FRONTEND_ORIGIN:-http://localhost:3000}
+    ports:
+      - "8080:8080"
+
+volumes:
+  elevate-postgres-data:

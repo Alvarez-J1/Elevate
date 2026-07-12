@@ -1,17 +1,51 @@
 import { ShopExperience } from "@/components/shop/shop-experience";
 import { Container } from "@/components/ui/container";
-import { products } from "@/lib/products";
-import type { ProductCategory } from "@/types/product";
+import { fetchProducts, summaryToProduct } from "@/lib/api";
+import { products as staticProducts } from "@/lib/products";
+import type { Product, ProductCategory } from "@/types/product";
 
 export const metadata = {
   title: "Shop | Elevate"
 };
 
-const categoryNames = Array.from(
-  new Set(products.map((product) => product.category))
-) as ProductCategory[];
+// This page reads live data from the Elevate backend, so it can't be frozen
+// at build time the way a purely static page can.
+export const dynamic = "force-dynamic";
 
-export default function ShopPage() {
+async function loadProducts(): Promise<Product[]> {
+  try {
+    const page = await fetchProducts({ size: 100 });
+    return page.content.map(summaryToProduct);
+  } catch {
+    // Backend not reachable (e.g. not started yet) — fall back to the
+    // bundled catalog so the shop page still renders something useful.
+    return staticProducts;
+  }
+}
+
+function resolveCategory(
+  categoryNames: ProductCategory[],
+  raw?: string
+): ProductCategory | "All" {
+  if (!raw) return "All";
+  const match = categoryNames.find(
+    (name) => name.toLowerCase() === raw.toLowerCase()
+  );
+  return match ?? "All";
+}
+
+export default async function ShopPage({
+  searchParams
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const [{ category }, products] = await Promise.all([searchParams, loadProducts()]);
+
+  const categoryNames = Array.from(
+    new Set(products.map((product) => product.category))
+  ) as ProductCategory[];
+  const initialCategory = resolveCategory(categoryNames, category);
+
   return (
     <div className="pb-24 pt-14">
       <Container>
@@ -26,7 +60,12 @@ export default function ShopPage() {
           Browse the catalog, compare categories, and sort products by price or rating.
           </p>
         </div>
-        <ShopExperience categories={categoryNames} products={products} />
+        <ShopExperience
+          categories={categoryNames}
+          initialCategory={initialCategory}
+          key={initialCategory}
+          products={products}
+        />
       </Container>
     </div>
   );

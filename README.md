@@ -1,152 +1,115 @@
-# Elevate — Premium Ecommerce Storefront
-Elevate is a responsive front-end ecommerce storefront built with Next.js, React, TypeScript, and Tailwind CSS.
-The project focuses on modern ecommerce UI design, responsive layouts, product-focused interfaces, cart functionality, and a polished checkout experience.
+# Elevate — Full-Stack Premium Ecommerce Storefront
+
+Elevate is a full-stack ecommerce storefront: a Next.js/React/TypeScript frontend backed by a
+production-style Java/Spring Boot REST API. The project focuses on modern ecommerce UI design,
+a clean layered backend architecture, JWT authentication, a server-persisted cart, and a real
+checkout/order pipeline.
 
 <img width="1898" height="908" alt="image" src="https://github.com/user-attachments/assets/d3a4b35b-35f9-46de-bb47-a0eb2b18c081" />
 
 ## Live Demo
 
-https://elevate-storefront.vercel.app/
+https://elevate-storefront.vercel.app/ (frontend only, static catalog — the full-stack setup below requires running the backend locally)
 
 ## Features
 
-- Responsive ecommerce layout
-- Product category filtering
-- Product detail pages
-- Shopping cart functionality
-- Sandbox checkout flow
-- Mobile-friendly navigation
-- Responsive product grids
-- Clean modern UI
-- Dynamic cart state
-- Reusable component structure
+- Responsive ecommerce layout, product filtering, product detail pages, mobile-friendly navigation
+- Email/password authentication with JWT, backed by Spring Security + BCrypt
+- Server-persisted cart for signed-in users (guests keep a local/localStorage cart)
+- Real checkout that creates an order in Postgres, for both guests and signed-in accounts
+- Product reviews (star rating + comment), with aggregate rating recalculated per product
+- Contact form submissions stored server-side
+- OpenAPI/Swagger docs for the whole API
 
 ## Tech Stack
 
-React • Next.js • TypeScript • Tailwind CSS • Framer Motion • Local Storage • Git • Vercel
+**Frontend:** React • Next.js (App Router) • TypeScript • Tailwind CSS • Framer Motion • Zustand
+
+**Backend:** Java 21 • Spring Boot 3 (Web, Security, Data JPA, Validation) • PostgreSQL • Flyway • JWT • BCrypt • springdoc-openapi • Maven • Docker
+
+## Getting Started (full stack)
+
+### 1. Backend
+
+```bash
+cd backend
+cp .env.example .env
+# edit .env and set DATABASE_PASSWORD and ELEVATE_JWT_SECRET
+docker compose up --build
+```
+
+This starts Postgres and the API on `http://localhost:8080`, seeded with the full product catalog
+(5 categories, 50 products) and two demo accounts (`admin@elevate.dev` / `Admin123!` and
+`demo@elevate.dev` / `Password123!`). Full details, API reference, and a no-Docker setup are in
+[`backend/README.md`](./backend/README.md). Interactive API docs: `http://localhost:8080/swagger-ui.html`.
+
+### 2. Frontend
+
+```bash
+cp .env.local.example .env.local   # points the app at http://localhost:8080
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`. If the backend isn't running, the catalog pages (home, shop, product
+detail) fall back to the bundled static catalog in `src/lib/products.ts` so the site still renders —
+but auth, cart sync, checkout, contact, and reviews all require the backend to be up.
+
+## Deployment
+
+Deployment steps for Vercel, Render, and Render PostgreSQL are documented in
+[`DEPLOYMENT.md`](./DEPLOYMENT.md).
+
+## Project Structure
+
+```text
+Elevate/
+├─ backend/                      # Spring Boot REST API (see backend/README.md)
+│  └─ src/main/java/com/elevate/backend/
+│     ├─ controller/ · service/ · repository/ · entity/ · dto/ · mapper/ · security/ · config/ · exception/
+│
+├─ src/
+│  ├─ app/
+│  │  ├─ layout.tsx              # Root layout: AuthProvider, Navbar, Footer
+│  │  ├─ page.tsx                # Home: fetches featured products + categories from the API
+│  │  ├─ login/ · register/ · account/   # Auth pages + order history
+│  │  ├─ cart/ · checkout/ · shop/ · product/[slug]/ · contact/
+│  │
+│  ├─ components/
+│  │  ├─ auth/                   # Login/register forms, account/order history view
+│  │  ├─ layout/                 # Navbar (auth-aware), Footer
+│  │  ├─ product/                # Product cards, gallery, details, reviews
+│  │  ├─ cart/ · checkout/ · contact/ · shop/ · home/ · ui/ · motion/
+│  │  └─ store/                  # Zustand cart store (local + server-synced)
+│  │
+│  ├─ lib/
+│  │  ├─ api.ts                  # Typed REST client for the backend + DTO adapters
+│  │  ├─ auth-context.tsx        # JWT session state, cart merge-on-login
+│  │  ├─ products.ts             # Bundled static catalog (fallback when the API is unreachable)
+│  │  └─ utils.ts
+│  │
+│  └─ types/product.ts
+│
+├─ .env.local.example
+├─ package.json / tsconfig.json / next.config.ts / eslint.config.mjs / postcss.config.mjs
+```
 
 ## What I Practiced
 
-- Building reusable ecommerce components
-- Working with Next.js App Router
-- Creating responsive layouts for mobile and desktop
-- Managing cart state and product data
-- Designing modern ecommerce UI patterns
-- Structuring scalable front-end architecture
-- Building a sandbox checkout experience
-- Improving responsive image handling and layouts
-
-## Screenshots
-
-## Desktop View
-<img width="1898" height="908" alt="image" src="https://github.com/user-attachments/assets/d3a4b35b-35f9-46de-bb47-a0eb2b18c081" />
-
-
-## Shop Page
-<img width="1899" height="914" alt="image" src="https://github.com/user-attachments/assets/7f51be46-ecfa-4308-8ded-dfaf44d961f2" />
-
-
-
-## Cart & Checkout
-<img width="1896" height="915" alt="image" src="https://github.com/user-attachments/assets/b65ad7c9-8d2e-4756-80ba-3c9050912490" />
-
-<img width="1897" height="913" alt="image" src="https://github.com/user-attachments/assets/e47d623e-3caa-40a2-9c5a-bed01e1dc238" />
-
-## Mobile View
-<img width="475" height="761" alt="image" src="https://github.com/user-attachments/assets/717fab4b-d2a1-42c5-8949-1127f45dde49" />
-
-<img width="471" height="760" alt="image" src="https://github.com/user-attachments/assets/15cf56aa-5652-4559-a2d9-6e323682f481" />
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm
-
-### Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/Alvarez-J1/Elevate.git
-```
-
-Go into the project folder:
-
-```bash
-cd Elevate
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-```bash
-Run the development server:
-```
-
-```bash
-npm run dev
-
-Open: http://localhost:3000 in your browser.
-```
-
-## Project Structure
-```text
-Elevate/
-├─ src/
-│  ├─ app/
-│  │  ├─ layout.tsx              # Root layout: Navbar, Footer, page shell
-│  │  ├─ page.tsx                # Home page route: /
-│  │  ├─ loading.tsx             # Global loading UI
-│  │  ├─ globals.css             # Global styles / Tailwind
-│  │  ├─ cart/
-│  │  │  └─ page.tsx             # Cart route: /cart
-│  │  ├─ checkout/
-│  │  │  └─ page.tsx             # Checkout route: /checkout
-│  │  ├─ shop/
-│  │  │  └─ page.tsx             # Shop route: /shop
-│  │  └─ product/
-│  │     └─ [slug]/
-│  │        └─ page.tsx          # Product detail route: /product/:slug
-│  │
-│  ├─ components/
-│  │  ├─ layout/                 # Navbar, Footer
-│  │  ├─ home/                   # Hero, featured products, categories
-│  │  ├─ shop/                   # Shop filtering/sorting UI
-│  │  ├─ product/                # Product cards, gallery, details, quantity
-│  │  ├─ cart/                   # Cart page UI, line items, order summary
-│  │  ├─ checkout/               # Checkout form/experience
-│  │  ├─ ui/                     # Shared UI: button, container, skeleton, etc.
-│  │  ├─ motion/                 # Animation helpers
-│  │  └─ store/                  # Zustand cart store
-│  │
-│  ├─ lib/
-│  │  ├─ products.ts             # Product/category data
-│  │  └─ utils.ts                # Helpers like cn, formatCurrency, clamp
-│  │
-│  └─ types/
-│     └─ product.ts              # Product and category TypeScript types
-│
-├─ package.json
-├─ tsconfig.json
-├─ next.config.ts
-├─ eslint.config.mjs
-└─ postcss.config.mjs
-```
+- Designing a layered Spring Boot backend (controller/service/repository/entity/dto/mapper/security/config/exception)
+- JWT authentication and role-based authorization with Spring Security
+- Modeling a relational schema (Flyway-versioned) for a real ecommerce domain: products, categories,
+  carts, orders, reviews
+- Wiring a Next.js frontend to a real REST API, including guest/authenticated hybrid flows (checkout,
+  cart) and graceful degradation when the API is unavailable
+- Containerizing a Java service with Docker/docker-compose alongside Postgres
 
 ## Future Improvements
 
-- Product search enhancements
-- Improved animations and transitions
-- Expanded product catalog
+- Stripe integration for real payment processing
+- Server-side pagination/search in the shop page (currently fetches the full catalog client-side)
 - Wishlist functionality
-- Stripe integration
-- Backend/API integration
-- User authentication
+- Admin UI for managing products/categories/contact messages (the API already supports it)
 
 ## Author
 Joel Alvarez

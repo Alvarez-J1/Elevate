@@ -8,11 +8,30 @@ import { QuantitySelector } from "@/components/product/quantity-selector";
 import { Button } from "@/components/ui/button";
 import type { CartItem } from "@/components/store/cart-store";
 import { useCartStore } from "@/components/store/cart-store";
+import { removeServerCartItem, updateServerCartItem } from "@/lib/api";
+import { useAuth } from "@/lib/auth-context";
 import { formatCurrency } from "@/lib/utils";
 
 export function CartLineItem({ item }: { item: CartItem }) {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
+  const { token } = useAuth();
+
+  function handleQuantityChange(quantity: number) {
+    updateQuantity(item.key, quantity);
+
+    if (token && item.serverItemId) {
+      updateServerCartItem(token, item.serverItemId, quantity).catch(() => undefined);
+    }
+  }
+
+  function handleRemove() {
+    removeItem(item.key);
+
+    if (token && item.serverItemId) {
+      removeServerCartItem(token, item.serverItemId).catch(() => undefined);
+    }
+  }
 
   return (
     <article className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 sm:grid-cols-[7rem_1fr_auto]">
@@ -49,12 +68,12 @@ export function CartLineItem({ item }: { item: CartItem }) {
       <div className="col-span-2 flex items-center justify-between gap-3 sm:col-span-1 sm:flex-col sm:items-end">
         <QuantitySelector
           compact
-          onChange={(quantity) => updateQuantity(item.key, quantity)}
+          onChange={handleQuantityChange}
           value={item.quantity}
         />
         <Button
           aria-label={`Remove ${item.name}`}
-          onClick={() => removeItem(item.key)}
+          onClick={handleRemove}
           size="icon"
           variant="ghost"
         >
