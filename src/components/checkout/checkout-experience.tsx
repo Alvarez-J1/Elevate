@@ -8,8 +8,14 @@ import { OrderSummary } from "@/components/cart/order-summary";
 import { Button, buttonClassName } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCartStore } from "@/components/store/cart-store";
-import { ApiError, checkout, type ApiOrderItem } from "@/lib/api";
+import { type CartItem, useCartStore } from "@/components/store/cart-store";
+import {
+  addServerCartItem,
+  ApiError,
+  checkout,
+  fetchProductBySlug,
+  type ApiOrderItem
+} from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { formatCurrency } from "@/lib/utils";
 
@@ -19,10 +25,46 @@ type Confirmation = {
   total: number;
 };
 
+type CheckoutLine = {
+  productId: number;
+  quantity: number;
+  color?: string;
+};
+
+async function toCheckoutLine(item: CartItem): Promise<CheckoutLine> {
+  const productId = Number(item.id);
+
+  if (Number.isInteger(productId) && productId > 0) {
+    return { productId, quantity: item.quantity, color: item.color };
+  }
+
+  try {
+    const product = await fetchProductBySlug(item.slug);
+    return { productId: product.id, quantity: item.quantity, color: item.color };
+  } catch {
+    throw new ApiError(
+      400,
+      `${item.name} needs to be removed from the cart and added again before checkout.`
+    );
+  }
+}
+
+function formatCheckoutError(error: unknown): string {
+  if (error instanceof ApiError) {
+    if (error.fieldErrors?.length) {
+      return error.fieldErrors.map((fieldError) => fieldError.message).join(" ");
+    }
+    return error.message;
+  }
+
+  return "Something went wrong placing your order. Please try again.";
+}
+
 export function CheckoutExperience() {
   const items = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
   const hasHydrated = useCartStore((state) => state.hasHydrated);
+  const attachServerId = useCartStore((state) => state.attachServerId);
   const { token, user, isAuthenticated } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
@@ -41,22 +83,39 @@ export function CheckoutExperience() {
     const orderedItems = items;
 
     try {
+      const checkoutItems = await Promise.all(orderedItems.map(toCheckoutLine));
+
+      if (token) {
+        for (const [index, item] of orderedItems.entries()) {
+          if (item.serverItemId) {
+            continue;
+          }
+
+          const cart = await addServerCartItem(token, checkoutItems[index]);
+          const match = cart.items.find(
+            (serverItem) =>
+              serverItem.productId === checkoutItems[index].productId &&
+              (serverItem.color ?? undefined) === item.color
+          );
+
+          if (match) {
+            attachServerId(item.key, match.id);
+          }
+        }
+      }
+
       const order = await checkout(
         {
-          contactEmail: String(form.get("email") ?? "") || undefined,
+          contactEmail: String(form.get("email") ?? "").trim() || undefined,
           shippingAddress: {
-            firstName: String(form.get("firstName") ?? ""),
-            lastName: String(form.get("lastName") ?? ""),
-            addressLine1: String(form.get("addressLine1") ?? ""),
-            city: String(form.get("city") ?? ""),
-            postalCode: String(form.get("postalCode") ?? ""),
-            country: String(form.get("country") ?? "")
+            firstName: String(form.get("firstName") ?? "").trim(),
+            lastName: String(form.get("lastName") ?? "").trim(),
+            addressLine1: String(form.get("addressLine1") ?? "").trim(),
+            city: String(form.get("city") ?? "").trim(),
+            postalCode: String(form.get("postalCode") ?? "").trim(),
+            country: String(form.get("country") ?? "").trim()
           },
-          items: orderedItems.map((item) => ({
-            productId: Number(item.id),
-            quantity: item.quantity,
-            color: item.color
-          }))
+          items: checkoutItems
         },
         token
       );
@@ -70,11 +129,7 @@ export function CheckoutExperience() {
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      setError(
-        err instanceof ApiError
-          ? err.message
-          : "Something went wrong placing your order. Please try again."
-      );
+      setError(formatCheckoutError(err));
     } finally {
       setIsProcessing(false);
     }
