@@ -6,7 +6,7 @@ Elevate is a full-stack ecommerce storefront built with Next.js, React, TypeScri
 
 ## Live Demo
 
-https://elevate-storefront.vercel.app/ (frontend only, static catalog — the full-stack setup below requires running the backend locally)
+https://elevate-storefront.vercel.app/
 
 ## Features
 
@@ -14,15 +14,13 @@ https://elevate-storefront.vercel.app/ (frontend only, static catalog — the fu
 - Email/password authentication with JWT, backed by Spring Security + BCrypt
 - Server-persisted cart for signed-in users (guests keep a local/localStorage cart)
 - Real checkout that creates an order in Postgres, for both guests and signed-in accounts
-- Product reviews (star rating + comment), with aggregate rating recalculated per product
 - Contact form submissions stored server-side
-- OpenAPI/Swagger docs for the whole API
 
 ## Tech Stack
 
 **Frontend:** React • Next.js (App Router) • TypeScript • Tailwind CSS • Framer Motion • Zustand
 
-**Backend:** Java 21 • Spring Boot 3 (Web, Security, Data JPA, Validation) • PostgreSQL • Flyway • JWT • BCrypt • springdoc-openapi • Maven • Docker
+**Backend:** Java 21 • Spring Boot 3 (Web, Security, Data JPA, Validation) • PostgreSQL • Flyway • JWT • BCrypt • Maven • Docker
 
 ## Getting Started (full stack)
 
@@ -51,11 +49,6 @@ npm run dev
 Open `http://localhost:3000`. If the backend isn't running, the catalog pages (home, shop, product
 detail) fall back to the bundled static catalog in `src/lib/products.ts` so the site still renders —
 but auth, cart sync, checkout, contact, and reviews all require the backend to be up.
-
-## Deployment
-
-Deployment steps for Vercel, Render, and Render PostgreSQL are documented in
-[`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
 ## Project Structure
 
