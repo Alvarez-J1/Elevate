@@ -8,9 +8,16 @@ import type { Category, Product, ProductCategory, ProductColor } from "@/types/p
  * storefront still renders even when the backend isn't running.
  */
 
-export const API_BASE_URL =
-  (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080")
-    .replace(/\/$/, "");
+const LOCAL_API_URL = "http://localhost:8080";
+const PRODUCTION_API_URL = "https://elevate-api-os6w.onrender.com";
+
+const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+export const API_BASE_URL = (
+  configuredApiUrl ||
+  (process.env.NODE_ENV === "production" && PRODUCTION_API_URL) ||
+  LOCAL_API_URL
+).replace(/\/$/, "");
 
 export class ApiError extends Error {
   status: number;
