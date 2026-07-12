@@ -11,12 +11,6 @@ import { buttonClassName } from "@/components/ui/button";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { useAuth } from "@/lib/auth-context";
 
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Shop", href: "/shop" },
-  { label: "Cart", href: "/cart" }
-];
-
 export function Navbar() {
   const pathname = usePathname();
   const [openPathname, setOpenPathname] = useState<string | null>(null);
@@ -28,6 +22,17 @@ export function Navbar() {
   const count = useMemo(() => getCartItemCount(items), [items]);
   const accountHref = isReady && isAuthenticated ? "/account" : "/login";
   const accountLabel = isReady && isAuthenticated ? user?.firstName ?? "Account" : "Sign in";
+  // Signed-out visitors can still see the cart icon/nav link, but clicking
+  // it sends them to sign in first — the cart page itself is never
+  // functional for a guest (see CartExperience's own guard).
+  const cartHref = isReady && isAuthenticated ? "/cart" : "/login?returnTo=/cart";
+  const showCartCount = isReady && isAuthenticated && hasHydrated && count > 0;
+
+  const navItems = [
+    { label: "Home", href: "/", matchPath: "/" },
+    { label: "Shop", href: "/shop", matchPath: "/shop" },
+    { label: "Cart", href: cartHref, matchPath: "/cart" }
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-obsidian/76 backdrop-blur-2xl">
@@ -39,7 +44,9 @@ export function Navbar() {
         <div className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
             const isActive =
-              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              item.matchPath === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.matchPath);
 
             return (
               <Link
@@ -80,16 +87,16 @@ export function Navbar() {
             <User size={20} />
           </Link>
           <Link
-            aria-label={`Cart with ${hasHydrated ? count : 0} items`}
+            aria-label={`Cart with ${showCartCount ? count : 0} items`}
             className={buttonClassName({
               variant: "secondary",
               size: "icon",
               className: "relative"
             })}
-            href="/cart"
+            href={cartHref}
           >
             <ShoppingBag size={20} />
-            {hasHydrated && count > 0 ? (
+            {showCartCount ? (
               <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-glacier px-1 text-[11px] font-semibold text-obsidian">
                 {count}
               </span>

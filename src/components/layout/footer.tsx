@@ -59,7 +59,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-base text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 Elevate. All rights reserved.</p>
-          <p>Sandbox checkout. No real payments are processed.</p>
+          <p>Demo store. No real payments are processed.</p>
         </div>
       </Container>
     </footer>

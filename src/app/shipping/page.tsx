@@ -24,7 +24,7 @@ import { SectionHeader, sectionTitleClassName } from "@/components/ui/section-he
 export const metadata: Metadata = {
   title: "Shipping | Elevate",
   description:
-    "Learn about Elevate’s demo shipping options, delivery estimates, and order tracking experience."
+    "Find Elevate shipping options, estimated delivery times, and tracking information."
 };
 
 const wideContainerClassName =
@@ -35,7 +35,7 @@ const shippingBenefits = [
     title: "Free Standard Shipping",
     icon: Truck,
     details: [
-      "Free shipping on orders over $100",
+      "Free on orders over $100",
       "Estimated delivery: 3–5 business days"
     ]
   },
@@ -43,7 +43,7 @@ const shippingBenefits = [
     title: "Express Shipping",
     icon: Zap,
     details: [
-      "Flat rate: $18",
+      "$18 flat-rate shipping",
       "Estimated delivery: 1–2 business days"
     ]
   },
@@ -51,7 +51,7 @@ const shippingBenefits = [
     title: "Order Tracking",
     icon: PackageCheck,
     details: [
-      "Track your order from your account or confirmation email."
+      "Track your order from your account or shipping confirmation email."
     ]
   }
 ];
@@ -61,25 +61,25 @@ const deliveryInformation = [
     title: "Processing time",
     icon: Clock3,
     description:
-      "Demo orders are shown as processing within 24 hours on business days."
+      "Orders are typically processed within one business day."
   },
   {
     title: "Delivery estimates",
     icon: CalendarDays,
     description:
-      "Estimates begin after processing and exclude weekends and holidays."
+      "Delivery estimates begin after your order is processed and do not include weekends or holidays."
   },
   {
     title: "Shipping regions",
     icon: MapPin,
     description:
-      "For demonstration purposes, delivery is shown within the contiguous United States only."
+      "We currently ship within the contiguous United States."
   },
   {
     title: "Address changes",
     icon: PencilLine,
     description:
-      "Address updates would be allowed before an order enters fulfillment."
+      "You can request an address change before your order begins processing."
   }
 ];
 
@@ -87,32 +87,32 @@ const shippingFaqs = [
   {
     question: "When will my order ship?",
     answer:
-      "In this demo experience, orders placed on business days are shown as entering processing within 24 hours. No physical order is created or shipped."
+      "Orders placed on business days are typically processed within 24 hours. You’ll receive a confirmation when your order is on its way."
   },
   {
     question: "How can I track my order?",
     answer:
-      "A production storefront would add a tracking number to the customer account and confirmation email after fulfillment. This demo does not generate live tracking events."
+      "Once your order ships, you’ll find the tracking number in your account and shipping confirmation email."
   },
   {
     question: "Do you offer expedited shipping?",
     answer:
-      "The demo presents an Express Shipping option at a flat $18 rate with an estimated 1–2 business-day delivery window after processing."
+      "Yes. Express Shipping costs $18 and usually arrives within 1–2 business days after processing."
   },
   {
     question: "Can I change my shipping address?",
     answer:
-      "A customer could request an address update before an order enters fulfillment. Once fulfillment begins, changes would depend on the carrier workflow."
+      "You can request an address change before your order begins processing. After that, changes may not be possible."
   },
   {
     question: "Do you ship internationally?",
     answer:
-      "No. For demonstration purposes, the storefront shows delivery within the contiguous United States only."
+      "Not at this time. We currently ship only within the contiguous United States."
   },
   {
     question: "What happens if a package is delayed?",
     answer:
-      "A production experience would surface the latest carrier estimate and provide a support path for prolonged delays. Elevate does not dispatch real packages."
+      "Check your tracking information for the latest delivery estimate. Contact support if your package has not arrived after the expected date."
   }
 ];
 
@@ -126,10 +126,10 @@ export default function ShippingPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-eyebrow">
                 Shipping
               </p>
-              <PageTitle>Fast, reliable delivery for every order.</PageTitle>
+              <PageTitle>Fast, reliable shipping.</PageTitle>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-silver sm:text-xl">
-                Learn about shipping options, delivery estimates, and order
-                tracking.
+                Find shipping options, estimated delivery times, and tracking
+                information.
               </p>
             </div>
           </FadeIn>
@@ -144,7 +144,7 @@ export default function ShippingPage() {
             <SectionHeader
               eyebrow="Shipping benefits"
               title="Choose the shipping option that fits you."
-              description="View shipping options, estimated delivery times, and tracking information before placing your order."
+              description="Compare delivery options and estimated arrival times before checkout."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -182,8 +182,8 @@ export default function ShippingPage() {
           <FadeIn>
             <SectionHeader
               eyebrow="Delivery information"
-              title="The details customers need before ordering."
-              description="A concise overview of the processing and delivery policies represented in this portfolio storefront."
+              title="Important delivery information."
+              description="Here’s what to know about processing, delivery, and address changes."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -218,7 +218,7 @@ export default function ShippingPage() {
             <SectionHeader
               eyebrow="Shipping FAQ"
               title="Common delivery questions."
-              description="These answers demonstrate the policy language a production storefront could provide."
+              description="Find answers to common questions about shipping and delivery."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -252,14 +252,14 @@ export default function ShippingPage() {
           <FadeIn>
             <div className="mx-auto max-w-3xl text-center">
               <h2 className={sectionTitleClassName()}>
-                Ready to explore the collection?
+                Ready to shop?
               </h2>
               <p className="mt-4 text-lg leading-8 text-white/70">
-                Browse the demo catalog or review the current cart experience.
+                Browse the latest products or return to your cart.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link className={buttonClassName({ size: "lg" })} href="/shop">
-                  Shop products
+                  Shop now
                   <ArrowRight aria-hidden="true" size={18} />
                 </Link>
                 <Link

@@ -4,7 +4,6 @@ import {
   Banknote,
   CheckCircle2,
   ChevronDown,
-  CircleAlert,
   ClipboardList,
   Headset,
   PackageSearch,
@@ -26,7 +25,7 @@ import { SectionHeader, sectionTitleClassName } from "@/components/ui/section-he
 export const metadata: Metadata = {
   title: "Returns | Elevate",
   description:
-    "Learn about Elevate’s demo return window, refund process, exchanges, and return eligibility."
+    "Review Elevate’s return policy, refund timelines, exchange options, and return eligibility."
 };
 
 const wideContainerClassName =
@@ -36,20 +35,20 @@ const returnHighlights = [
   {
     title: "30-Day Return Window",
     icon: RotateCcw,
-    details: ["Demo purchases may be returned within 30 days of the delivery date."]
+    details: ["Eligible items can be returned within 30 days of delivery."]
   },
   {
     title: "Easy Return Process",
     icon: ClipboardList,
     details: [
-      "Customers would start a return from their account or by contacting support."
+      "Start a return from your account or contact our support team."
     ]
   },
   {
     title: "Refund Tracking",
     icon: PackageSearch,
     details: [
-      "Return status and refund progress would appear in the customer account."
+      "Check your return status and refund progress from your account."
     ]
   }
 ];
@@ -59,24 +58,24 @@ const eligibilityInformation = [
     title: "Eligible items",
     icon: CheckCircle2,
     description:
-      "Products must be unused, undamaged, and returned with their original packaging and included accessories."
+      "Items must be unused, undamaged, and returned with their original packaging and accessories."
   },
   {
     title: "Non-returnable items",
     icon: XCircle,
     description:
-      "Personalized products, digital goods, and final-sale items would not be eligible."
+      "Personalized products, digital goods, and final-sale items cannot be returned."
   },
   {
     title: "Return shipping",
     icon: Truck,
     description:
-      "For this demo policy, prepaid return labels would be available for eligible domestic returns."
+      "Prepaid return labels are available for eligible domestic returns."
   },
   {
     title: "Original shipping charges",
     icon: Banknote,
-    description: "Original express shipping fees would not be refundable."
+    description: "Original express shipping fees are nonrefundable."
   }
 ];
 
@@ -85,17 +84,17 @@ const refundExchangeBlocks = [
     title: "Refunds",
     icon: Banknote,
     details: [
-      "Refunds would be issued to the original payment method.",
-      "Processing would begin after the returned item is inspected.",
-      "Estimated refund timeline: 5–10 business days after approval."
+      "Refunds are issued to the original payment method.",
+      "Refund processing begins after the returned item is inspected.",
+      "Refunds typically appear within 5–10 business days after approval."
     ]
   },
   {
     title: "Exchanges",
     icon: Repeat,
     details: [
-      "Eligible products could be exchanged for another finish or model, subject to availability.",
-      "Price differences would be calculated during the exchange process."
+      "Eligible items may be exchanged for another color or model, subject to availability.",
+      "Any price difference will be calculated during the exchange."
     ]
   }
 ];
@@ -104,24 +103,24 @@ const returnSteps = [
   {
     step: "1",
     title: "Start a return",
-    description: "Open the order in the customer account and select the item."
+    description: "Open the order in your account and select the item you want to return."
   },
   {
     step: "2",
     title: "Receive instructions",
     description:
-      "A return label and packaging instructions would be provided."
+      "We’ll provide a return label and packing instructions."
   },
   {
     step: "3",
     title: "Send the item",
-    description: "Drop the package off with the listed carrier."
+    description: "Drop off the package with the listed carrier."
   },
   {
     step: "4",
     title: "Track the resolution",
     description:
-      "View inspection, refund, or exchange status from the account page."
+      "Track your inspection, refund, or exchange from your account."
   }
 ];
 
@@ -129,42 +128,42 @@ const returnFaqs = [
   {
     question: "How long do I have to return an item?",
     answer:
-      "In this demo experience, items may be returned within 30 days of the delivery date shown on the order."
+      "Eligible items can be returned within 30 days of delivery."
   },
   {
     question: "What condition must the product be in?",
     answer:
-      "Items must be unused, undamaged, and returned with their original packaging and any included accessories to be considered eligible."
+      "Items must be unused, undamaged, and returned with their original packaging and included accessories."
   },
   {
     question: "Are return shipping costs covered?",
     answer:
-      "For this demo policy, prepaid return labels would be available for eligible domestic returns. Original express shipping fees would not be refundable."
+      "Prepaid return labels are available for eligible domestic returns. Original express shipping fees are nonrefundable."
   },
   {
     question: "How long do refunds take?",
     answer:
-      "Refunds would be issued to the original payment method after the returned item is inspected, with an estimated timeline of 5–10 business days after approval."
+      "After your return is inspected and approved, the refund will be issued to your original payment method within 5–10 business days."
   },
   {
     question: "Can I exchange an item instead of returning it?",
     answer:
-      "Eligible products could be exchanged for another finish or model, subject to availability. Any price difference would be calculated during the exchange process."
+      "Yes. Eligible items may be exchanged for another color or model, subject to availability. Any price difference will be applied during the exchange."
   },
   {
     question: "What if my item arrives damaged?",
     answer:
-      "A production storefront would offer an expedited resolution path for damaged deliveries. This demo does not process real shipments or claims."
+      "Contact support as soon as possible and include photos of the damaged item and packaging. We’ll help you find the best resolution."
   },
   {
     question: "Can I return a gift?",
     answer:
-      "A gift return would typically be looked up using the order or gift receipt and could result in store credit rather than a refund to the original purchaser."
+      "Yes. Gift returns may be located using the order number or gift receipt and are generally refunded as store credit."
   },
   {
     question: "Do you accept international returns?",
     answer:
-      "For demonstration purposes, this policy covers domestic returns only. International return handling would vary by region in a production experience."
+      "This return policy currently applies only to orders shipped within the contiguous United States."
   }
 ];
 
@@ -180,14 +179,9 @@ export default function ReturnsPage() {
               </p>
               <PageTitle>Simple returns, handled with care.</PageTitle>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-silver sm:text-xl">
-                Elevate is a portfolio demonstration store. The return policy
-                below illustrates how a production ecommerce experience could
-                explain eligibility, refund timing, and exchanges.
+                Review our return policy, refund timelines, and exchange
+                options.
               </p>
-              <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-4 py-2 text-sm text-white/60">
-                <CircleAlert aria-hidden="true" size={16} strokeWidth={1.7} />
-                <span>Demo policy — no real returns or refunds are processed.</span>
-              </div>
             </div>
           </FadeIn>
         </Container>
@@ -200,8 +194,8 @@ export default function ReturnsPage() {
           <FadeIn>
             <SectionHeader
               eyebrow="Return highlights"
-              title="Returns presented with clarity."
-              description="Illustrative timelines and steps show how customers could manage a return before it reaches your door twice."
+              title="Returns made simple."
+              description="Find clear timelines, eligibility requirements, and step-by-step return instructions."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -240,7 +234,7 @@ export default function ReturnsPage() {
             <SectionHeader
               eyebrow="Return eligibility"
               title="What qualifies for a return."
-              description="A concise overview of the eligibility and shipping policies represented in this portfolio storefront."
+              description="Review the basic requirements for returning an item."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -274,8 +268,8 @@ export default function ReturnsPage() {
           <FadeIn>
             <SectionHeader
               eyebrow="Refunds & exchanges"
-              title="How resolutions are handled."
-              description="Refund timing and exchange terms are shown the way a production storefront could present them to customers."
+              title="Refunds and exchanges."
+              description="Learn how refunds are issued and when exchanges are available."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -313,8 +307,8 @@ export default function ReturnsPage() {
           <FadeIn>
             <SectionHeader
               eyebrow="Return process"
-              title="Four steps from request to resolution."
-              description="A simple flow illustrates how a return could move from the customer account to a completed refund or exchange."
+              title="Return an item in four steps."
+              description="Follow these steps to complete your return or exchange."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -356,7 +350,7 @@ export default function ReturnsPage() {
             <SectionHeader
               eyebrow="Returns FAQ"
               title="Common return questions."
-              description="These answers demonstrate the policy language a production storefront could provide."
+              description="Find answers to common questions about returns, refunds, and exchanges."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -393,8 +387,7 @@ export default function ReturnsPage() {
                 Need help with a return?
               </h2>
               <p className="mt-4 text-lg leading-8 text-white/70">
-                Explore the collection or contact the demo support team for
-                policy questions.
+                Contact our support team for help with a return or refund.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link className={buttonClassName({ size: "lg" })} href="/contact">
@@ -406,7 +399,7 @@ export default function ReturnsPage() {
                   href="/shop"
                 >
                   <ShoppingCart aria-hidden="true" size={18} />
-                  Continue shopping
+                  Shop products
                 </Link>
               </div>
             </div>

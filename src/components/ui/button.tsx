@@ -32,7 +32,7 @@ export function buttonClassName({
   className?: string;
 } = {}): string {
   return cn(
-    "inline-flex items-center justify-center rounded-lg font-medium transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-glacier disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center rounded-lg font-medium transition duration-300 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-glacier disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
     variants[variant],
     sizes[size],
     className

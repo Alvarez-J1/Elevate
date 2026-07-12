@@ -7,6 +7,7 @@ import { Button, type ButtonSize } from "@/components/ui/button";
 import { useCartStore } from "@/components/store/cart-store";
 import { addServerCartItem } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
+import { useGuardedAddToCart } from "@/lib/use-guarded-add-to-cart";
 import type { Product } from "@/types/product";
 
 export function AddToCartButton({
@@ -24,9 +25,9 @@ export function AddToCartButton({
   size?: ButtonSize;
   className?: string;
 }) {
-  const addItem = useCartStore((state) => state.addItem);
   const attachServerId = useCartStore((state) => state.attachServerId);
   const { token, isAuthenticated } = useAuth();
+  const guardedAddToCart = useGuardedAddToCart();
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
@@ -39,7 +40,15 @@ export function AddToCartButton({
   }, [added]);
 
   function handleAdd() {
-    addItem(product, quantity, color);
+    // Signed-out visitors never reach the cart here: useGuardedAddToCart
+    // stores the intended product/quantity/color and redirects to
+    // /login?returnTo=... instead. No item is added and no "Added" state
+    // is shown until they've authenticated.
+    const result = guardedAddToCart(product, quantity, color);
+    if (result === "redirected") {
+      return;
+    }
+
     setAdded(true);
 
     // Best-effort background sync to the signed-in user's server-side cart;

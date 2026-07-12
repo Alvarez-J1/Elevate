@@ -6,14 +6,21 @@ import { AlertCircle, UserPlus } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/components/store/cart-store";
 import { ApiError } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
+import { clearPendingCartAction, readPendingCartAction } from "@/lib/pending-cart-action";
+import { sanitizeReturnTo, withReturnTo } from "@/lib/return-to";
 
-export function RegisterForm() {
+export function RegisterForm({ returnTo }: { returnTo?: string }) {
   const router = useRouter();
   const { register } = useAuth();
+  const addItem = useCartStore((state) => state.addItem);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const safeReturnTo = sanitizeReturnTo(returnTo);
+  const showCartHint = Boolean(returnTo);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -33,7 +40,17 @@ export function RegisterForm() {
         email: String(form.get("email") ?? ""),
         password: String(form.get("password") ?? "")
       });
-      router.push("/");
+
+      // Same "complete the pending add-to-cart, then return" behavior as
+      // regular sign-in — see LoginForm.completeReturnAfterAuth for why the
+      // returnTo values are compared before auto-adding.
+      const pending = readPendingCartAction();
+      if (pending && sanitizeReturnTo(pending.returnTo) === safeReturnTo) {
+        addItem(pending.product, pending.quantity, pending.color);
+      }
+      clearPendingCartAction();
+
+      router.push(safeReturnTo);
       router.refresh();
     } catch (err) {
       setError(
@@ -48,9 +65,15 @@ export function RegisterForm() {
 
   return (
     <form
-      className="mx-auto max-w-md rounded-lg border border-white/10 bg-white/[0.045] p-6 shadow-soft sm:p-8"
+      className="mx-auto w-full max-w-[28rem] rounded-lg border border-white/10 bg-white/[0.045] p-6 shadow-soft sm:p-8"
       onSubmit={handleSubmit}
     >
+      {showCartHint ? (
+        <p className="mb-5 text-center text-sm text-silver">
+          Create an account to add items to your cart.
+        </p>
+      ) : null}
+
       {error ? (
         <div className="mb-5 flex items-start gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200">
           <AlertCircle className="mt-0.5 flex-none" size={16} />
@@ -113,9 +136,12 @@ export function RegisterForm() {
         {isSubmitting ? "Creating account..." : "Create account"}
       </Button>
 
-      <p className="mt-6 text-center text-sm text-silver">
+      <p className="mt-6 text-left text-sm text-silver">
         Already have an account?{" "}
-        <Link className="font-medium text-platinum hover:underline" href="/login">
+        <Link
+          className="font-medium text-platinum hover:underline"
+          href={withReturnTo("/login", returnTo)}
+        >
           Sign in
         </Link>
       </p>

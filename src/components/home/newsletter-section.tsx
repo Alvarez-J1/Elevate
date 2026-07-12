@@ -40,7 +40,7 @@ export function NewsletterSection() {
               </label>
               <input
                 autoComplete="email"
-                className="input-shell h-12 flex-1 px-4 text-base placeholder:text-muted focus:border-white/25 focus:outline-none focus:ring-2 focus:ring-white/10"
+                className="input-shell min-h-[50px] flex-1 px-4 text-base placeholder:text-muted focus:border-glacier/70 focus:outline-none sm:min-h-0 sm:h-12"
                 id="newsletter-email"
                 onChange={(event) => {
                   setEmail(event.target.value);
@@ -51,7 +51,7 @@ export function NewsletterSection() {
                 type="email"
                 value={email}
               />
-              <Button className="h-12 px-6 sm:flex-none" type="submit">
+              <Button className="h-[52px] px-6 sm:flex-none" type="submit">
                 Subscribe
               </Button>
             </form>

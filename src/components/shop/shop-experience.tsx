@@ -80,7 +80,7 @@ export function ShopExperience({
               (item) => (
                 <button
                   className={cn(
-                    "h-10 flex-none rounded-lg px-4 text-sm transition",
+                    "h-10 flex-none cursor-pointer rounded-lg px-4 text-sm transition",
                     category === item
                       ? "bg-platinum text-obsidian"
                       : "bg-white/[0.06] text-silver hover:bg-white/[0.1] hover:text-platinum"
@@ -102,7 +102,7 @@ export function ShopExperience({
               size={18}
             />
             <select
-              className="input-shell h-12 min-w-52 appearance-none pl-11 pr-9"
+              className="input-shell h-12 min-w-52 cursor-pointer appearance-none pl-11 pr-9"
               onChange={(event) => setSort(event.target.value as SortOption)}
               value={sort}
             >

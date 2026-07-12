@@ -98,7 +98,7 @@ export function ContactForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block" htmlFor="contact-name">
-          <span className="mb-2 block text-sm text-silver">Full Name</span>
+          <span className="mb-2 block text-sm text-silver">Name</span>
           <input
             autoComplete="name"
             className="input-shell h-12 px-4"
@@ -146,7 +146,7 @@ export function ContactForm() {
 
       <Button className="mt-7 w-full sm:w-auto" disabled={isSubmitting} size="lg" type="submit">
         <Send aria-hidden="true" size={18} />
-        {isSubmitting ? "Sending..." : "Send Message"}
+        {isSubmitting ? "Sending..." : "Send message"}
       </Button>
     </form>
   );

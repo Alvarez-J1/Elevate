@@ -5,7 +5,6 @@ import {
   ArrowUpRight,
   Briefcase,
   ChevronDown,
-  CircleAlert,
   Clock3,
   Headset,
   RotateCcw,
@@ -38,7 +37,7 @@ const contactOptions = [
     icon: Headset,
     details: [
       "support@elevate-demo.com",
-      "Response time: Typically within 24 business hours."
+      "We typically respond within one business day."
     ]
   },
   {
@@ -46,15 +45,15 @@ const contactOptions = [
     icon: Briefcase,
     details: [
       "sales@elevate-demo.com",
-      "Questions about products, collections, and recommendations."
+      "Get help choosing products or finding the right option for your needs."
     ]
   },
   {
     title: "Business Hours",
     icon: Clock3,
     details: [
-      "Monday – Friday: 9:00 AM – 6:00 PM EST",
-      "Saturday: 10:00 AM – 4:00 PM EST",
+      "Monday–Friday: 9:00 AM–6:00 PM ET",
+      "Saturday: 10:00 AM–4:00 PM ET",
       "Sunday: Closed"
     ]
   }
@@ -64,51 +63,51 @@ const contactFaqs = [
   {
     question: "How quickly will I receive a response?",
     answer:
-      "In this demo experience, customer support messages are shown with a typical response time of within 24 business hours. No message is actually sent or answered."
+      "We typically respond within one business day."
   },
   {
     question: "Can I modify an existing order?",
     answer:
-      "A production storefront would allow order changes from the customer account before fulfillment begins. This demo does not process real orders."
+      "Changes may be possible before your order begins processing. Contact support as soon as possible with your order number."
   },
   {
     question: "How do returns work?",
     answer:
-      "Demo purchases may be returned within 30 days of the delivery date. Visit the Returns page for the full illustrative policy, including eligibility and refund timing."
+      "Eligible items can be returned within 30 days of delivery. Visit the Returns page for eligibility requirements and refund details."
   },
   {
     question: "Do you ship internationally?",
     answer:
-      "For demonstration purposes, this storefront shows delivery within the contiguous United States only. Visit the Shipping page for more detail."
+      "Not at this time. We currently ship only within the contiguous United States."
   },
   {
     question: "Where can I track my order?",
     answer:
-      "A tracking number would appear in the customer account and confirmation email after fulfillment. This demo does not generate live tracking events."
+      "Once your order ships, you’ll find the tracking number in your account and shipping confirmation email."
   },
   {
     question: "Is Elevate a real store?",
     answer:
-      "No. Elevate is a portfolio demonstration storefront. Products, orders, payments, and messages sent through this site are not real."
+      "Elevate is a portfolio demo. Products, orders, payments, and submitted messages are for demonstration purposes only."
   }
 ];
 
 const supportLinks = [
   {
     title: "Shipping Information",
-    description: "Learn about delivery times and shipping policies.",
+    description: "View shipping options, delivery estimates, and tracking details.",
     icon: Truck,
     href: "/shipping"
   },
   {
     title: "Returns & Exchanges",
-    description: "Understand our demo return process.",
+    description: "Review return eligibility, refund timing, and exchange options.",
     icon: RotateCcw,
     href: "/returns"
   },
   {
     title: "Browse Products",
-    description: "Explore the complete Elevate collection.",
+    description: "Browse the latest products in the Elevate collection.",
     icon: ShoppingBag,
     href: "/shop"
   }
@@ -126,15 +125,9 @@ export default function ContactPage() {
               </p>
               <PageTitle>We&apos;re here to help.</PageTitle>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-silver sm:text-xl">
-                Whether you have questions about products, shipping, returns,
-                or your demo account, we&apos;re happy to help. This contact
-                experience is included to demonstrate a complete ecommerce
-                storefront.
+                Have a question about a product, order, shipping, or return?
+                Our team is here to help.
               </p>
-              <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-4 py-2 text-sm text-white/60">
-                <CircleAlert aria-hidden="true" size={16} strokeWidth={1.7} />
-                <span>Demo page - messages are stored for this portfolio backend.</span>
-              </div>
             </div>
           </FadeIn>
         </Container>
@@ -147,8 +140,8 @@ export default function ContactPage() {
           <FadeIn>
             <SectionHeader
               eyebrow="Contact options"
-              title="A few ways to reach the team."
-              description="Illustrative contact channels show how a production storefront could route customer questions."
+              title="Get in touch."
+              description="Choose the contact option that best fits your question."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -186,8 +179,8 @@ export default function ContactPage() {
           <FadeIn>
             <SectionHeader
               eyebrow="Send a message"
-              title="Tell us what you need."
-              description="This form demonstrates a complete contact experience with browser and backend validation."
+              title="Send us a message."
+              description="Fill out the form below and we’ll get back to you as soon as possible."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -206,7 +199,7 @@ export default function ContactPage() {
             <SectionHeader
               eyebrow="Contact FAQ"
               title="Common questions."
-              description="These answers demonstrate the policy language a production storefront could provide."
+              description="Find quick answers before sending us a message."
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -240,7 +233,7 @@ export default function ContactPage() {
           <FadeIn>
             <SectionHeader
               eyebrow="More resources"
-              title="Need help before contacting us?"
+              title="Looking for more information?"
               descriptionClassName="text-lg"
             />
           </FadeIn>
@@ -284,15 +277,15 @@ export default function ContactPage() {
           <FadeIn>
             <div className="mx-auto max-w-3xl text-center">
               <h2 className={sectionTitleClassName()}>
-                Ready to explore the collection?
+                Ready to shop?
               </h2>
               <p className="mt-4 text-lg leading-8 text-white/70">
-                Discover premium technology curated for work, travel,
-                creativity, and everyday life.
+                Explore technology for work, travel, creativity, and everyday
+                use.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link className={buttonClassName({ size: "lg" })} href="/shop">
-                  Shop Collection
+                  Shop now
                   <ArrowRight aria-hidden="true" size={18} />
                 </Link>
                 <Link
@@ -300,7 +293,7 @@ export default function ContactPage() {
                   href="/cart"
                 >
                   <ShoppingCart aria-hidden="true" size={18} />
-                  View Cart
+                  View cart
                 </Link>
               </div>
             </div>

@@ -17,7 +17,7 @@ export default function CheckoutPage() {
           Checkout
           </h1>
           <p className="mt-5 text-base leading-7 text-silver">
-            Enter your shipping and payment details to review the checkout experience.
+            Enter your shipping and payment details to complete your order.
           </p>
         </div>
         <CheckoutExperience />

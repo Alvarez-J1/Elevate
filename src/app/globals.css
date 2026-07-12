@@ -81,3 +81,44 @@ textarea {
     background 180ms ease,
     box-shadow 180ms ease;
 }
+
+.account-empty-state-enter {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 360ms ease,
+    transform 360ms ease;
+}
+
+.account-empty-state-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.login-demo-enter {
+  animation: login-demo-enter 360ms ease-out both;
+}
+
+@keyframes login-demo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .account-empty-state-enter {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .login-demo-enter {
+    animation: none;
+  }
+}
