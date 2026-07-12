@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
 import { ProductDetails } from "@/components/product/product-details";
-import { ProductReviews } from "@/components/product/product-reviews";
 import { detailToProduct, fetchProductBySlug, fetchRelatedProducts, summaryToProduct } from "@/lib/api";
 import { getProductBySlug, getRelatedProducts } from "@/lib/products";
 import type { Product } from "@/types/product";
@@ -64,10 +63,5 @@ export default async function ProductPage({
 
   const related = await loadRelatedProducts(slug, product);
 
-  return (
-    <>
-      <ProductDetails product={product} related={related} />
-      <ProductReviews slug={product.slug} />
-    </>
-  );
+  return <ProductDetails product={product} related={related} />;
 }
