@@ -1,9 +1,6 @@
 # Elevate — Full-Stack Premium Ecommerce Storefront
 
-Elevate is a full-stack ecommerce storefront: a Next.js/React/TypeScript frontend backed by a
-production-style Java/Spring Boot REST API. The project focuses on modern ecommerce UI design,
-a clean layered backend architecture, JWT authentication, a server-persisted cart, and a real
-checkout/order pipeline.
+Elevate is a full-stack ecommerce storefront built with Next.js, React, TypeScript, Tailwind CSS, Java, Spring Boot, and PostgreSQL. It features secure authentication, product browsing and filtering, persistent cart management, checkout, order history, account activity, and a responsive interface across desktop, tablet and mobile.
 
 <img width="1898" height="908" alt="image" src="https://github.com/user-attachments/assets/d3a4b35b-35f9-46de-bb47-a0eb2b18c081" />
 
