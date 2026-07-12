@@ -86,6 +86,13 @@ export type ApiUser = {
   role: "USER" | "ADMIN";
 };
 
+export type ApiAccountSummary = {
+  verified: boolean;
+  memberSince: string;
+  orderCount: number;
+  reviewCount: number;
+};
+
 export type AuthResponse = {
   accessToken: string;
   tokenType: string;
@@ -280,6 +287,10 @@ export function login(input: { email: string; password: string }) {
 
 export function fetchCurrentUser(token: string) {
   return apiFetch<ApiUser>("/api/users/me", { token });
+}
+
+export function fetchAccountSummary(token: string) {
+  return apiFetch<ApiAccountSummary>("/api/users/me/summary", { token });
 }
 
 // ---------------------------------------------------------------------------

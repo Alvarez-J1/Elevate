@@ -61,14 +61,23 @@ The API is then available at `http://localhost:8080`, with interactive docs at `
 
 ## Running locally without Docker
 
-You need a local PostgreSQL instance:
+You need PostgreSQL listening on `localhost:5432`.
+
+**Windows (recommended):**
+
+```powershell
+cd backend
+.\run-local.ps1
+```
+
+This uses the `local` Spring profile with defaults for a typical Windows PostgreSQL install (`postgres` / `postgres`). If your credentials differ, edit `backend/.env`.
+
+**Manual Maven run:**
 
 ```bash
-docker run --name elevate-postgres -e POSTGRES_DB=elevate -e POSTGRES_USER=elevate -e POSTGRES_PASSWORD=replace-with-a-local-postgres-password -p 5432:5432 -d postgres:16-alpine
-
 cd backend
 # export/set DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD, and ELEVATE_JWT_SECRET first
-mvn spring-boot:run
+mvn spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
 Configuration is environment-variable driven (see `.env.example` and `src/main/resources/application.yml`). The database password and JWT signing secret are intentionally required rather than defaulted.

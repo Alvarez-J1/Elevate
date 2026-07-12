@@ -2,20 +2,33 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { PackageCheck } from "lucide-react";
+import { BadgeCheck, CalendarDays, PackageCheck, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { EmptyState } from "@/components/ui/empty-state";
 import { Skeleton } from "@/components/ui/skeleton";
 import { buttonClassName } from "@/components/ui/button";
-import { type ApiOrder, fetchMyOrders } from "@/lib/api";
+import { type ApiAccountSummary, type ApiOrder, fetchAccountSummary, fetchMyOrders } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { formatCurrency } from "@/lib/utils";
+
+function formatMemberSince(value?: string): string {
+  if (!value) {
+    return "Member since --";
+  }
+
+  return `Member since ${new Intl.DateTimeFormat("en", {
+    month: "short",
+    year: "numeric"
+  }).format(new Date(value))}`;
+}
 
 export function AccountExperience() {
   const router = useRouter();
   const { user, token, isAuthenticated, isReady, logout } = useAuth();
   const [orders, setOrders] = useState<ApiOrder[] | null>(null);
+  const [orderTotal, setOrderTotal] = useState<number | null>(null);
+  const [summary, setSummary] = useState<ApiAccountSummary | null>(null);
 
   useEffect(() => {
     if (isReady && !isAuthenticated) {
@@ -29,8 +42,18 @@ export function AccountExperience() {
     }
 
     fetchMyOrders(token)
-      .then((page) => setOrders(page.content))
-      .catch(() => setOrders([]));
+      .then((page) => {
+        setOrders(page.content);
+        setOrderTotal(page.totalElements);
+      })
+      .catch(() => {
+        setOrders([]);
+        setOrderTotal(0);
+      });
+
+    fetchAccountSummary(token)
+      .then(setSummary)
+      .catch(() => setSummary(null));
   }, [token]);
 
   if (!isReady || !isAuthenticated) {
@@ -46,6 +69,24 @@ export function AccountExperience() {
             {user?.firstName} {user?.lastName}
           </p>
           <p className="text-sm text-muted">{user?.email}</p>
+          <div className="mt-4 grid gap-2 text-xs text-muted sm:grid-cols-2">
+            <span className="flex items-center gap-2">
+              <BadgeCheck className="text-glacier/80" size={14} />
+              {summary?.verified === false ? "Account Active" : "Verified Account"}
+            </span>
+            <span className="flex items-center gap-2">
+              <CalendarDays className="text-glacier/80" size={14} />
+              {formatMemberSince(summary?.memberSince)}
+            </span>
+            <span className="flex items-center gap-2">
+              <PackageCheck className="text-glacier/80" size={14} />
+              Orders: {summary?.orderCount ?? orderTotal ?? "--"}
+            </span>
+            <span className="flex items-center gap-2">
+              <Star className="text-glacier/80" size={14} />
+              Reviews: {summary?.reviewCount ?? "--"}
+            </span>
+          </div>
         </div>
         <button
           className={buttonClassName({ variant: "secondary" })}

@@ -17,6 +17,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     long countByProduct_Id(Long productId);
 
+    long countByUser_Id(Long userId);
+
     /**
      * JPQL's {@code avg()} always yields a {@link Double} (per the JPA spec,
      * regardless of the underlying column type), so the projection type here

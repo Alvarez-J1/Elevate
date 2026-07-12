@@ -1,0 +1,16 @@
+# Local Maven development profile.
+# Use: .\run-local.ps1
+# Expects PostgreSQL on localhost:5432 with user postgres (default Windows install).
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+elevate:
+  security:
+    jwt:
+      secret: local-dev-only-jwt-secret-min-32-characters
+  cors:
+    allowed-origins: http://localhost:3000
