@@ -203,8 +203,11 @@ export default function ReturnsPage() {
           <div className="home-section-content-gap grid gap-5 md:grid-cols-3 lg:gap-6">
             {returnHighlights.map((highlight, index) => (
               <FadeIn delay={index * 0.05} key={highlight.title}>
-                <article className="group h-full rounded-lg border border-white/10 bg-white/[0.045] p-7 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06] md:p-8">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-glacier/12 text-[#a7e3ff] transition duration-300 ease-out group-hover:bg-glacier/18 group-hover:shadow-[0_0_28px_rgba(125,211,252,0.16)]">
+                <article
+                  className="group touch-card touch-card-lift touch-card-border-25 touch-card-surface-6 h-full rounded-lg border border-white/10 bg-white/[0.045] p-7 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06] active:-translate-y-1 active:border-white/25 active:bg-white/[0.06] md:p-8"
+                  data-touch-card
+                >
+                  <div className="touch-card-icon-glow flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-glacier/12 text-[#a7e3ff] transition duration-300 ease-out group-hover:bg-glacier/18 group-hover:shadow-[0_0_28px_rgba(125,211,252,0.16)] group-active:bg-glacier/18 group-active:shadow-[0_0_28px_rgba(125,211,252,0.16)]">
                     <highlight.icon aria-hidden="true" size={25} strokeWidth={1.7} />
                   </div>
                   <CardTitle>{highlight.title}</CardTitle>
@@ -242,8 +245,11 @@ export default function ReturnsPage() {
           <div className="home-section-content-gap grid gap-4 md:grid-cols-2 lg:gap-5">
             {eligibilityInformation.map((item, index) => (
               <FadeIn delay={index * 0.04} key={item.title}>
-                <article className="group flex h-full gap-5 rounded-lg border border-white/10 bg-white/[0.03] p-6 transition duration-300 ease-out hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:p-7">
-                  <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[#a7e3ff] transition duration-300 ease-out group-hover:bg-glacier/18 group-hover:shadow-[0_0_28px_rgba(125,211,252,0.16)]">
+                <article
+                  className="group touch-card touch-card-lift touch-card-border-20 touch-card-surface-5 flex h-full gap-5 rounded-lg border border-white/10 bg-white/[0.03] p-6 transition duration-300 ease-out hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] active:-translate-y-1 active:border-white/20 active:bg-white/[0.05] sm:p-7"
+                  data-touch-card
+                >
+                  <div className="touch-card-icon-glow flex h-11 w-11 flex-none items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[#a7e3ff] transition duration-300 ease-out group-hover:bg-glacier/18 group-hover:shadow-[0_0_28px_rgba(125,211,252,0.16)] group-active:bg-glacier/18 group-active:shadow-[0_0_28px_rgba(125,211,252,0.16)]">
                     <item.icon aria-hidden="true" size={21} strokeWidth={1.7} />
                   </div>
                   <div>
@@ -277,8 +283,11 @@ export default function ReturnsPage() {
           <div className="home-section-content-gap grid gap-5 md:grid-cols-2 lg:gap-6">
             {refundExchangeBlocks.map((block, index) => (
               <FadeIn delay={index * 0.05} key={block.title}>
-                <article className="group h-full rounded-lg border border-white/10 bg-white/[0.045] p-7 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06] md:p-8">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-glacier/12 text-[#a7e3ff] transition duration-300 ease-out group-hover:bg-glacier/18 group-hover:shadow-[0_0_28px_rgba(125,211,252,0.16)]">
+                <article
+                  className="group touch-card touch-card-lift touch-card-border-25 touch-card-surface-6 h-full rounded-lg border border-white/10 bg-white/[0.045] p-7 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.06] active:-translate-y-1 active:border-white/25 active:bg-white/[0.06] md:p-8"
+                  data-touch-card
+                >
+                  <div className="touch-card-icon-glow flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-glacier/12 text-[#a7e3ff] transition duration-300 ease-out group-hover:bg-glacier/18 group-hover:shadow-[0_0_28px_rgba(125,211,252,0.16)] group-active:bg-glacier/18 group-active:shadow-[0_0_28px_rgba(125,211,252,0.16)]">
                     <block.icon aria-hidden="true" size={25} strokeWidth={1.7} />
                   </div>
                   <CardTitle>{block.title}</CardTitle>
@@ -316,10 +325,13 @@ export default function ReturnsPage() {
           <ol className="home-section-content-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
             {returnSteps.map((item, index) => (
               <FadeIn delay={index * 0.05} key={item.step}>
-                <li className="group relative h-full rounded-lg border border-white/10 bg-white/[0.03] p-6 transition duration-300 ease-out hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:p-7">
+                <li
+                  className="group touch-card touch-card-lift touch-card-border-20 touch-card-surface-5 relative h-full rounded-lg border border-white/10 bg-white/[0.03] p-6 transition duration-300 ease-out hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] active:-translate-y-1 active:border-white/20 active:bg-white/[0.05] sm:p-7"
+                  data-touch-card
+                >
                   <span
                     aria-hidden="true"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-base font-semibold text-platinum transition duration-300 ease-out group-hover:border-white/25 group-hover:bg-white/[0.1]"
+                    className="touch-card-icon-muted flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-base font-semibold text-platinum transition duration-300 ease-out group-hover:border-white/25 group-hover:bg-white/[0.1] group-active:border-white/25 group-active:bg-white/[0.1]"
                   >
                     {item.step}
                   </span>

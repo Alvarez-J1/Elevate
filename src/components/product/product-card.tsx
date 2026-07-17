@@ -12,7 +12,8 @@ import type { Product } from "@/types/product";
 export function ProductCard({ product }: { product: Product }) {
   return (
     <motion.article
-      className="group overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] shadow-soft"
+      className="group touch-card touch-card-lift-strong overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] shadow-soft"
+      data-touch-card
       whileHover={{ y: -8 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       layout
@@ -21,7 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div className="relative aspect-[4/5] overflow-hidden bg-carbon">
           <Image
             alt={product.name}
-            className="h-full w-full object-cover object-bottom transition duration-700 group-hover:scale-105"
+            className="touch-card-image-zoom h-full w-full object-cover object-bottom transition duration-700 group-hover:scale-105 group-active:scale-105"
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             src={product.images[0]}
@@ -32,7 +33,7 @@ export function ProductCard({ product }: { product: Product }) {
               {product.badge}
             </span>
           ) : null}
-          <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-obsidian/60 text-platinum opacity-0 backdrop-blur-md transition group-hover:opacity-100">
+          <span className="touch-card-reveal absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-obsidian/60 text-platinum opacity-0 backdrop-blur-md transition group-hover:opacity-100 group-active:opacity-100">
             <ArrowUpRight size={18} />
           </span>
         </div>
@@ -50,7 +51,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         <Link href={`/product/${product.slug}`}>
-          <h3 className="text-lg font-semibold text-platinum transition group-hover:text-white">
+          <h3 className="touch-card-title-bright text-lg font-semibold text-platinum transition group-hover:text-white group-active:text-white">
             {product.name}
           </h3>
         </Link>

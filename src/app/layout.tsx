@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Footer } from "../components/layout/footer";
 import { Navbar } from "../components/layout/navbar";
+import { TouchCardActivation } from "@/components/ui/touch-card-activation";
 import { AuthProvider } from "@/lib/auth-context";
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
+          <TouchCardActivation />
           <div className="noise" aria-hidden="true" />
           <Navbar />
           <main>{children}</main>

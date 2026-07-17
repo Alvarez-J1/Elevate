@@ -189,7 +189,10 @@ export function AccountExperience() {
 
   return (
     <div className="grid gap-12 sm:gap-14">
-      <div className="w-full rounded-lg border border-white/10 bg-white/[0.055] px-5 py-5 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07] sm:p-6 xl:max-w-[42rem]">
+      <div
+        className="touch-card touch-card-lift touch-card-border-25 touch-card-surface-7 w-full rounded-lg border border-white/10 bg-white/[0.055] px-5 py-5 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07] active:-translate-y-1 active:border-white/25 active:bg-white/[0.07] sm:p-6 xl:max-w-[42rem]"
+        data-touch-card
+      >
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex min-w-0 gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/10 bg-glacier/12 text-sm font-semibold text-[#a7e3ff]">
@@ -242,7 +245,10 @@ export function AccountExperience() {
           </div>
         ) : orders.length === 0 ? (
           <AnimatedEmptyState>
-            <div className="mt-5 flex min-h-[12rem] w-full flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-5 py-6 text-center shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07] sm:min-h-[13rem] sm:px-6 xl:max-w-[42rem]">
+            <div
+              className="touch-card touch-card-lift touch-card-border-25 touch-card-surface-7 mt-5 flex min-h-[12rem] w-full flex-col items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] px-5 py-6 text-center shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07] active:-translate-y-1 active:border-white/25 active:bg-white/[0.07] sm:min-h-[13rem] sm:px-6 xl:max-w-[42rem]"
+              data-touch-card
+            >
               <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-glacier/12 text-[#a7e3ff]">
                 <PackageCheck aria-hidden="true" size={18} />
               </div>
@@ -266,7 +272,8 @@ export function AccountExperience() {
           <div className="mt-5 grid w-full gap-3 xl:max-w-[42rem]">
             {orders.map((order) => (
               <article
-                className="grid min-h-24 grid-cols-[4rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] px-5 py-4 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07] sm:grid-cols-[4rem_minmax(0,1fr)_auto] sm:items-center sm:px-6 sm:py-4"
+                className="touch-card touch-card-lift touch-card-border-25 touch-card-surface-7 grid min-h-24 grid-cols-[4rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] px-5 py-4 shadow-soft transition duration-300 ease-out hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.07] active:-translate-y-1 active:border-white/25 active:bg-white/[0.07] sm:grid-cols-[4rem_minmax(0,1fr)_auto] sm:items-center sm:px-6 sm:py-4"
+                data-touch-card
                 key={order.id}
               >
                 <div className="relative h-16 w-16 overflow-hidden rounded-lg border border-white/10 bg-carbon">

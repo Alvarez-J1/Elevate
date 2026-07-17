@@ -8,9 +8,9 @@ const columns = [
   {
     title: "Shop",
     links: [
-      { label: "Audio", href: "/shop" },
-      { label: "Wearables", href: "/shop" },
-      { label: "Workspace", href: "/shop" }
+      { label: "Audio", href: "/shop?category=audio" },
+      { label: "Wearables", href: "/shop?category=wearables" },
+      { label: "Workspace", href: "/shop?category=workspace" }
     ]
   },
   {

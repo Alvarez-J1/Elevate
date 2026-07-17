@@ -22,13 +22,14 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
           {categories.map((category, index) => (
             <FadeIn delay={index * 0.05} key={category.slug}>
               <Link
-                className="group block overflow-hidden rounded-lg border border-white/10 bg-white/[0.045]"
+                className="group touch-card block overflow-hidden rounded-lg border border-white/10 bg-white/[0.045]"
+                data-touch-card
                 href={`/shop?category=${category.slug}`}
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
                   <Image
                     alt={category.name}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    className="touch-card-image-zoom h-full w-full object-cover transition duration-700 group-hover:scale-105 group-active:scale-105"
                     fill
                     sizes="(min-width: 1024px) 20vw, (min-width: 768px) 50vw, 100vw"
                     src={category.image}
@@ -40,7 +41,7 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
                         {category.name}
                       </h3>
                       <ArrowUpRight
-                        className="text-white opacity-0 transition group-hover:opacity-100"
+                        className="touch-card-reveal text-white opacity-0 transition group-hover:opacity-100 group-active:opacity-100"
                         size={18}
                       />
                     </div>
