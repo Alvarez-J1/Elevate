@@ -12,7 +12,7 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
     <section className="home-section">
       <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <FadeIn>
             <SectionHeader
               eyebrow="Featured"
@@ -35,7 +35,11 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
         <div className="home-section-content-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4 min-[1600px]:gap-6 min-[1920px]:gap-7">
           {products.map((product, index) => (
             <FadeIn delay={index * 0.05} key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard
+                compactImageOnMobile
+                containImageOnMobile={index === 0}
+                product={product}
+              />
             </FadeIn>
           ))}
         </div>

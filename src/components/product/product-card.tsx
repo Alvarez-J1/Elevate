@@ -6,10 +6,18 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Star } from "lucide-react";
 
 import { AddToCartButton } from "./add-to-cart-button";
-import { formatCurrency } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 import type { Product } from "@/types/product";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  compactImageOnMobile = false,
+  containImageOnMobile = false
+}: {
+  product: Product;
+  compactImageOnMobile?: boolean;
+  containImageOnMobile?: boolean;
+}) {
   return (
     <motion.article
       className="group touch-card touch-card-lift-strong overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] shadow-soft"
@@ -19,10 +27,27 @@ export function ProductCard({ product }: { product: Product }) {
       layout
     >
       <Link className="block" href={`/product/${product.slug}`}>
-        <div className="relative aspect-[4/5] overflow-hidden bg-carbon">
+        <div
+          className={cn(
+            "relative overflow-hidden",
+            compactImageOnMobile
+              ? cn(
+                  "h-[360px] min-[480px]:h-[430px] sm:h-[360px] lg:aspect-[4/5] lg:h-auto lg:bg-carbon",
+                  containImageOnMobile ? "bg-white" : "bg-carbon"
+                )
+              : "aspect-[4/5] bg-carbon"
+          )}
+        >
           <Image
             alt={product.name}
-            className="touch-card-image-zoom h-full w-full object-cover object-bottom transition duration-700 group-hover:scale-105 group-active:scale-105"
+            className={cn(
+              "touch-card-image-zoom h-full w-full transition duration-700 group-hover:scale-105 group-active:scale-105",
+              compactImageOnMobile && containImageOnMobile
+                ? "object-contain object-center lg:object-cover lg:object-bottom"
+                : compactImageOnMobile
+                  ? "object-cover object-center lg:object-bottom"
+                  : "object-cover object-bottom"
+            )}
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             src={product.images[0]}

@@ -25,10 +25,10 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-obsidian/80 py-12">
+    <footer className="border-t border-white/10 bg-obsidian/80 py-10 md:py-12">
       <Container>
-        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
-          <div>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-[1.2fr_1fr_1fr] md:gap-10">
+          <div className="col-span-2 md:col-span-1">
             <BrandLogo variant="footer" />
             <p className="mt-5 max-w-sm text-lg leading-relaxed text-silver">
               Premium technology designed for focus, creativity, and daily use.
