@@ -71,7 +71,7 @@ export const products: Product[] = [
       }
     ],
     "images": [
-      "/products/vanta-studio-primary.png"
+      "/products/vanta-studio-primary-zoomed.png"
     ],
     "badge": "Best Seller",
     "stock": 18,
@@ -802,7 +802,7 @@ export const products: Product[] = [
       }
     ],
     "images": [
-      "/products/vertex-smart-glasses-primary.png"
+      "/products/vertex-smart-glasses-primary-zoomed.png"
     ],
     "badge": "New",
     "stock": 19,

@@ -20,6 +20,8 @@ export const API_BASE_URL = (
 ).replace(/\/$/, "");
 
 const productImageOverrides: Record<string, string> = {
+  "/products/vanta-studio-primary.png": "/products/vanta-studio-primary-zoomed.png",
+  "/products/vertex-smart-glasses-primary.png": "/products/vertex-smart-glasses-primary-zoomed.png",
   "/products/echo-earbuds-primary-v2.png": "/products/echo-earbuds-primary-v3.png"
 };
 
