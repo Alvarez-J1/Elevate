@@ -14,6 +14,54 @@ import { buttonClassName } from "@/components/ui/button";
 import { cn, formatCurrency } from "@/lib/utils";
 import type { Product } from "@/types/product";
 
+const productBenefits = [
+  {
+    icon: Truck,
+    title: "Free express shipping",
+    description:
+      "Enjoy fast, insured delivery with real-time tracking on every qualifying order."
+  },
+  {
+    icon: ShieldCheck,
+    title: "30-day premium returns",
+    description:
+      "Return eligible products within 30 days through a simple, hassle-free process."
+  },
+  {
+    icon: Zap,
+    title: "Ships in 24 hours",
+    description:
+      "Orders placed before the daily cutoff are packed and shipped within one business day."
+  }
+];
+
+function RelatedProducts({
+  related,
+  gridClassName
+}: {
+  related: Product[];
+  gridClassName?: string;
+}) {
+  return (
+    <>
+      <SectionHeader
+        eyebrow="Related"
+        title="Designed to complement your workspace setup."
+        description="Complete your workspace with matching pieces."
+      />
+      <div className={cn("mt-10 grid w-full gap-5", gridClassName)}>
+        {related.map((item) => (
+          <ProductCard
+            compactImageOnMobile
+            key={item.id}
+            product={item}
+          />
+        ))}
+      </div>
+    </>
+  );
+}
+
 export function ProductDetails({
   product,
   related
@@ -27,18 +75,19 @@ export function ProductDetails({
   return (
     <div className="pb-24 pt-10">
       <Container>
-        <div className="mb-8 text-sm text-silver">
-          <Link className="transition hover:text-platinum" href="/shop">
-            Shop
-          </Link>
-          <span className="px-2 text-muted">/</span>
-          <span className="text-platinum">{product.name}</span>
-        </div>
+        <div className="lg:mx-auto lg:max-w-[660px]">
+          <div className="mb-8 text-sm text-silver">
+            <Link className="transition hover:text-platinum" href="/shop">
+              Shop
+            </Link>
+            <span className="px-2 text-muted">/</span>
+            <span className="text-platinum">{product.name}</span>
+          </div>
 
-        <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
-          <ProductGallery images={product.images} name={product.name} />
+          <div className="grid gap-10">
+            <ProductGallery images={product.images} name={product.name} />
 
-          <section className="lg:sticky lg:top-24">
+            <section>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-eyebrow">
               {product.category}
             </p>
@@ -87,10 +136,16 @@ export function ProductDetails({
               </div>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <QuantitySelector value={quantity} onChange={setQuantity} />
+            <div className="mt-8 flex flex-wrap items-stretch gap-2 min-[336px]:gap-3">
+              <QuantitySelector
+                buttonClassName="max-[335px]:w-9"
+                compact
+                value={quantity}
+                valueClassName="max-[335px]:w-8"
+                onChange={setQuantity}
+              />
               <AddToCartButton
-                className="min-h-[52px] flex-1 sm:min-h-0"
+                className="min-h-[52px] min-w-36 flex-1 basis-36 whitespace-nowrap max-[505px]:min-w-0 max-[505px]:basis-0 max-[335px]:gap-2 max-[335px]:px-4 sm:min-h-0 sm:basis-0"
                 color={selectedColor}
                 label="Add to cart"
                 product={product}
@@ -101,7 +156,8 @@ export function ProductDetails({
                 className={buttonClassName({
                   variant: "secondary",
                   size: "lg",
-                  className: "flex-1"
+                  className:
+                    "min-h-[52px] min-w-36 flex-1 basis-36 max-[505px]:basis-full sm:basis-0"
                 })}
                 href="/checkout"
               >
@@ -109,18 +165,19 @@ export function ProductDetails({
               </Link>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {[
-                { icon: Truck, label: "Free express shipping" },
-                { icon: ShieldCheck, label: "30-day premium returns" },
-                { icon: Zap, label: "Ships in 24 hours" }
-              ].map((item) => (
+            <div className="mt-8 grid gap-3 md:grid-cols-3">
+              {productBenefits.map((item) => (
                 <div
                   className="rounded-lg border border-white/10 bg-white/[0.045] p-4"
-                  key={item.label}
+                  key={item.title}
                 >
                   <item.icon className="text-glacier" size={18} />
-                  <p className="mt-3 text-sm leading-5 text-silver">{item.label}</p>
+                  <p className="mt-3 text-sm font-medium leading-5 text-platinum">
+                    {item.title}
+                  </p>
+                  <p className="mt-1.5 text-sm leading-6 text-silver">
+                    {item.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -140,7 +197,7 @@ export function ProductDetails({
               </ul>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
               {Object.entries(product.specs).map(([label, value]) => (
                 <div
                   className="rounded-lg border border-white/10 bg-white/[0.035] p-4"
@@ -153,22 +210,17 @@ export function ProductDetails({
                 </div>
               ))}
             </div>
-          </section>
+            </section>
+          </div>
         </div>
       </Container>
 
-      <section className="mt-24">
+      <section className="mt-16 lg:mt-20">
         <Container>
-          <SectionHeader
-            eyebrow="Related"
-            title="Designed to complement your workspace setup."
-            description="Complete your workspace with matching pieces."
+          <RelatedProducts
+            gridClassName="min-[480px]:grid-cols-2 xl:grid-cols-4"
+            related={related}
           />
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {related.map((item) => (
-              <ProductCard key={item.id} product={item} />
-            ))}
-          </div>
         </Container>
       </section>
     </div>

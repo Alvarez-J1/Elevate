@@ -14,7 +14,7 @@ export function ProductGallery({
 
   return (
     <motion.div
-      className="relative aspect-[4/5] overflow-hidden rounded-lg border border-white/10 bg-carbon shadow-soft"
+      className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-white/10 bg-carbon shadow-soft min-[650px]:aspect-[3/2] lg:mx-auto lg:max-w-[660px]"
       initial={{ opacity: 0.72, scale: 0.985 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
@@ -22,10 +22,10 @@ export function ProductGallery({
       {image ? (
         <Image
           alt={name}
-          className="h-full w-full object-cover object-bottom"
+          className="h-full w-full object-cover object-bottom min-[650px]:object-center"
           fill
           priority
-          sizes="(min-width: 1024px) 48vw, 100vw"
+          sizes="(min-width: 1280px) 1280px, 100vw"
           src={image}
         />
       ) : null}

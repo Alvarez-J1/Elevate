@@ -24,7 +24,7 @@ export function HeroSection() {
 
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-obsidian via-obsidian/76 to-obsidian/10" />
 
-      <div className="mx-auto grid min-h-[82svh] w-full max-w-7xl items-center px-4 py-20 sm:px-6 lg:min-h-[76svh] lg:px-8 lg:pb-14 lg:pt-20 min-[1600px]:min-h-[80svh] min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:grid-cols-[minmax(560px,0.78fr)_minmax(0,1fr)] min-[1600px]:gap-20 min-[1600px]:px-12 min-[1600px]:pb-16 min-[1600px]:pt-24 min-[1920px]:min-h-[82svh] min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:grid-cols-[minmax(620px,0.78fr)_minmax(0,1fr)] min-[1920px]:gap-24 min-[1920px]:px-16 min-[1920px]:pb-20 min-[1920px]:pt-28">
+      <div className="mx-auto grid min-h-[82svh] w-full max-w-7xl items-center px-4 pb-14 pt-20 sm:px-6 lg:min-h-[76svh] lg:px-8 lg:pt-20 min-[1600px]:min-h-[80svh] min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:grid-cols-[minmax(560px,0.78fr)_minmax(0,1fr)] min-[1600px]:gap-20 min-[1600px]:px-12 min-[1600px]:pb-16 min-[1600px]:pt-24 min-[1920px]:min-h-[82svh] min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:grid-cols-[minmax(620px,0.78fr)_minmax(0,1fr)] min-[1920px]:gap-24 min-[1920px]:px-16 min-[1920px]:pb-20 min-[1920px]:pt-28">
         <motion.div
           className="max-w-3xl min-[1600px]:max-w-[760px] min-[1920px]:max-w-[820px]"
           initial={{ opacity: 0, y: 28 }}

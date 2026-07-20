@@ -37,7 +37,6 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
             <FadeIn delay={index * 0.05} key={product.id}>
               <ProductCard
                 compactImageOnMobile
-                containImageOnMobile={index === 0}
                 product={product}
               />
             </FadeIn>

@@ -19,6 +19,18 @@ export const API_BASE_URL = (
   LOCAL_API_URL
 ).replace(/\/$/, "");
 
+const productImageOverrides: Record<string, string> = {
+  "/products/echo-earbuds-primary-v2.png": "/products/echo-earbuds-primary-v3.png"
+};
+
+function normalizeProductImage(image: string | null): string | null {
+  return image ? productImageOverrides[image] ?? image : null;
+}
+
+function normalizeProductImages(images: string[]): string[] {
+  return images.map((image) => productImageOverrides[image] ?? image);
+}
+
 export class ApiError extends Error {
   status: number;
   fieldErrors?: Array<{ field: string; message: string }>;
@@ -219,6 +231,8 @@ export type ApiReview = {
 // ---------------------------------------------------------------------------
 
 export function summaryToProduct(dto: ApiProductSummary): Product {
+  const primaryImage = normalizeProductImage(dto.primaryImage);
+
   return {
     id: String(dto.id),
     sku: "",
@@ -234,7 +248,7 @@ export function summaryToProduct(dto: ApiProductSummary): Product {
     features: [],
     specs: {},
     colors: [],
-    images: dto.primaryImage ? [dto.primaryImage] : [],
+    images: primaryImage ? [primaryImage] : [],
     badge: dto.badge ?? undefined,
     stock: dto.inStock ? 1 : 0,
     accent: dto.accent
@@ -257,7 +271,7 @@ export function detailToProduct(dto: ApiProductDetail): Product {
     features: dto.features,
     specs: dto.specs,
     colors: dto.colors.map((color): ProductColor => ({ name: color.name, value: color.value })),
-    images: dto.images,
+    images: normalizeProductImages(dto.images),
     badge: dto.badge ?? undefined,
     stock: dto.stock,
     accent: dto.accent

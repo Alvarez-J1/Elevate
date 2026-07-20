@@ -11,12 +11,10 @@ import type { Product } from "@/types/product";
 
 export function ProductCard({
   product,
-  compactImageOnMobile = false,
-  containImageOnMobile = false
+  compactImageOnMobile = false
 }: {
   product: Product;
   compactImageOnMobile?: boolean;
-  containImageOnMobile?: boolean;
 }) {
   return (
     <motion.article
@@ -31,10 +29,7 @@ export function ProductCard({
           className={cn(
             "relative overflow-hidden",
             compactImageOnMobile
-              ? cn(
-                  "h-[360px] min-[480px]:h-[430px] sm:h-[360px] lg:aspect-[4/5] lg:h-auto lg:bg-carbon",
-                  containImageOnMobile ? "bg-white" : "bg-carbon"
-                )
+              ? "h-[360px] bg-carbon min-[480px]:h-[430px] sm:h-[360px] lg:aspect-[4/5] lg:h-auto"
               : "aspect-[4/5] bg-carbon"
           )}
         >
@@ -42,11 +37,9 @@ export function ProductCard({
             alt={product.name}
             className={cn(
               "touch-card-image-zoom h-full w-full transition duration-700 group-hover:scale-105 group-active:scale-105",
-              compactImageOnMobile && containImageOnMobile
-                ? "object-contain object-center lg:object-cover lg:object-bottom"
-                : compactImageOnMobile
-                  ? "object-cover object-center lg:object-bottom"
-                  : "object-cover object-bottom"
+              compactImageOnMobile
+                ? "object-cover object-center lg:object-bottom"
+                : "object-cover object-bottom"
             )}
             fill
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"

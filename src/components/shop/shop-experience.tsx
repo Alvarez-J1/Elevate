@@ -67,12 +67,20 @@ export function ShopExperience({
               size={18}
             />
             <input
-              className="input-shell h-12 pl-11 pr-4"
+              className="input-shell h-12 pl-11 pr-4 max-[420px]:placeholder:text-transparent"
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search headphones, cameras, workspace..."
               type="search"
               value={query}
             />
+            {query ? null : (
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute left-11 right-4 top-1/2 hidden -translate-y-1/2 truncate text-muted max-[420px]:block"
+              >
+                Search headphones, cameras, workspace...
+              </span>
+            )}
           </label>
 
           <div className="flex gap-2 overflow-x-auto pb-1 lg:pb-0">

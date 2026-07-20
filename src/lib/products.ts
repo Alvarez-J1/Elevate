@@ -152,7 +152,7 @@ export const products: Product[] = [
       }
     ],
     "images": [
-      "/products/echo-earbuds-primary-v2.png"
+      "/products/echo-earbuds-primary-v3.png"
     ],
     "badge": "New",
     "stock": 34,
