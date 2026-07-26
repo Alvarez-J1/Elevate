@@ -215,7 +215,7 @@ INSERT INTO product_features (product_id, position, feature) VALUES ((SELECT id 
 -- Product images (ordered)
 INSERT INTO product_images (product_id, position, image_url) VALUES ((SELECT id FROM products WHERE slug = 'vanta-studio-headphones'), 0, '/products/vanta-studio-primary.png');
 INSERT INTO product_images (product_id, position, image_url) VALUES ((SELECT id FROM products WHERE slug = 'cove-spatial-speaker'), 0, '/products/cove-speaker-primary.png');
-INSERT INTO product_images (product_id, position, image_url) VALUES ((SELECT id FROM products WHERE slug = 'echo-anc-earbuds'), 0, '/products/echo-earbuds-primary-v3.png');
+INSERT INTO product_images (product_id, position, image_url) VALUES ((SELECT id FROM products WHERE slug = 'echo-anc-earbuds'), 0, '/products/echo-earbuds-primary-v2.png');
 INSERT INTO product_images (product_id, position, image_url) VALUES ((SELECT id FROM products WHERE slug = 'pulse-soundbar'), 0, '/products/pulse-soundbar-primary.png');
 INSERT INTO product_images (product_id, position, image_url) VALUES ((SELECT id FROM products WHERE slug = 'cove-desktop-speaker'), 0, '/products/cove-desktop-speaker-primary.png');
 INSERT INTO product_images (product_id, position, image_url) VALUES ((SELECT id FROM products WHERE slug = 'pulse-home-speaker'), 0, '/products/pulse-home-speaker-primary-v3.png');
