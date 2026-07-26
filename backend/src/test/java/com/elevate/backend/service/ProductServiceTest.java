@@ -11,12 +11,14 @@ import com.elevate.backend.mapper.ProductMapper;
 import com.elevate.backend.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,7 +28,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,7 +68,7 @@ class ProductServiceTest {
         Page<Product> page = new PageImpl<>(List.of(product));
         Pageable pageable = PageRequest.of(0, 24);
 
-        given(productRepository.search(any(), any(), any(), any(), any(), any(), any(), anyString(), any(Pageable.class)))
+        given(productRepository.findAll(ArgumentMatchers.<Specification<Product>>any(), any(Pageable.class)))
                 .willReturn(page);
         given(productMapper.toSummary(product)).willReturn(new ProductSummaryResponse(
                 1L, "vanta-studio", "Vanta Studio", "Great sound", "Audio", new BigDecimal("549.00"), null,

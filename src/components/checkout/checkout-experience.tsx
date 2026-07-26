@@ -13,7 +13,7 @@ import {
   addServerCartItem,
   ApiError,
   checkout,
-  fetchProductBySlug,
+  resolveProductIdForApi,
   type ApiOrderItem
 } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
@@ -32,15 +32,9 @@ type CheckoutLine = {
 };
 
 async function toCheckoutLine(item: CartItem): Promise<CheckoutLine> {
-  const productId = Number(item.id);
-
-  if (Number.isInteger(productId) && productId > 0) {
-    return { productId, quantity: item.quantity, color: item.color };
-  }
-
   try {
-    const product = await fetchProductBySlug(item.slug);
-    return { productId: product.id, quantity: item.quantity, color: item.color };
+    const productId = await resolveProductIdForApi(item);
+    return { productId, quantity: item.quantity, color: item.color };
   } catch {
     throw new ApiError(
       400,

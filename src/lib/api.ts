@@ -331,6 +331,17 @@ export function fetchProductBySlug(slug: string) {
   return apiFetch<ApiProductDetail>(`/api/products/${encodeURIComponent(slug)}`);
 }
 
+export async function resolveProductIdForApi(product: Pick<Product, "id" | "slug">) {
+  const productId = Number(product.id);
+
+  if (Number.isInteger(productId) && productId > 0) {
+    return productId;
+  }
+
+  const liveProduct = await fetchProductBySlug(product.slug);
+  return liveProduct.id;
+}
+
 export function fetchRelatedProducts(slug: string) {
   return apiFetch<ApiProductSummary[]>(`/api/products/${encodeURIComponent(slug)}/related`);
 }

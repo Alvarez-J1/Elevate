@@ -8,6 +8,7 @@ import {
   fetchServerCart,
   login as apiLogin,
   registerAccount as apiRegister,
+  resolveProductIdForApi,
   type ApiUser
 } from "@/lib/api";
 import { useCartStore } from "@/components/store/cart-store";
@@ -90,10 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .items.filter((item) => !item.serverItemId);
 
       for (const item of localItems) {
-        const productId = Number(item.id);
-        if (!Number.isInteger(productId)) {
-          throw new Error("Guest cart item does not map to a server product id");
-        }
+        const productId = await resolveProductIdForApi(item);
 
         const cart = await addServerCartItem(token, {
           productId,

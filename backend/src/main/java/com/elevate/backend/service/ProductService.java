@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,20 +47,17 @@ public class ProductService {
         validateFilters(minPrice, maxPrice, minRating);
 
         ProductSortMode sortMode = resolveSortMode(sort, pageable.getSort());
-        Pageable queryPageable = pageable.isPaged()
-                ? PageRequest.of(pageable.getPageNumber(), pageable.getPageSize())
-                : Pageable.unpaged();
-
-        Page<Product> page = productRepository.search(
+        Pageable queryPageable = withSearchSort(pageable, sortMode);
+        Specification<Product> specification = buildSearchSpecification(
                 normalize(category),
                 normalize(search),
                 minPrice,
                 maxPrice,
                 minRating,
                 inStock,
-                normalize(badge),
-                sortMode.name(),
-                queryPageable);
+                normalize(badge));
+
+        Page<Product> page = productRepository.findAll(specification, queryPageable);
         return PageResponse.from(page.map(productMapper::toSummary));
     }
 
@@ -202,6 +200,84 @@ public class ProductService {
         }
 
         return ProductSortMode.DEFAULT;
+    }
+
+    private Specification<Product> buildSearchSpecification(
+            String category,
+            String search,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            BigDecimal minRating,
+            Boolean inStock,
+            String badge) {
+        Specification<Product> specification = Specification.where(null);
+
+        if (category != null) {
+            String categoryValue = category.toLowerCase(Locale.ROOT);
+            specification = specification.and((root, query, criteriaBuilder) -> {
+                var categoryJoin = root.join("category");
+                return criteriaBuilder.or(
+                        criteriaBuilder.equal(criteriaBuilder.lower(categoryJoin.get("slug")), categoryValue),
+                        criteriaBuilder.equal(criteriaBuilder.lower(categoryJoin.get("name")), categoryValue));
+            });
+        }
+
+        if (search != null) {
+            String searchPattern = "%" + search.toLowerCase(Locale.ROOT) + "%";
+            specification = specification.and((root, query, criteriaBuilder) -> criteriaBuilder.or(
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), searchPattern)));
+        }
+
+        if (minPrice != null) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("price"), minPrice));
+        }
+
+        if (maxPrice != null) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.lessThanOrEqualTo(root.get("price"), maxPrice));
+        }
+
+        if (minRating != null) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.greaterThanOrEqualTo(root.get("rating"), minRating));
+        }
+
+        if (inStock != null) {
+            specification = specification.and((root, query, criteriaBuilder) -> inStock
+                    ? criteriaBuilder.greaterThan(root.get("stock"), 0)
+                    : criteriaBuilder.equal(root.get("stock"), 0));
+        }
+
+        if (badge != null) {
+            String badgeValue = badge.toLowerCase(Locale.ROOT);
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(criteriaBuilder.lower(root.get("badge")), badgeValue));
+        }
+
+        return specification;
+    }
+
+    private Pageable withSearchSort(Pageable pageable, ProductSortMode sortMode) {
+        if (!pageable.isPaged()) {
+            return Pageable.unpaged();
+        }
+
+        return PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sortFor(sortMode));
+    }
+
+    private Sort sortFor(ProductSortMode sortMode) {
+        return switch (sortMode) {
+            case FEATURED -> Sort.by(
+                    Sort.Order.asc("badge").nullsLast(),
+                    Sort.Order.asc("id"));
+            case PRICE_ASC -> Sort.by(Sort.Order.asc("price"), Sort.Order.asc("id"));
+            case PRICE_DESC -> Sort.by(Sort.Order.desc("price"), Sort.Order.asc("id"));
+            case RATING_ASC -> Sort.by(Sort.Order.asc("rating"), Sort.Order.asc("id"));
+            case RATING_DESC -> Sort.by(Sort.Order.desc("rating"), Sort.Order.asc("id"));
+            case DEFAULT -> Sort.by(Sort.Order.asc("id"));
+        };
     }
 
     private ProductSortMode parseSort(String rawSort) {
