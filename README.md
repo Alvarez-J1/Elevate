@@ -2,7 +2,7 @@
 
 Elevate is a full-stack ecommerce storefront built with Next.js, React, TypeScript, Tailwind CSS, Java, Spring Boot, and PostgreSQL. It features secure authentication, product browsing and filtering, persistent cart management, checkout, order history, account activity, and a responsive interface across desktop, tablet and mobile.
 
-<img width="1898" height="908" alt="image" src="https://github.com/user-attachments/assets/d3a4b35b-35f9-46de-bb47-a0eb2b18c081" />
+<img width="1061" height="660" alt="image" src="https://github.com/user-attachments/assets/324f9b03-86cb-497b-9a31-ec01958d3395" />
 
 ## Live Demo
 
