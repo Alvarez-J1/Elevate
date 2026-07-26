@@ -5,7 +5,7 @@ import { Check, ShoppingBag } from "lucide-react";
 
 import { Button, type ButtonSize } from "@/components/ui/button";
 import { useCartStore } from "@/components/store/cart-store";
-import { addServerCartItem } from "@/lib/api";
+import { addServerCartItem, resolveProductIdForApi } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { useGuardedAddToCart } from "@/lib/use-guarded-add-to-cart";
 import type { Product } from "@/types/product";
@@ -56,18 +56,18 @@ export function AddToCartButton({
     // failed/slow sync here never blocks the shopping experience.
     if (isAuthenticated && token) {
       const key = `${product.id}:${color ?? "default"}`;
-      const productId = Number(product.id);
 
-      addServerCartItem(token, { productId, quantity, color })
-        .then((cart) => {
-          const match = cart.items.find(
-            (item) => item.productId === productId && (item.color ?? undefined) === color
-          );
-          if (match) {
-            attachServerId(key, match.id);
-          }
-        })
-        .catch(() => undefined);
+      void (async () => {
+        const productId = await resolveProductIdForApi(product);
+        const cart = await addServerCartItem(token, { productId, quantity, color });
+
+        const match = cart.items.find(
+          (item) => item.productId === productId && (item.color ?? undefined) === color
+        );
+        if (match) {
+          attachServerId(key, match.id);
+        }
+      })().catch(() => undefined);
     }
   }
 
