@@ -16,7 +16,12 @@ function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5 text-ember" aria-label={`${rating} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map((value) => (
-        <Star fill={value <= rating ? "currentColor" : "none"} key={value} size={14} />
+        <Star
+          aria-hidden="true"
+          fill={value <= rating ? "currentColor" : "none"}
+          key={value}
+          size={14}
+        />
       ))}
     </div>
   );
