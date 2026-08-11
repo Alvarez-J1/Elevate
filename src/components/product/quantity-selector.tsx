@@ -26,11 +26,12 @@ export function QuantitySelector({
 }) {
   return (
     <div
+      aria-label="Quantity selector"
       className={cn(
         "inline-flex h-11 items-center rounded-lg border border-white/10 bg-white/[0.055]",
         className
       )}
-      aria-label="Quantity selector"
+      role="group"
     >
       <Button
         aria-label="Decrease quantity"
@@ -40,7 +41,7 @@ export function QuantitySelector({
         size="icon"
         variant="ghost"
       >
-        <Minus size={16} />
+        <Minus aria-hidden="true" size={16} />
       </Button>
       <span
         className={cn(
@@ -60,7 +61,7 @@ export function QuantitySelector({
         size="icon"
         variant="ghost"
       >
-        <Plus size={16} />
+        <Plus aria-hidden="true" size={16} />
       </Button>
     </div>
   );
