@@ -47,6 +47,7 @@ export function Footer() {
                   >
                     {link.label}
                     <ArrowUpRight
+                      aria-hidden="true"
                       className="opacity-0 transition group-hover:opacity-100"
                       size={14}
                     />
