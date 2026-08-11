@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Search, SlidersHorizontal } from "lucide-react";
 
 import { ProductCard } from "@/components/product/product-card";
@@ -32,6 +32,7 @@ export function ShopExperience({
     initialCategory
   );
   const [sort, setSort] = useState<SortOption>("featured");
+  const shouldReduceMotion = useReducedMotion();
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -137,7 +138,7 @@ export function ShopExperience({
       {filteredProducts.length > 0 ? (
         <motion.div
           className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-          layout
+          layout={!shouldReduceMotion}
         >
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
