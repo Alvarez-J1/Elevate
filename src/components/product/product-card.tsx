@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Star } from "lucide-react";
 
 import { AddToCartButton } from "./add-to-cart-button";
@@ -16,13 +16,15 @@ export function ProductCard({
   product: Product;
   compactImageOnMobile?: boolean;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.article
       className="group touch-card touch-card-lift-strong overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] shadow-soft"
       data-touch-card
-      whileHover={{ y: -8 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      layout
+      whileHover={shouldReduceMotion ? undefined : { y: -8 }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
+      layout={!shouldReduceMotion}
     >
       <Link className="block" href={`/product/${product.slug}`}>
         <div
