@@ -47,13 +47,19 @@ export function ProductCard({
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             src={product.images[0]}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent"
+          />
           {product.badge ? (
             <span className="absolute left-4 top-4 rounded-lg border border-white/10 bg-obsidian/70 px-3 py-1 text-xs font-medium text-platinum backdrop-blur-md">
               {product.badge}
             </span>
           ) : null}
-          <span className="touch-card-reveal absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-obsidian/60 text-platinum opacity-0 backdrop-blur-md transition group-hover:opacity-100 group-active:opacity-100">
+          <span
+            aria-hidden="true"
+            className="touch-card-reveal absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-obsidian/60 text-platinum opacity-0 backdrop-blur-md transition group-hover:opacity-100 group-active:opacity-100"
+          >
             <ArrowUpRight size={18} />
           </span>
         </div>
@@ -65,8 +71,10 @@ export function ProductCard({
             {product.category}
           </p>
           <div className="flex items-center gap-1 text-xs text-ember">
-            <Star size={13} fill="currentColor" />
+            <Star aria-hidden="true" size={13} fill="currentColor" />
+            <span className="sr-only">Rated </span>
             <span className="text-silver">{product.rating}</span>
+            <span className="sr-only"> out of 5 stars</span>
           </div>
         </div>
 
