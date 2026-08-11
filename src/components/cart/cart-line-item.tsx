@@ -77,7 +77,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
           size="icon"
           variant="ghost"
         >
-          <Trash2 size={17} />
+          <Trash2 aria-hidden="true" size={17} />
         </Button>
       </div>
     </article>

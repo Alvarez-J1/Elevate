@@ -73,7 +73,11 @@ export function AddToCartButton({
 
   return (
     <Button className={className} onClick={handleAdd} size={size} type="button">
-      {added ? <Check size={18} /> : <ShoppingBag size={18} />}
+      {added ? (
+        <Check aria-hidden="true" size={18} />
+      ) : (
+        <ShoppingBag aria-hidden="true" size={18} />
+      )}
       {added ? "Added" : label}
     </Button>
   );

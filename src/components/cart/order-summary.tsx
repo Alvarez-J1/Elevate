@@ -45,6 +45,7 @@ export function OrderSummary({
           {items.map((item) => (
             <div className="flex items-center gap-3" key={item.key}>
               <div
+                aria-hidden="true"
                 className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: item.accent }}
               />
