@@ -30,7 +30,10 @@ export function ProductGallery({
           src={image}
         />
       ) : null}
-      <div className="absolute inset-0 bg-gradient-to-t from-obsidian/28 via-transparent to-white/[0.03]" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-obsidian/28 via-transparent to-white/[0.03]"
+      />
     </motion.div>
   );
 }
