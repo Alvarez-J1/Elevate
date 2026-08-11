@@ -170,16 +170,17 @@ export function ProductReviews({ slug }: { slug: string }) {
                 </div>
               ) : null}
 
-              <div className="mt-4 flex items-center gap-1">
+              <div aria-label="Rating" className="mt-4 flex items-center gap-1" role="group">
                 {[1, 2, 3, 4, 5].map((value) => (
                   <button
                     aria-label={`Rate ${value} out of 5`}
+                    aria-pressed={rating === value}
                     className="text-ember"
                     key={value}
                     onClick={() => setRating(value)}
                     type="button"
                   >
-                    <Star fill={value <= rating ? "currentColor" : "none"} size={20} />
+                    <Star aria-hidden="true" fill={value <= rating ? "currentColor" : "none"} size={20} />
                   </button>
                 ))}
               </div>
