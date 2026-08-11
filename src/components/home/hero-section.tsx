@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 
 import { buttonClassName } from "../ui/button";
 import { PageTitle } from "../ui/page-title";
 
 export function HeroSection() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="relative isolate min-h-[82svh] overflow-hidden lg:min-h-[76svh] min-[1600px]:min-h-[80svh] min-[1920px]:min-h-[82svh]">
       <Image
@@ -27,9 +29,9 @@ export function HeroSection() {
       <div className="mx-auto grid min-h-[82svh] w-full max-w-7xl items-center px-4 pb-14 pt-20 sm:px-6 lg:min-h-[76svh] lg:px-8 lg:pt-20 min-[1600px]:min-h-[80svh] min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:grid-cols-[minmax(560px,0.78fr)_minmax(0,1fr)] min-[1600px]:gap-20 min-[1600px]:px-12 min-[1600px]:pb-16 min-[1600px]:pt-24 min-[1920px]:min-h-[82svh] min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:grid-cols-[minmax(620px,0.78fr)_minmax(0,1fr)] min-[1920px]:gap-24 min-[1920px]:px-16 min-[1920px]:pb-20 min-[1920px]:pt-28">
         <motion.div
           className="max-w-3xl min-[1600px]:max-w-[760px] min-[1920px]:max-w-[820px]"
-          initial={{ opacity: 0, y: 28 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-sm font-semibold uppercase tracking-[0.32em] text-eyebrow min-[1600px]:text-[0.95rem] min-[1920px]:text-base">
             Premium technology goods
