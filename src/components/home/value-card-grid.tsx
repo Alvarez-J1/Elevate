@@ -25,7 +25,7 @@ export function ValueCardGrid({ items }: { items: ValueCardData[] }) {
             data-touch-card
           >
             <div className="touch-card-icon-glow flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 bg-glacier/12 text-[#a7e3ff] transition duration-300 ease-out group-hover:bg-glacier/18 group-hover:shadow-[0_0_28px_rgba(125,211,252,0.16)] group-active:bg-glacier/18 group-active:shadow-[0_0_28px_rgba(125,211,252,0.16)] sm:h-12 sm:w-12 lg:h-14 lg:w-14">
-              <item.icon className="h-5 w-5 lg:h-6 lg:w-6" />
+              <item.icon aria-hidden="true" className="h-5 w-5 lg:h-6 lg:w-6" />
             </div>
             <h3 className="mt-4 text-base font-semibold text-platinum sm:text-lg lg:mt-7">
               {item.title}
