@@ -60,14 +60,16 @@ export function ShopExperience({
     <div>
       <div className="glass rounded-lg p-3">
         <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto] lg:items-center">
-          <label className="relative block">
+          <label className="relative block" htmlFor="shop-search">
             <span className="sr-only">Search products</span>
             <Search
+              aria-hidden="true"
               className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
               size={18}
             />
             <input
               className="input-shell h-12 pl-11 pr-4 max-[420px]:placeholder:text-transparent"
+              id="shop-search"
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search headphones, cameras, workspace..."
               type="search"
@@ -87,6 +89,7 @@ export function ShopExperience({
             {(["All", ...categories] as Array<ProductCategory | "All">).map(
               (item) => (
                 <button
+                  aria-pressed={category === item}
                   className={cn(
                     "h-10 flex-none cursor-pointer rounded-lg px-4 text-sm transition",
                     category === item
@@ -103,14 +106,16 @@ export function ShopExperience({
             )}
           </div>
 
-          <label className="relative block">
+          <label className="relative block" htmlFor="shop-sort">
             <span className="sr-only">Sort products</span>
             <SlidersHorizontal
+              aria-hidden="true"
               className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
               size={18}
             />
             <select
               className="input-shell h-12 min-w-52 cursor-pointer appearance-none pl-11 pr-9"
+              id="shop-sort"
               onChange={(event) => setSort(event.target.value as SortOption)}
               value={sort}
             >
