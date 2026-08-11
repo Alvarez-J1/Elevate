@@ -158,14 +158,17 @@ export function ProductReviews({ slug }: { slug: string }) {
                     onClick={handleDelete}
                     type="button"
                   >
-                    <Trash2 size={16} />
+                    <Trash2 aria-hidden="true" size={16} />
                   </button>
                 ) : null}
               </div>
 
               {error ? (
-                <div className="mt-3 flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-200">
-                  <AlertCircle className="mt-0.5 flex-none" size={14} />
+                <div
+                  className="mt-3 flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-200"
+                  role="alert"
+                >
+                  <AlertCircle aria-hidden="true" className="mt-0.5 flex-none" size={14} />
                   <p>{error}</p>
                 </div>
               ) : null}
