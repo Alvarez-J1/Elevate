@@ -80,7 +80,7 @@ export function ProductDetails({
             <Link className="transition hover:text-platinum" href="/shop">
               Shop
             </Link>
-            <span className="px-2 text-muted">/</span>
+            <span aria-hidden="true" className="px-2 text-muted">/</span>
             <span className="text-platinum">{product.name}</span>
           </div>
 
@@ -127,6 +127,7 @@ export function ProductDetails({
                     type="button"
                   >
                     <span
+                      aria-hidden="true"
                       className="h-4 w-4 rounded-full border border-white/20"
                       style={{ backgroundColor: color.value }}
                     />
@@ -171,7 +172,7 @@ export function ProductDetails({
                   className="rounded-lg border border-white/10 bg-white/[0.045] p-4"
                   key={item.title}
                 >
-                  <item.icon className="text-glacier" size={18} />
+                  <item.icon aria-hidden="true" className="text-glacier" size={18} />
                   <p className="mt-3 text-sm font-medium leading-5 text-platinum">
                     {item.title}
                   </p>
@@ -190,7 +191,7 @@ export function ProductDetails({
               <ul className="mt-5 grid gap-3 text-sm text-silver">
                 {product.features.map((feature) => (
                   <li className="flex gap-3" key={feature}>
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-glacier" />
+                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-glacier" />
                     <span>{feature}</span>
                   </li>
                 ))}
