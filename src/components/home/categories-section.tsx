@@ -53,13 +53,17 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
                         src={category.image}
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian/92 via-obsidian/26 to-transparent" />
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-gradient-to-t from-obsidian/92 via-obsidian/26 to-transparent"
+                    />
                     <div className="absolute inset-x-0 bottom-0 p-4">
                       <div className="flex items-center justify-between gap-3">
                         <h3 className="text-lg font-semibold text-platinum">
                           {category.name}
                         </h3>
                         <ArrowUpRight
+                          aria-hidden="true"
                           className="touch-card-reveal text-white opacity-0 transition group-hover:opacity-100 group-active:opacity-100"
                           size={18}
                         />
