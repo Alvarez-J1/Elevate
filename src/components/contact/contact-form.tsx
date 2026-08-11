@@ -79,8 +79,11 @@ export function ContactForm() {
       onSubmit={handleSubmit}
     >
       {error ? (
-        <div className="mb-5 flex items-start gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200">
-          <AlertCircle className="mt-0.5 flex-none" size={16} />
+        <div
+          className="mb-5 flex items-start gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200"
+          role="alert"
+        >
+          <AlertCircle aria-hidden="true" className="mt-0.5 flex-none" size={16} />
           <div>
             <p>{error}</p>
             {fieldErrors.length > 0 ? (
