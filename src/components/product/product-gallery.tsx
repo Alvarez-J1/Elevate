@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function ProductGallery({
   images,
@@ -10,14 +10,15 @@ export function ProductGallery({
   images: string[];
   name: string;
 }) {
+  const shouldReduceMotion = useReducedMotion();
   const image = images[0];
 
   return (
     <motion.div
       className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-white/10 bg-carbon shadow-soft min-[650px]:aspect-[3/2] lg:mx-auto lg:max-w-[660px]"
-      initial={{ opacity: 0.72, scale: 0.985 }}
+      initial={shouldReduceMotion ? false : { opacity: 0.72, scale: 0.985 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
     >
       {image ? (
         <Image
