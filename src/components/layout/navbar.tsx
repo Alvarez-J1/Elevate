@@ -176,7 +176,7 @@ export function Navbar() {
             })}
             href="/shop"
           >
-            <Search size={20} />
+            <Search aria-hidden="true" size={20} />
           </Link>
           <Link
             aria-label={accountAriaLabel}
@@ -187,7 +187,7 @@ export function Navbar() {
             })}
             href={accountHref}
           >
-            <User size={20} />
+            <User aria-hidden="true" size={20} />
           </Link>
           <Link
             aria-label={`Cart with ${showCartCount ? count : 0} items`}
@@ -198,9 +198,12 @@ export function Navbar() {
             })}
             href={cartHref}
           >
-            <ShoppingBag size={20} />
+            <ShoppingBag aria-hidden="true" size={20} />
             {showCartCount ? (
-              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-glacier px-1 text-[11px] font-semibold text-obsidian">
+              <span
+                aria-hidden="true"
+                className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-glacier px-1 text-[11px] font-semibold text-obsidian"
+              >
                 {count}
               </span>
             ) : null}
@@ -220,7 +223,7 @@ export function Navbar() {
             ref={menuButtonRef}
             type="button"
           >
-            {isMenuOpen ? <X size={19} /> : <Menu size={19} />}
+            {isMenuOpen ? <X aria-hidden="true" size={19} /> : <Menu aria-hidden="true" size={19} />}
           </button>
         </div>
       </nav>
@@ -264,7 +267,7 @@ export function Navbar() {
                   onClick={() => closeMenu(true)}
                   type="button"
                 >
-                  <X size={18} />
+                  <X aria-hidden="true" size={18} />
                 </button>
               </div>
 
