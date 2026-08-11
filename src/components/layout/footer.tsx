@@ -36,7 +36,7 @@ export function Footer() {
           </div>
 
           {columns.map((column) => (
-            <div key={column.title}>
+            <nav aria-label={`${column.title} links`} key={column.title}>
               <h2 className="text-2xl font-semibold text-platinum">{column.title}</h2>
               <div className="mt-4 grid gap-3">
                 {column.links.map((link) => (
@@ -54,7 +54,7 @@ export function Footer() {
                   </Link>
                 ))}
               </div>
-            </div>
+            </nav>
           ))}
         </div>
 
