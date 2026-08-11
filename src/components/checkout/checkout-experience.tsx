@@ -142,7 +142,7 @@ export function CheckoutExperience() {
     return (
       <div className="mx-auto max-w-3xl rounded-lg border border-white/10 bg-white/[0.045] p-8 text-center shadow-soft">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-glacier/15 text-glacier">
-          <PackageCheck size={28} />
+          <PackageCheck aria-hidden="true" size={28} />
         </div>
         <p className="mt-6 text-xs font-semibold uppercase tracking-[0.28em] text-eyebrow">
           Order confirmed
@@ -203,7 +203,7 @@ export function CheckoutExperience() {
       >
         <div className="flex items-center gap-3 border-b border-white/10 pb-5">
           <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-glacier/12 text-glacier">
-            <Lock size={20} />
+            <Lock aria-hidden="true" size={20} />
           </div>
           <div>
             <h2 className="text-xl font-semibold text-platinum">Checkout</h2>
@@ -217,7 +217,7 @@ export function CheckoutExperience() {
 
         {error ? (
           <div className="mt-5 flex items-start gap-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200">
-            <AlertCircle className="mt-0.5 flex-none" size={16} />
+            <AlertCircle aria-hidden="true" className="mt-0.5 flex-none" size={16} />
             <p>{error}</p>
           </div>
         ) : null}
@@ -225,41 +225,43 @@ export function CheckoutExperience() {
         <section className="mt-6">
           <h3 className="text-lg font-semibold text-platinum">Shipping</h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <label className="block">
+            <label className="block" htmlFor="checkout-first-name">
               <span className="mb-2 block text-sm text-silver">First name</span>
-              <input className="input-shell h-12 px-4" name="firstName" required />
+              <input className="input-shell h-12 px-4" id="checkout-first-name" name="firstName" required />
             </label>
-            <label className="block">
+            <label className="block" htmlFor="checkout-last-name">
               <span className="mb-2 block text-sm text-silver">Last name</span>
-              <input className="input-shell h-12 px-4" name="lastName" required />
+              <input className="input-shell h-12 px-4" id="checkout-last-name" name="lastName" required />
             </label>
-            <label className="block sm:col-span-2">
+            <label className="block sm:col-span-2" htmlFor="checkout-email">
               <span className="mb-2 block text-sm text-silver">Email</span>
               <input
                 className="input-shell h-12 px-4"
                 defaultValue={user?.email}
+                id="checkout-email"
                 name="email"
                 required
                 type="email"
               />
             </label>
-            <label className="block sm:col-span-2">
+            <label className="block sm:col-span-2" htmlFor="checkout-address-line-1">
               <span className="mb-2 block text-sm text-silver">Address</span>
-              <input className="input-shell h-12 px-4" name="addressLine1" required />
+              <input className="input-shell h-12 px-4" id="checkout-address-line-1" name="addressLine1" required />
             </label>
-            <label className="block">
+            <label className="block" htmlFor="checkout-city">
               <span className="mb-2 block text-sm text-silver">City</span>
-              <input className="input-shell h-12 px-4" name="city" required />
+              <input className="input-shell h-12 px-4" id="checkout-city" name="city" required />
             </label>
-            <label className="block">
+            <label className="block" htmlFor="checkout-postal-code">
               <span className="mb-2 block text-sm text-silver">Postal code</span>
-              <input className="input-shell h-12 px-4" name="postalCode" required />
+              <input className="input-shell h-12 px-4" id="checkout-postal-code" name="postalCode" required />
             </label>
-            <label className="block sm:col-span-2">
+            <label className="block sm:col-span-2" htmlFor="checkout-country">
               <span className="mb-2 block text-sm text-silver">Country</span>
               <input
                 className="input-shell h-12 px-4"
                 defaultValue="United States"
+                id="checkout-country"
                 name="country"
                 required
               />
@@ -269,7 +271,7 @@ export function CheckoutExperience() {
 
         <section className="mt-8">
           <div className="flex items-center gap-3">
-            <CreditCard className="text-glacier" size={20} />
+            <CreditCard aria-hidden="true" className="text-glacier" size={20} />
             <h3 className="text-lg font-semibold text-platinum">Payment</h3>
           </div>
           <div className="mt-4 rounded-lg border border-white/10 bg-obsidian/40 p-4">
@@ -277,27 +279,30 @@ export function CheckoutExperience() {
               Portfolio project - payment details below are never sent anywhere; the order is created directly.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block sm:col-span-2">
+              <label className="block sm:col-span-2" htmlFor="checkout-card-number">
                 <span className="mb-2 block text-sm text-silver">Card number</span>
                 <input
                   className="input-shell h-12 px-4"
+                  id="checkout-card-number"
                   inputMode="numeric"
                   placeholder="4242 4242 4242 4242"
                   required
                 />
               </label>
-              <label className="block">
+              <label className="block" htmlFor="checkout-card-expiry">
                 <span className="mb-2 block text-sm text-silver">Expiry</span>
                 <input
                   className="input-shell h-12 px-4"
+                  id="checkout-card-expiry"
                   placeholder="12 / 30"
                   required
                 />
               </label>
-              <label className="block">
+              <label className="block" htmlFor="checkout-card-cvc">
                 <span className="mb-2 block text-sm text-silver">CVC</span>
                 <input
                   className="input-shell h-12 px-4"
+                  id="checkout-card-cvc"
                   inputMode="numeric"
                   placeholder="123"
                   required
@@ -308,7 +313,7 @@ export function CheckoutExperience() {
         </section>
 
         <Button className="mt-8 w-full" disabled={isProcessing} size="lg" type="submit">
-          {isProcessing ? <CreditCard size={18} /> : <Check size={18} />}
+          {isProcessing ? <CreditCard aria-hidden="true" size={18} /> : <Check aria-hidden="true" size={18} />}
           {isProcessing ? "Processing" : "Place order"}
         </Button>
       </form>
