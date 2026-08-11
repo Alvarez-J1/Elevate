@@ -192,6 +192,10 @@ textarea {
     animation: none;
   }
 
+  .animate-pulse {
+    animation: none !important;
+  }
+
   .touch-card,
   .touch-card * {
     transition-duration: 1ms !important;
