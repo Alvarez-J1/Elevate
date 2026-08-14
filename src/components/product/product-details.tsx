@@ -87,11 +87,14 @@ export function ProductDetails({
           <div className="grid gap-10">
             <ProductGallery images={product.images} name={product.name} />
 
-            <section>
+            <section aria-labelledby="product-title">
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-eyebrow">
               {product.category}
             </p>
-            <h1 className="mt-eyebrow-heading text-4xl font-semibold leading-tight text-platinum sm:text-5xl">
+            <h1
+              className="mt-eyebrow-heading text-4xl font-semibold leading-tight text-platinum sm:text-5xl"
+              id="product-title"
+            >
               {product.name}
             </h1>
             <p className="mt-4 text-lg leading-8 text-silver">{product.tagline}</p>
