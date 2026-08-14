@@ -86,7 +86,11 @@ export function ShopExperience({
             )}
           </label>
 
-          <div className="flex gap-2 overflow-x-auto pb-1 lg:pb-0">
+          <div
+            aria-label="Filter by category"
+            className="flex gap-2 overflow-x-auto pb-1 lg:pb-0"
+            role="group"
+          >
             {(["All", ...categories] as Array<ProductCategory | "All">).map(
               (item) => (
                 <button
