@@ -74,6 +74,7 @@ export function ContactForm() {
 
   return (
     <form
+      aria-label="Contact form"
       className="rounded-lg border border-white/10 bg-white/[0.045] p-6 shadow-soft sm:p-8"
       noValidate={false}
       onSubmit={handleSubmit}
