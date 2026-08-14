@@ -140,7 +140,11 @@ export function CheckoutExperience() {
 
   if (confirmation) {
     return (
-      <div className="mx-auto max-w-3xl rounded-lg border border-white/10 bg-white/[0.045] p-8 text-center shadow-soft">
+      <div
+        aria-live="polite"
+        className="mx-auto max-w-3xl rounded-lg border border-white/10 bg-white/[0.045] p-8 text-center shadow-soft"
+        role="status"
+      >
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-glacier/15 text-glacier">
           <PackageCheck aria-hidden="true" size={28} />
         </div>
