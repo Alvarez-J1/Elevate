@@ -21,12 +21,12 @@ export function BrandLogo({
 }: BrandLogoProps) {
   return (
     <Link
-      aria-label="Elevate Premium Technology Goods"
+      aria-label="Elevate home"
       className={cn("inline-flex items-center", className)}
       href="/"
     >
       <Image
-        alt="Elevate Premium Technology Goods"
+        alt=""
         className={cn("w-auto object-contain", logoClassNames[variant])}
         height={160}
         priority={priority}
