@@ -40,6 +40,8 @@ type CartState = {
   replaceWithServerCart: (serverItems: ApiCartItem[]) => void;
 };
 
+type PersistedCartState = Pick<CartState, "items">;
+
 function createCartKey(productId: string, color?: string): string {
   return `${productId}:${color ?? "default"}`;
 }
@@ -141,7 +143,7 @@ export const useCartStore = create<CartState>()(
     {
       name: "premium-ecommerce-cart",
       storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({ items: state.items }),
+      partialize: (state): PersistedCartState => ({ items: state.items }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       }
