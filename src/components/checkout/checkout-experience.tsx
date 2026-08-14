@@ -318,7 +318,13 @@ export function CheckoutExperience() {
           </div>
         </section>
 
-        <Button className="mt-8 w-full" disabled={isProcessing} size="lg" type="submit">
+        <Button
+          aria-busy={isProcessing}
+          className="mt-8 w-full"
+          disabled={isProcessing}
+          size="lg"
+          type="submit"
+        >
           {isProcessing ? <CreditCard aria-hidden="true" size={18} /> : <Check aria-hidden="true" size={18} />}
           {isProcessing ? "Processing" : "Place order"}
         </Button>
