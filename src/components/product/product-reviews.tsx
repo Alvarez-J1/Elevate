@@ -144,11 +144,12 @@ export function ProductReviews({ slug }: { slug: string }) {
 
           {isAuthenticated ? (
             <form
+              aria-labelledby="review-form-heading"
               className="h-fit rounded-lg border border-white/10 bg-white/[0.045] p-5"
               onSubmit={handleSubmit}
             >
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-sm font-semibold text-platinum">
+                <h3 className="text-sm font-semibold text-platinum" id="review-form-heading">
                   {myReview ? "Edit your review" : "Leave a review"}
                 </h3>
                 {myReview ? (
