@@ -112,7 +112,7 @@ export function ProductReviews({ slug }: { slug: string }) {
         />
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_22rem]">
-          <div className="grid gap-4">
+          <div className="grid gap-4" role={reviews && reviews.length > 0 ? "list" : undefined}>
             {reviews === null ? (
               <>
                 <Skeleton className="h-24" />
@@ -125,6 +125,7 @@ export function ProductReviews({ slug }: { slug: string }) {
                 <div
                   className="rounded-lg border border-white/10 bg-white/[0.035] p-5"
                   key={review.id}
+                  role="listitem"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <p className="font-medium text-platinum">{review.reviewerName}</p>
