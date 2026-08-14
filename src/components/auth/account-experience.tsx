@@ -195,7 +195,10 @@ export function AccountExperience() {
       >
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex min-w-0 gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/10 bg-glacier/12 text-sm font-semibold text-[#a7e3ff]">
+            <div
+              aria-hidden="true"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/10 bg-glacier/12 text-sm font-semibold text-[#a7e3ff]"
+            >
               {initials}
             </div>
             <div className="min-w-0">
