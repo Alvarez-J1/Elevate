@@ -40,11 +40,12 @@ export function CartLineItem({ item }: { item: CartItem }) {
       className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 sm:grid-cols-[7rem_1fr_auto]"
     >
       <Link
+        aria-label={`View ${item.name}`}
         className="relative aspect-square self-start overflow-hidden rounded-lg bg-carbon"
         href={`/product/${item.slug}`}
       >
         <Image
-          alt={item.name}
+          alt=""
           className="object-cover"
           fill
           sizes="(min-width: 640px) 112px, 88px"
