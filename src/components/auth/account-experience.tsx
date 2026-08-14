@@ -298,7 +298,10 @@ export function AccountExperience() {
                     </div>
                   )}
                   {order.items.length > 1 ? (
-                    <span className="absolute bottom-1 right-1 rounded-md border border-white/10 bg-obsidian/80 px-1.5 py-0.5 text-[10px] font-medium text-platinum backdrop-blur-md">
+                    <span
+                      aria-hidden="true"
+                      className="absolute bottom-1 right-1 rounded-md border border-white/10 bg-obsidian/80 px-1.5 py-0.5 text-[10px] font-medium text-platinum backdrop-blur-md"
+                    >
                       +{order.items.length - 1}
                     </span>
                   ) : null}
