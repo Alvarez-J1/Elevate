@@ -16,6 +16,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
   const { token } = useAuth();
+  const titleId = `cart-item-title-${item.key}`;
 
   function handleQuantityChange(quantity: number) {
     updateQuantity(item.key, quantity);
@@ -34,7 +35,10 @@ export function CartLineItem({ item }: { item: CartItem }) {
   }
 
   return (
-    <article className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 sm:grid-cols-[7rem_1fr_auto]">
+    <article
+      aria-labelledby={titleId}
+      className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 sm:grid-cols-[7rem_1fr_auto]"
+    >
       <Link
         className="relative aspect-square self-start overflow-hidden rounded-lg bg-carbon"
         href={`/product/${item.slug}`}
@@ -53,7 +57,10 @@ export function CartLineItem({ item }: { item: CartItem }) {
           {item.category}
         </p>
         <Link href={`/product/${item.slug}`}>
-          <h2 className="mt-eyebrow-heading text-lg font-semibold text-platinum transition hover:text-white">
+          <h2
+            className="mt-eyebrow-heading text-lg font-semibold text-platinum transition hover:text-white"
+            id={titleId}
+          >
             {item.name}
           </h2>
         </Link>
