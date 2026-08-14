@@ -198,6 +198,7 @@ export function CheckoutExperience() {
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_24rem] lg:items-start">
       <form
+        aria-labelledby="checkout-heading"
         className="rounded-lg border border-white/10 bg-white/[0.045] p-5 shadow-soft sm:p-6"
         onSubmit={handleSubmit}
       >
@@ -206,7 +207,9 @@ export function CheckoutExperience() {
             <Lock aria-hidden="true" size={20} />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-platinum">Checkout</h2>
+            <h2 className="text-xl font-semibold text-platinum" id="checkout-heading">
+              Checkout
+            </h2>
             <p className="mt-1 text-sm text-silver">
               {isAuthenticated
                 ? "Placing this order under your account."
