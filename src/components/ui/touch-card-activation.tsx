@@ -6,7 +6,7 @@ const CARD_SELECTOR = "[data-touch-card]";
 const CONTROL_SELECTOR =
   "button, input, select, textarea, [role='button'], [data-touch-card-ignore]";
 
-function isCoarsePointer(event: PointerEvent) {
+function isCoarsePointer(event: PointerEvent): boolean {
   if (event.pointerType === "mouse") {
     return false;
   }
@@ -19,17 +19,17 @@ function isCoarsePointer(event: PointerEvent) {
   );
 }
 
-function getActiveCard() {
+function getActiveCard(): HTMLElement | null {
   return document.querySelector<HTMLElement>(
     `${CARD_SELECTOR}[data-touch-card-active="true"]`
   );
 }
 
-function clearActiveCard() {
+function clearActiveCard(): void {
   getActiveCard()?.removeAttribute("data-touch-card-active");
 }
 
-function setActiveCard(card: HTMLElement) {
+function setActiveCard(card: HTMLElement): void {
   const activeCard = getActiveCard();
 
   if (activeCard && activeCard !== card) {
