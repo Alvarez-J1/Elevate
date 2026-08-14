@@ -238,8 +238,10 @@ export function AccountExperience() {
         </div>
       </div>
 
-      <section>
-        <h2 className="text-lg font-semibold text-platinum">Order history</h2>
+      <section aria-labelledby="account-order-history-heading">
+        <h2 className="text-lg font-semibold text-platinum" id="account-order-history-heading">
+          Order history
+        </h2>
 
         {orders === null ? (
           <div className="mt-5 grid w-full gap-3 xl:max-w-[42rem]">
