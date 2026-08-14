@@ -39,6 +39,7 @@ export function NewsletterSection() {
                 Email address
               </label>
               <input
+                aria-describedby="newsletter-message"
                 autoComplete="email"
                 className="input-shell min-h-[50px] flex-1 px-4 text-base placeholder:text-muted focus:border-glacier/70 focus:outline-none sm:min-h-0 sm:h-12"
                 id="newsletter-email"
@@ -56,7 +57,7 @@ export function NewsletterSection() {
               </Button>
             </form>
 
-            <div className="mt-4 min-h-11 text-lg leading-7">
+            <div className="mt-4 min-h-11 text-lg leading-7" id="newsletter-message">
               {submitted ? (
                 <div className="text-silver" role="status" aria-live="polite">
                   <p className="font-medium text-platinum">
