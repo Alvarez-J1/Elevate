@@ -69,6 +69,7 @@ export function ShopExperience({
               size={18}
             />
             <input
+              aria-controls="shop-results"
               className="input-shell h-12 pl-11 pr-4 max-[420px]:placeholder:text-transparent"
               id="shop-search"
               onChange={(event) => setQuery(event.target.value)}
@@ -119,6 +120,7 @@ export function ShopExperience({
               size={18}
             />
             <select
+              aria-controls="shop-results"
               className="input-shell h-12 min-w-52 cursor-pointer appearance-none pl-11 pr-9"
               id="shop-sort"
               onChange={(event) => setSort(event.target.value as SortOption)}
@@ -141,23 +143,25 @@ export function ShopExperience({
         <p className="hidden sm:block">Premium Catalog</p>
       </div>
 
-      {filteredProducts.length > 0 ? (
-        <motion.div
-          className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-          layout={!shouldReduceMotion}
-        >
-          {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </motion.div>
-      ) : (
-        <EmptyState
-          className="mt-8"
-          icon={<Search size={22} />}
-          title="No products found"
-          description="Try a different keyword, clear the category filter, or sort from the full collection."
-        />
-      )}
+      <div id="shop-results">
+        {filteredProducts.length > 0 ? (
+          <motion.div
+            className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            layout={!shouldReduceMotion}
+          >
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </motion.div>
+        ) : (
+          <EmptyState
+            className="mt-8"
+            icon={<Search size={22} />}
+            title="No products found"
+            description="Try a different keyword, clear the category filter, or sort from the full collection."
+          />
+        )}
+      </div>
     </div>
   );
 }
