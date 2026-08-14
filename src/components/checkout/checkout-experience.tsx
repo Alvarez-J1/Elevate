@@ -294,6 +294,7 @@ export function CheckoutExperience() {
               <label className="block sm:col-span-2" htmlFor="checkout-card-number">
                 <span className="mb-2 block text-sm text-silver">Card number</span>
                 <input
+                  autoComplete="cc-number"
                   className="input-shell h-12 px-4"
                   id="checkout-card-number"
                   inputMode="numeric"
@@ -304,6 +305,7 @@ export function CheckoutExperience() {
               <label className="block" htmlFor="checkout-card-expiry">
                 <span className="mb-2 block text-sm text-silver">Expiry</span>
                 <input
+                  autoComplete="cc-exp"
                   className="input-shell h-12 px-4"
                   id="checkout-card-expiry"
                   placeholder="12 / 30"
@@ -313,6 +315,7 @@ export function CheckoutExperience() {
               <label className="block" htmlFor="checkout-card-cvc">
                 <span className="mb-2 block text-sm text-silver">CVC</span>
                 <input
+                  autoComplete="cc-csc"
                   className="input-shell h-12 px-4"
                   id="checkout-card-cvc"
                   inputMode="numeric"
