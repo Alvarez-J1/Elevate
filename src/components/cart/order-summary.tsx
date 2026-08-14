@@ -38,8 +38,13 @@ export function OrderSummary({
   const totals = calculateOrderTotals(items);
 
   return (
-    <aside className="rounded-lg border border-white/10 bg-white/[0.045] p-5 shadow-soft">
-      <h2 className="text-lg font-semibold text-platinum">Order summary</h2>
+    <aside
+      aria-labelledby="order-summary-heading"
+      className="rounded-lg border border-white/10 bg-white/[0.045] p-5 shadow-soft"
+    >
+      <h2 className="text-lg font-semibold text-platinum" id="order-summary-heading">
+        Order summary
+      </h2>
       {!compact ? (
         <div className="mt-5 grid gap-4">
           {items.map((item) => (
