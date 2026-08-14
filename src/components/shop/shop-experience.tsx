@@ -135,7 +135,9 @@ export function ShopExperience({
       </div>
 
       <div className="mt-6 flex items-center justify-between text-sm text-silver">
-        <p>{filteredProducts.length} products</p>
+        <p aria-live="polite" role="status">
+          {filteredProducts.length} products
+        </p>
         <p className="hidden sm:block">Premium Catalog</p>
       </div>
 
