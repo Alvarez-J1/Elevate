@@ -61,7 +61,7 @@ export function NewsletterSection() {
               {submitted ? (
                 <div className="text-silver" role="status" aria-live="polite">
                   <p className="font-medium text-platinum">
-                    &#10003; Thanks for subscribing.
+                    <span aria-hidden="true">&#10003;</span> Thanks for subscribing.
                   </p>
                   <p className="mt-1 text-muted">
                     We&apos;ll keep you updated on new releases.
