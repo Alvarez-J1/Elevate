@@ -199,19 +199,19 @@ export function ProductDetails({
               </ul>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <dl className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
               {Object.entries(product.specs).map(([label, value]) => (
                 <div
                   className="rounded-lg border border-white/10 bg-white/[0.035] p-4"
                   key={label}
                 >
-                  <p className="text-xs uppercase tracking-[0.2em] text-muted">
+                  <dt className="text-xs uppercase tracking-[0.2em] text-muted">
                     {label}
-                  </p>
-                  <p className="mt-2 text-sm text-platinum">{value}</p>
+                  </dt>
+                  <dd className="mt-2 text-sm text-platinum">{value}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
             </section>
           </div>
         </div>
