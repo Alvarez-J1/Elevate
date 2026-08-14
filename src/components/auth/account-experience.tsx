@@ -332,8 +332,10 @@ export function AccountExperience() {
       </section>
 
       {recentActivity.length > 0 ? (
-        <section className="w-full xl:max-w-[42rem]">
-          <h2 className="text-lg font-semibold text-platinum">Recent activity</h2>
+        <section aria-labelledby="account-recent-activity-heading" className="w-full xl:max-w-[42rem]">
+          <h2 className="text-lg font-semibold text-platinum" id="account-recent-activity-heading">
+            Recent activity
+          </h2>
           <div className="mt-5 divide-y divide-white/10 border-b border-white/10">
             {recentActivity.map((item) => (
               <div
