@@ -237,16 +237,17 @@ export function CheckoutExperience() {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block" htmlFor="checkout-first-name">
               <span className="mb-2 block text-sm text-silver">First name</span>
-              <input className="input-shell h-12 px-4" id="checkout-first-name" name="firstName" required />
+              <input autoComplete="given-name" className="input-shell h-12 px-4" id="checkout-first-name" name="firstName" required />
             </label>
             <label className="block" htmlFor="checkout-last-name">
               <span className="mb-2 block text-sm text-silver">Last name</span>
-              <input className="input-shell h-12 px-4" id="checkout-last-name" name="lastName" required />
+              <input autoComplete="family-name" className="input-shell h-12 px-4" id="checkout-last-name" name="lastName" required />
             </label>
             <label className="block sm:col-span-2" htmlFor="checkout-email">
               <span className="mb-2 block text-sm text-silver">Email</span>
               <input
                 className="input-shell h-12 px-4"
+                autoComplete="email"
                 defaultValue={user?.email}
                 id="checkout-email"
                 name="email"
@@ -256,20 +257,21 @@ export function CheckoutExperience() {
             </label>
             <label className="block sm:col-span-2" htmlFor="checkout-address-line-1">
               <span className="mb-2 block text-sm text-silver">Address</span>
-              <input className="input-shell h-12 px-4" id="checkout-address-line-1" name="addressLine1" required />
+              <input autoComplete="address-line1" className="input-shell h-12 px-4" id="checkout-address-line-1" name="addressLine1" required />
             </label>
             <label className="block" htmlFor="checkout-city">
               <span className="mb-2 block text-sm text-silver">City</span>
-              <input className="input-shell h-12 px-4" id="checkout-city" name="city" required />
+              <input autoComplete="address-level2" className="input-shell h-12 px-4" id="checkout-city" name="city" required />
             </label>
             <label className="block" htmlFor="checkout-postal-code">
               <span className="mb-2 block text-sm text-silver">Postal code</span>
-              <input className="input-shell h-12 px-4" id="checkout-postal-code" name="postalCode" required />
+              <input autoComplete="postal-code" className="input-shell h-12 px-4" id="checkout-postal-code" name="postalCode" required />
             </label>
             <label className="block sm:col-span-2" htmlFor="checkout-country">
               <span className="mb-2 block text-sm text-silver">Country</span>
               <input
                 className="input-shell h-12 px-4"
+                autoComplete="country-name"
                 defaultValue="United States"
                 id="checkout-country"
                 name="country"
