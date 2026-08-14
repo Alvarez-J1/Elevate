@@ -39,16 +39,18 @@ export function buttonClassName({
   );
 }
 
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+};
+
 export function Button({
   className,
   variant = "primary",
   size = "md",
   type = "button",
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-}) {
+}: ButtonProps) {
   return (
     <button
       className={buttonClassName({ variant, size, className })}
