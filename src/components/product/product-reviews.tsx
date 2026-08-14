@@ -103,7 +103,7 @@ export function ProductReviews({ slug }: { slug: string }) {
   }
 
   return (
-    <section className="mt-24">
+    <section aria-label="Product reviews" className="mt-24">
       <Container>
         <SectionHeader
           eyebrow="Reviews"
