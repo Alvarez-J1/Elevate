@@ -112,10 +112,11 @@ export function ProductDetails({
 
             <div className="mt-8">
               <h2 className="text-sm font-semibold text-platinum">Finish</h2>
-              <div className="mt-3 flex flex-wrap gap-3">
+              <div aria-label="Choose a finish" className="mt-3 flex flex-wrap gap-3" role="group">
                 {product.colors.map((color) => (
                   <button
                     aria-label={`Select ${color.name}`}
+                    aria-pressed={selectedColor === color.name}
                     className={cn(
                       "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition",
                       selectedColor === color.name
