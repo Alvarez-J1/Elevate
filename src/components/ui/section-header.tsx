@@ -19,13 +19,15 @@ export function SectionHeader({
   title,
   description,
   className,
-  descriptionClassName
+  descriptionClassName,
+  titleId
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   className?: string;
   descriptionClassName?: string;
+  titleId?: string;
 }) {
   return (
     <div className={cn("max-w-3xl", className)}>
@@ -35,7 +37,9 @@ export function SectionHeader({
         </p>
       ) : null}
 
-      <h2 className={sectionTitleClassName()}>{title}</h2>
+      <h2 className={sectionTitleClassName()} id={titleId}>
+        {title}
+      </h2>
       {description ? (
         <p
           className={cn(
