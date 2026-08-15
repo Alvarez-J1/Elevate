@@ -65,6 +65,7 @@ export function RegisterForm({ returnTo }: { returnTo?: string }) {
 
   return (
     <form
+      aria-label="Create account form"
       className="mx-auto w-full max-w-[28rem] rounded-lg border border-white/10 bg-white/[0.045] p-6 shadow-soft sm:p-8"
       onSubmit={handleSubmit}
     >
