@@ -10,12 +10,13 @@ import type { Product } from "@/types/product";
 
 export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
-    <section className="home-section">
+    <section aria-labelledby="featured-products-heading" className="home-section">
       <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <FadeIn>
             <SectionHeader
               eyebrow="Featured"
+              titleId="featured-products-heading"
               title="High-quality tech for productivity and enjoyment"
               description="A collection of headphones, watches, cameras, and workspace accessories."
               descriptionClassName="text-lg"
