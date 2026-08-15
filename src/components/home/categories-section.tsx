@@ -10,11 +10,15 @@ import type { Category } from "@/types/product";
 
 export function CategoriesSection({ categories }: { categories: Category[] }) {
   return (
-    <section className="home-section bg-white/[0.025]">
+    <section
+      aria-labelledby="categories-heading"
+      className="home-section bg-white/[0.025]"
+    >
       <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <FadeIn>
           <SectionHeader
             eyebrow="Categories"
+            titleId="categories-heading"
             title="Explore collections built for work, travel, and everyday use."
             description="Explore premium technology designed for work, travel, entertainment, and everyday use."
           />
