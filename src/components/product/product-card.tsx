@@ -17,9 +17,11 @@ export function ProductCard({
   compactImageOnMobile?: boolean;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const titleId = `product-card-title-${product.slug}`;
 
   return (
     <motion.article
+      aria-labelledby={titleId}
       className="group touch-card touch-card-lift-strong overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] shadow-soft"
       data-touch-card
       whileHover={shouldReduceMotion ? undefined : { y: -8 }}
@@ -79,7 +81,10 @@ export function ProductCard({
         </div>
 
         <Link href={`/product/${product.slug}`}>
-          <h3 className="touch-card-title-bright text-lg font-semibold text-platinum transition group-hover:text-white group-active:text-white">
+          <h3
+            className="touch-card-title-bright text-lg font-semibold text-platinum transition group-hover:text-white group-active:text-white"
+            id={titleId}
+          >
             {product.name}
           </h3>
         </Link>
