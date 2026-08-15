@@ -46,9 +46,9 @@ export function OrderSummary({
         Order summary
       </h2>
       {!compact ? (
-        <div className="mt-5 grid gap-4">
+        <div className="mt-5 grid gap-4" role="list">
           {items.map((item) => (
-            <div className="flex items-center gap-3" key={item.key}>
+            <div className="flex items-center gap-3" key={item.key} role="listitem">
               <div
                 aria-hidden="true"
                 className="h-2 w-2 rounded-full"
