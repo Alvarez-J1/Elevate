@@ -34,11 +34,12 @@ const values = [
 
 export function BrandValuesSection() {
   return (
-    <section className="home-section">
+    <section aria-labelledby="brand-values-heading" className="home-section">
       <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <FadeIn>
           <SectionHeader
             eyebrow="Our Philosophy"
+            titleId="brand-values-heading"
             title="Technology chosen with purpose."
             description="Every product in the Elevate collection is carefully selected for exceptional design, lasting quality, and everyday usefulness."
             descriptionClassName="text-lg"
