@@ -197,11 +197,12 @@ export default function ContactPage() {
 
       <SectionDivider />
 
-      <section className="home-section">
+      <section aria-labelledby="contact-faq-heading" className="home-section">
         <Container className={wideContainerClassName}>
           <FadeIn>
             <SectionHeader
               eyebrow="Contact FAQ"
+              titleId="contact-faq-heading"
               title="Common questions."
               description="Find quick answers before sending us a message."
               descriptionClassName="text-lg"
