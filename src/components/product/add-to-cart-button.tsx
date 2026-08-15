@@ -14,6 +14,7 @@ export function AddToCartButton({
   product,
   quantity = 1,
   color,
+  ariaLabel,
   label = "Add to cart",
   size = "md",
   className
@@ -21,6 +22,7 @@ export function AddToCartButton({
   product: Product;
   quantity?: number;
   color?: string;
+  ariaLabel?: string;
   label?: string;
   size?: ButtonSize;
   className?: string;
@@ -71,8 +73,16 @@ export function AddToCartButton({
     }
   }
 
+  const accessibleLabel = added ? `${product.name} added to cart` : ariaLabel;
+
   return (
-    <Button className={className} onClick={handleAdd} size={size} type="button">
+    <Button
+      aria-label={accessibleLabel}
+      className={className}
+      onClick={handleAdd}
+      size={size}
+      type="button"
+    >
       {added ? (
         <Check aria-hidden="true" size={18} />
       ) : (
