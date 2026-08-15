@@ -357,11 +357,12 @@ export default function ReturnsPage() {
 
       <SectionDivider />
 
-      <section className="home-section">
+      <section aria-labelledby="returns-faq-heading" className="home-section">
         <Container className={wideContainerClassName}>
           <FadeIn>
             <SectionHeader
               eyebrow="Returns FAQ"
+              titleId="returns-faq-heading"
               title="Common return questions."
               description="Find answers to common questions about returns, refunds, and exchanges."
               descriptionClassName="text-lg"
