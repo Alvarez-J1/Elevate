@@ -33,9 +33,12 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
           </FadeIn>
         </div>
 
-        <div className="home-section-content-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4 min-[1600px]:gap-6 min-[1920px]:gap-7">
+        <div
+          className="home-section-content-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4 min-[1600px]:gap-6 min-[1920px]:gap-7"
+          role="list"
+        >
           {products.map((product, index) => (
-            <FadeIn delay={index * 0.05} key={product.id}>
+            <FadeIn delay={index * 0.05} key={product.id} role="listitem">
               <ProductCard
                 compactImageOnMobile
                 product={product}
