@@ -311,11 +311,12 @@ export default function ReturnsPage() {
 
       <SectionDivider />
 
-      <section className="home-section">
+      <section aria-labelledby="return-process-heading" className="home-section">
         <Container className={wideContainerClassName}>
           <FadeIn>
             <SectionHeader
               eyebrow="Return process"
+              titleId="return-process-heading"
               title="Return an item in four steps."
               description="Follow these steps to complete your return or exchange."
               descriptionClassName="text-lg"
