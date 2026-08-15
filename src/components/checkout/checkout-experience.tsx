@@ -158,11 +158,12 @@ export function CheckoutExperience() {
           Confirmation {confirmation.orderNumber} has been created for{" "}
           {formatCurrency(confirmation.total)}.
         </p>
-        <div className="mt-8 grid gap-3 text-left">
+        <div className="mt-8 grid gap-3 text-left" role="list">
           {confirmation.items.map((item, index) => (
             <div
               className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.035] p-4"
               key={`${item.productId ?? "item"}:${item.productName}:${item.color ?? "default"}:${index}`}
+              role="listitem"
             >
               <div>
                 <p className="font-medium text-platinum">{item.productName}</p>
