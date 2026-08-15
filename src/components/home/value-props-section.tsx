@@ -44,7 +44,8 @@ export function ValuePropsSection() {
         <FadeIn delay={0.08}>
           <div className="home-section-content-gap text-lg leading-7 text-muted">
             <p className="font-semibold text-platinum">
-              <span className="text-[#F7C85B]">
+              <span className="sr-only">Five-star rated. </span>
+              <span aria-hidden="true" className="text-[#F7C85B]">
                 &#9733;&#9733;&#9733;&#9733;&#9733;
               </span>{" "}
               Trusted by tech enthusiasts
