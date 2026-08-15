@@ -219,11 +219,12 @@ export default function ShippingPage() {
 
       <SectionDivider />
 
-      <section className="home-section">
+      <section aria-labelledby="shipping-faq-heading" className="home-section">
         <Container className={wideContainerClassName}>
           <FadeIn>
             <SectionHeader
               eyebrow="Shipping FAQ"
+              titleId="shipping-faq-heading"
               title="Common delivery questions."
               description="Find answers to common questions about shipping and delivery."
               descriptionClassName="text-lg"
