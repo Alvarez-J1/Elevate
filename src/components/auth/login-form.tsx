@@ -137,6 +137,7 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
       </div>
 
       <form
+        aria-label="Sign in form"
         className="w-full max-w-[28rem] rounded-lg border border-white/10 bg-white/[0.045] p-6 shadow-soft sm:p-8"
         onSubmit={handleSubmit}
       >
