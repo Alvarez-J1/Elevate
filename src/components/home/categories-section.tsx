@@ -23,12 +23,15 @@ export function CategoriesSection({ categories }: { categories: Category[] }) {
             description="Explore premium technology designed for work, travel, entertainment, and everyday use."
           />
         </FadeIn>
-        <div className="home-section-content-gap grid gap-4 sm:grid-cols-2 lg:grid-cols-5 min-[1600px]:gap-5 min-[1920px]:gap-6">
+        <div
+          className="home-section-content-gap grid gap-4 sm:grid-cols-2 lg:grid-cols-5 min-[1600px]:gap-5 min-[1920px]:gap-6"
+          role="list"
+        >
           {categories.map((category, index) => {
             const isTravelCategory = category.slug === "travel";
 
             return (
-              <FadeIn delay={index * 0.05} key={category.slug}>
+              <FadeIn delay={index * 0.05} key={category.slug} role="listitem">
                 <Link
                   className="group touch-card block overflow-hidden rounded-lg border border-white/10 bg-white/[0.045]"
                   data-touch-card
