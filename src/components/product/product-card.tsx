@@ -103,7 +103,12 @@ export function ProductCard({
               </p>
             ) : null}
           </div>
-          <AddToCartButton label="Add" product={product} size="sm" />
+          <AddToCartButton
+            ariaLabel={`Add ${product.name} to cart`}
+            label="Add"
+            product={product}
+            size="sm"
+          />
         </div>
       </div>
     </motion.article>
