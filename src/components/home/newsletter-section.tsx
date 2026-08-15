@@ -19,13 +19,14 @@ export function NewsletterSection() {
   }
 
   return (
-    <section className="home-section">
+    <section aria-labelledby="newsletter-heading" className="home-section">
       <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <FadeIn>
           <div className="mx-auto max-w-3xl text-center">
             <SectionHeader
               className="mx-auto"
               eyebrow="Stay Updated"
+              titleId="newsletter-heading"
               title="Be first to discover every collection."
               descriptionClassName="text-lg"
               description="Exclusive product launches, limited editions, and thoughtfully curated recommendations—delivered occasionally, never spam."
