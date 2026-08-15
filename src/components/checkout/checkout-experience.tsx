@@ -283,10 +283,12 @@ export function CheckoutExperience() {
           </div>
         </section>
 
-        <section className="mt-8">
+        <section aria-labelledby="checkout-payment-heading" className="mt-8">
           <div className="flex items-center gap-3">
             <CreditCard aria-hidden="true" className="text-glacier" size={20} />
-            <h3 className="text-lg font-semibold text-platinum">Payment</h3>
+            <h3 className="text-lg font-semibold text-platinum" id="checkout-payment-heading">
+              Payment
+            </h3>
           </div>
           <div className="mt-4 rounded-lg border border-white/10 bg-obsidian/40 p-4">
             <p className="mb-4 text-xs text-muted">
