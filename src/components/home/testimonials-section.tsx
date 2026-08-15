@@ -46,11 +46,12 @@ function StarRow({
 
 export function TestimonialsSection() {
   return (
-    <section className="home-section">
+    <section aria-labelledby="testimonials-heading" className="home-section">
       <Container className="min-[1600px]:max-w-[min(90vw,1760px)] min-[1600px]:px-12 min-[1920px]:max-w-[min(92vw,2400px)] min-[1920px]:px-16">
         <FadeIn>
           <SectionHeader
             eyebrow="Customer Reviews"
+            titleId="testimonials-heading"
             title="Trusted by creators, professionals, and travelers."
             description="Designed for creators, professionals, and travelers who appreciate premium technology that lasts."
             descriptionClassName="text-lg"
