@@ -73,9 +73,12 @@ export function TestimonialsSection() {
           </div>
         </FadeIn>
 
-        <div className="home-section-content-gap grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 min-[1600px]:gap-7">
+        <div
+          className="home-section-content-gap grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 min-[1600px]:gap-7"
+          role="list"
+        >
           {testimonials.map((testimonial, index) => (
-            <FadeIn delay={index * 0.05} key={testimonial.name}>
+            <FadeIn delay={index * 0.05} key={testimonial.name} role="listitem">
               <article
                 className="group touch-card touch-card-lift-subtle touch-card-border-25 touch-card-surface-6 touch-card-shadow-strong relative flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] px-8 py-10 shadow-soft transition-[transform,border-color,background-color,box-shadow] duration-[240ms] ease-out hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] hover:shadow-[0_26px_86px_rgba(0,0,0,0.38)] active:-translate-y-0.5 active:border-white/25 active:bg-white/[0.06] active:shadow-[0_26px_86px_rgba(0,0,0,0.38)] md:px-10 md:py-12"
                 data-touch-card
