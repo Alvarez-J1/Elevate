@@ -232,8 +232,10 @@ export function CheckoutExperience() {
           </div>
         ) : null}
 
-        <section className="mt-6">
-          <h3 className="text-lg font-semibold text-platinum">Shipping</h3>
+        <section aria-labelledby="checkout-shipping-heading" className="mt-6">
+          <h3 className="text-lg font-semibold text-platinum" id="checkout-shipping-heading">
+            Shipping
+          </h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block" htmlFor="checkout-first-name">
               <span className="mb-2 block text-sm text-silver">First name</span>
