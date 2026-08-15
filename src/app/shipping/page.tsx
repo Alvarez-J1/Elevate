@@ -138,11 +138,12 @@ export default function ShippingPage() {
 
       <SectionDivider />
 
-      <section className="home-section">
+      <section aria-labelledby="shipping-benefits-heading" className="home-section">
         <Container className={wideContainerClassName}>
           <FadeIn>
             <SectionHeader
               eyebrow="Shipping benefits"
+              titleId="shipping-benefits-heading"
               title="Choose the shipping option that fits you."
               description="Compare delivery options and estimated arrival times before checkout."
               descriptionClassName="text-lg"
