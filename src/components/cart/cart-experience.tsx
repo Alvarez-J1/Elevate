@@ -69,7 +69,7 @@ export function CartExperience() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_24rem] lg:items-start">
-      <div className="grid gap-4">
+      <div className="grid gap-4" role="list">
         {items.map((item) => (
           <CartLineItem item={item} key={item.key} />
         ))}

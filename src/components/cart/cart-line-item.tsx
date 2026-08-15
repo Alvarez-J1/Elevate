@@ -38,6 +38,7 @@ export function CartLineItem({ item }: { item: CartItem }) {
     <article
       aria-labelledby={titleId}
       className="grid grid-cols-[5.5rem_1fr] gap-4 rounded-lg border border-white/10 bg-white/[0.045] p-4 sm:grid-cols-[7rem_1fr_auto]"
+      role="listitem"
     >
       <Link
         aria-label={`View ${item.name}`}
