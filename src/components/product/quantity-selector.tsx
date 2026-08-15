@@ -26,7 +26,7 @@ export function QuantitySelector({
 }) {
   return (
     <div
-      aria-label="Quantity selector"
+      aria-label={`Quantity selector, current quantity ${value}`}
       className={cn(
         "inline-flex h-11 items-center rounded-lg border border-white/10 bg-white/[0.055]",
         className
