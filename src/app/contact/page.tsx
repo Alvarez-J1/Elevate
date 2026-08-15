@@ -135,11 +135,12 @@ export default function ContactPage() {
 
       <SectionDivider />
 
-      <section className="home-section">
+      <section aria-labelledby="contact-options-heading" className="home-section">
         <Container className={wideContainerClassName}>
           <FadeIn>
             <SectionHeader
               eyebrow="Contact options"
+              titleId="contact-options-heading"
               title="Get in touch."
               description="Choose the contact option that best fits your question."
               descriptionClassName="text-lg"
