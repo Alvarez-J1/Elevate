@@ -7,20 +7,23 @@ import { useState, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/components/store/cart-store";
-import { ApiError } from "@/lib/api";
+import { ApiError, ensureBackendReady } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { clearPendingCartAction, readPendingCartAction } from "@/lib/pending-cart-action";
 import { sanitizeReturnTo, withReturnTo } from "@/lib/return-to";
+
+type RegisterSubmissionState = "idle" | "waking" | "submitting";
 
 export function RegisterForm({ returnTo }: { returnTo?: string }) {
   const router = useRouter();
   const { register } = useAuth();
   const addItem = useCartStore((state) => state.addItem);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<RegisterSubmissionState>("idle");
   const [error, setError] = useState<string | null>(null);
 
   const safeReturnTo = sanitizeReturnTo(returnTo);
   const showCartHint = Boolean(returnTo);
+  const isSubmitting = submitState !== "idle";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,11 +32,13 @@ export function RegisterForm({ returnTo }: { returnTo?: string }) {
     }
 
     setError(null);
-    setIsSubmitting(true);
+    setSubmitState("waking");
 
     const form = new FormData(event.currentTarget);
 
     try {
+      await ensureBackendReady();
+      setSubmitState("submitting");
       await register({
         firstName: String(form.get("firstName") ?? ""),
         lastName: String(form.get("lastName") ?? ""),
@@ -59,7 +64,7 @@ export function RegisterForm({ returnTo }: { returnTo?: string }) {
           : "Something went wrong creating your account. Please try again."
       );
     } finally {
-      setIsSubmitting(false);
+      setSubmitState("idle");
     }
   }
 
@@ -135,9 +140,19 @@ export function RegisterForm({ returnTo }: { returnTo?: string }) {
         </label>
       </div>
 
-      <Button className="mt-7 w-full" disabled={isSubmitting} size="lg" type="submit">
+      <Button
+        aria-busy={isSubmitting}
+        className="mt-7 w-full"
+        disabled={isSubmitting}
+        size="lg"
+        type="submit"
+      >
         <UserPlus aria-hidden="true" size={18} />
-        {isSubmitting ? "Creating account..." : "Create account"}
+        {submitState === "waking"
+          ? "Waking backend..."
+          : submitState === "submitting"
+            ? "Creating account..."
+            : "Create account"}
       </Button>
 
       <p className="mt-6 text-left text-sm text-silver">

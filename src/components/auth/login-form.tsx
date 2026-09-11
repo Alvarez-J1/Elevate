@@ -7,20 +7,25 @@ import { useState, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/components/store/cart-store";
-import { ApiError } from "@/lib/api";
+import { ApiError, ensureBackendReady } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { clearPendingCartAction, readPendingCartAction } from "@/lib/pending-cart-action";
 import { sanitizeReturnTo, withReturnTo } from "@/lib/return-to";
+
+type AuthSubmissionState = "idle" | "waking" | "submitting";
 
 export function LoginForm({ returnTo }: { returnTo?: string }) {
   const router = useRouter();
   const { login } = useAuth();
   const addItem = useCartStore((state) => state.addItem);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isDemoSubmitting, setIsDemoSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<AuthSubmissionState>("idle");
+  const [demoSubmitState, setDemoSubmitState] = useState<AuthSubmissionState>("idle");
   const [error, setError] = useState<string | null>(null);
 
   const safeReturnTo = sanitizeReturnTo(returnTo);
+  const isSubmitting = submitState !== "idle";
+  const isDemoSubmitting = demoSubmitState !== "idle";
+  const isAuthBusy = isSubmitting || isDemoSubmitting;
   // Only shown when we actually got here via a cart-related redirect (add
   // to cart, the cart page, or the cart icon) — a plain "Sign in" from the
   // navbar carries no returnTo, so this stays quiet there.
@@ -46,14 +51,16 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
   }
 
   async function handleDemoLogin() {
-    if (isDemoSubmitting) {
+    if (isAuthBusy) {
       return;
     }
 
     setError(null);
-    setIsDemoSubmitting(true);
+    setDemoSubmitState("waking");
 
     try {
+      await ensureBackendReady();
+      setDemoSubmitState("submitting");
       await login("demo@elevate.dev", "Password123!");
       completeReturnAfterAuth();
     } catch (err) {
@@ -63,22 +70,24 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
           : "Something went wrong opening the demo. Please try again."
       );
     } finally {
-      setIsDemoSubmitting(false);
+      setDemoSubmitState("idle");
     }
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (isSubmitting) {
+    if (isAuthBusy) {
       return;
     }
 
     setError(null);
-    setIsSubmitting(true);
+    setSubmitState("waking");
 
     const form = new FormData(event.currentTarget);
 
     try {
+      await ensureBackendReady();
+      setSubmitState("submitting");
       await login(String(form.get("email") ?? ""), String(form.get("password") ?? ""));
       completeReturnAfterAuth();
     } catch (err) {
@@ -88,7 +97,7 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
           : "Something went wrong signing in. Please try again."
       );
     } finally {
-      setIsSubmitting(false);
+      setSubmitState("idle");
     }
   }
 
@@ -120,12 +129,16 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
         <Button
           aria-busy={isDemoSubmitting}
           className="mt-6 w-full"
-          disabled={isDemoSubmitting}
+          disabled={isAuthBusy}
           onClick={handleDemoLogin}
           size="lg"
           type="button"
         >
-          Enter demo store
+          {demoSubmitState === "waking"
+            ? "Starting demo server..."
+            : demoSubmitState === "submitting"
+              ? "Opening demo..."
+              : "Enter demo store"}
           <ArrowRight aria-hidden="true" size={18} />
         </Button>
       </section>
@@ -177,9 +190,19 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
           </label>
         </div>
 
-        <Button className="mt-7 w-full" disabled={isSubmitting} size="lg" type="submit">
+        <Button
+          aria-busy={isSubmitting}
+          className="mt-7 w-full"
+          disabled={isAuthBusy}
+          size="lg"
+          type="submit"
+        >
           <LogIn aria-hidden="true" size={18} />
-          {isSubmitting ? "Signing in..." : "Sign in"}
+          {submitState === "waking"
+            ? "Waking backend..."
+            : submitState === "submitting"
+              ? "Signing in..."
+              : "Sign in"}
         </Button>
 
         <p className="mt-6 text-left text-sm text-silver">

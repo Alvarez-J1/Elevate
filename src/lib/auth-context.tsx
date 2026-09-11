@@ -5,10 +5,12 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import {
   addServerCartItem,
   ApiError,
+  ensureBackendReady,
   fetchServerCart,
   login as apiLogin,
   registerAccount as apiRegister,
   resolveProductIdForApi,
+  warmBackend,
   type ApiUser
 } from "@/lib/api";
 import { useCartStore } from "@/components/store/cart-store";
@@ -50,21 +52,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const storedAuth = readStoredAuth();
-    setState(storedAuth);
-    setIsReady(true);
+    warmBackend();
 
-    if (storedAuth?.token) {
-      fetchServerCart(storedAuth.token)
-        .then((cart) => useCartStore.getState().replaceWithServerCart(cart.items))
-        .catch((error) => {
-          if (error instanceof ApiError && error.status === 401) {
-            window.localStorage.removeItem(STORAGE_KEY);
-            setState(null);
-            useCartStore.getState().clearCart();
-          }
-        });
-    }
+    let isMounted = true;
+
+    void Promise.resolve().then(() => {
+      if (!isMounted) {
+        return;
+      }
+
+      const storedAuth = readStoredAuth();
+      setState(storedAuth);
+      setIsReady(true);
+
+      if (storedAuth?.token) {
+        const token = storedAuth.token;
+
+        ensureBackendReady()
+          .then(() => fetchServerCart(token))
+          .then((cart) => useCartStore.getState().replaceWithServerCart(cart.items))
+          .catch((error) => {
+            if (!isMounted) {
+              return;
+            }
+
+            if (error instanceof ApiError && error.status === 401) {
+              window.localStorage.removeItem(STORAGE_KEY);
+              setState(null);
+              useCartStore.getState().clearCart();
+            }
+          });
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const persist = useCallback((next: StoredAuth | null) => {
@@ -118,6 +141,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(
     async (email: string, password: string) => {
+      await ensureBackendReady();
       const response = await apiLogin({ email, password });
       persist({ token: response.accessToken, user: response.user });
       await syncCartOnAuth(response.accessToken);
@@ -127,6 +151,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = useCallback(
     async (input: { firstName: string; lastName: string; email: string; password: string }) => {
+      await ensureBackendReady();
       const response = await apiRegister(input);
       persist({ token: response.accessToken, user: response.user });
       await syncCartOnAuth(response.accessToken);

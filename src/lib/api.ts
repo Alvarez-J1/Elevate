@@ -19,6 +19,89 @@ export const API_BASE_URL = (
   LOCAL_API_URL
 ).replace(/\/$/, "");
 
+const BACKEND_READY_TIMEOUT_MS = 90_000;
+const BACKEND_READY_RETRY_MS = 4_000;
+const BACKEND_HEALTH_ATTEMPT_TIMEOUT_MS = 8_000;
+const BACKEND_READY_CACHE_MS = 60_000;
+
+let backendReadyAt = 0;
+let backendReadyPromise: Promise<void> | null = null;
+
+function isBackendReadinessFresh(): boolean {
+  return Date.now() - backendReadyAt < BACKEND_READY_CACHE_MS;
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+async function pingBackendHealth(): Promise<void> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), BACKEND_HEALTH_ATTEMPT_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/health`, {
+      cache: "no-store",
+      method: "GET",
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      throw new Error(`Backend health check failed with status ${response.status}`);
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+export async function ensureBackendReady(): Promise<void> {
+  if (isBackendReadinessFresh()) {
+    return;
+  }
+
+  if (backendReadyPromise) {
+    return backendReadyPromise;
+  }
+
+  backendReadyPromise = (async () => {
+    const deadline = Date.now() + BACKEND_READY_TIMEOUT_MS;
+    let lastError: unknown;
+
+    while (Date.now() <= deadline) {
+      try {
+        await pingBackendHealth();
+        backendReadyAt = Date.now();
+        return;
+      } catch (error) {
+        lastError = error;
+      }
+
+      const remainingTime = deadline - Date.now();
+      if (remainingTime <= 0) {
+        break;
+      }
+
+      await wait(Math.min(BACKEND_READY_RETRY_MS, remainingTime));
+    }
+
+    throw lastError instanceof Error
+      ? lastError
+      : new Error("Backend did not become ready in time.");
+  })();
+
+  try {
+    await backendReadyPromise;
+  } finally {
+    backendReadyPromise = null;
+  }
+}
+
+export function warmBackend(): void {
+  void ensureBackendReady().catch(() => undefined);
+}
+
 const productImageOverrides: Record<string, string> = {
   "/products/vanta-studio-primary.png": "/products/vanta-studio-primary-zoomed.png",
   "/products/vertex-smart-glasses-primary.png": "/products/vertex-smart-glasses-primary-zoomed.png",
@@ -48,10 +131,15 @@ export class ApiError extends Error {
 type FetchOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
   token?: string | null;
+  wakeBackend?: boolean;
 };
 
 async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
-  const { body, token, headers, ...rest } = options;
+  const { body, token, headers, wakeBackend, ...rest } = options;
+
+  if (wakeBackend) {
+    await ensureBackendReady();
+  }
 
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...rest,
@@ -294,11 +382,19 @@ export function categoryToDisplay(dto: ApiCategory): Category {
 // ---------------------------------------------------------------------------
 
 export function registerAccount(input: { firstName: string; lastName: string; email: string; password: string }) {
-  return apiFetch<AuthResponse>("/api/auth/register", { method: "POST", body: input });
+  return apiFetch<AuthResponse>("/api/auth/register", {
+    method: "POST",
+    body: input,
+    wakeBackend: true
+  });
 }
 
 export function login(input: { email: string; password: string }) {
-  return apiFetch<AuthResponse>("/api/auth/login", { method: "POST", body: input });
+  return apiFetch<AuthResponse>("/api/auth/login", {
+    method: "POST",
+    body: input,
+    wakeBackend: true
+  });
 }
 
 export function fetchCurrentUser(token: string) {
@@ -338,6 +434,7 @@ export async function resolveProductIdForApi(product: Pick<Product, "id" | "slug
     return productId;
   }
 
+  await ensureBackendReady();
   const liveProduct = await fetchProductBySlug(product.slug);
   return liveProduct.id;
 }
@@ -354,14 +451,16 @@ export function upsertMyReview(slug: string, input: { rating: number; comment?: 
   return apiFetch<ApiReview>(`/api/products/${encodeURIComponent(slug)}/reviews/me`, {
     method: "PUT",
     body: input,
-    token
+    token,
+    wakeBackend: true
   });
 }
 
 export function deleteMyReview(slug: string, token: string) {
   return apiFetch<void>(`/api/products/${encodeURIComponent(slug)}/reviews/me`, {
     method: "DELETE",
-    token
+    token,
+    wakeBackend: true
   });
 }
 
@@ -377,19 +476,33 @@ export function addServerCartItem(
   token: string,
   input: { productId: number; quantity: number; color?: string }
 ) {
-  return apiFetch<ApiCart>("/api/cart/items", { method: "POST", body: input, token });
+  return apiFetch<ApiCart>("/api/cart/items", {
+    method: "POST",
+    body: input,
+    token,
+    wakeBackend: true
+  });
 }
 
 export function updateServerCartItem(token: string, itemId: number, quantity: number) {
-  return apiFetch<ApiCart>(`/api/cart/items/${itemId}`, { method: "PATCH", body: { quantity }, token });
+  return apiFetch<ApiCart>(`/api/cart/items/${itemId}`, {
+    method: "PATCH",
+    body: { quantity },
+    token,
+    wakeBackend: true
+  });
 }
 
 export function removeServerCartItem(token: string, itemId: number) {
-  return apiFetch<ApiCart>(`/api/cart/items/${itemId}`, { method: "DELETE", token });
+  return apiFetch<ApiCart>(`/api/cart/items/${itemId}`, {
+    method: "DELETE",
+    token,
+    wakeBackend: true
+  });
 }
 
 export function clearServerCart(token: string) {
-  return apiFetch<ApiCart>("/api/cart", { method: "DELETE", token });
+  return apiFetch<ApiCart>("/api/cart", { method: "DELETE", token, wakeBackend: true });
 }
 
 // ---------------------------------------------------------------------------
@@ -404,7 +517,12 @@ export function checkout(
   },
   token?: string | null
 ) {
-  return apiFetch<ApiOrder>("/api/orders", { method: "POST", body: input, token });
+  return apiFetch<ApiOrder>("/api/orders", {
+    method: "POST",
+    body: input,
+    token,
+    wakeBackend: true
+  });
 }
 
 export function fetchOrderByNumber(orderNumber: string, token: string) {
@@ -420,5 +538,9 @@ export function fetchMyOrders(token: string) {
 // ---------------------------------------------------------------------------
 
 export function submitContactMessage(input: { name: string; email: string; subject: string; message: string }) {
-  return apiFetch<{ id: number; createdAt: string }>("/api/contact", { method: "POST", body: input });
+  return apiFetch<{ id: number; createdAt: string }>("/api/contact", {
+    method: "POST",
+    body: input,
+    wakeBackend: true
+  });
 }
