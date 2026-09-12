@@ -40,9 +40,10 @@ function wait(ms: number): Promise<void> {
 async function pingBackendHealth(): Promise<void> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), BACKEND_HEALTH_ATTEMPT_TIMEOUT_MS);
+  const healthUrl = typeof window === "undefined" ? `${API_BASE_URL}/api/health` : "/api/backend-wake";
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/health`, {
+    const response = await fetch(healthUrl, {
       cache: "no-store",
       method: "GET",
       signal: controller.signal
