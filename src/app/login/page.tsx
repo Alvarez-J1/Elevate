@@ -8,9 +8,9 @@ export const metadata = {
 export default async function LoginPage({
   searchParams
 }: {
-  searchParams: Promise<{ returnTo?: string }>;
+  searchParams: Promise<{ returnTo?: string; resumeDemo?: string }>;
 }) {
-  const { returnTo } = await searchParams;
+  const { returnTo, resumeDemo } = await searchParams;
 
   return (
     <div className="pb-16 pt-14 sm:pb-20">
@@ -27,7 +27,7 @@ export default async function LoginPage({
               Sign in to sync your cart across devices and track your orders.
             </p>
           </div>
-          <LoginForm returnTo={returnTo} />
+          <LoginForm returnTo={returnTo} resumeDemo={resumeDemo === "1"} />
         </div>
       </Container>
     </div>

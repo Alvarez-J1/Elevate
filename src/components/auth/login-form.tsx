@@ -3,24 +3,35 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertCircle, ArrowRight, LogIn } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/components/store/cart-store";
-import { ApiError, ensureBackendReady } from "@/lib/api";
+import {
+  ApiError,
+  SNAPDEPLOY_DEMO_WAKE_GRACE_MS,
+  SNAPDEPLOY_WAKE_URL,
+  ensureBackendReady,
+  waitForBackendReady
+} from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { clearPendingCartAction, readPendingCartAction } from "@/lib/pending-cart-action";
 import { sanitizeReturnTo, withReturnTo } from "@/lib/return-to";
 
 type AuthSubmissionState = "idle" | "waking" | "submitting";
 
-export function LoginForm({ returnTo }: { returnTo?: string }) {
+type DemoLoginOptions = {
+  allowColdStartRedirect?: boolean;
+};
+
+export function LoginForm({ returnTo, resumeDemo = false }: { returnTo?: string; resumeDemo?: boolean }) {
   const router = useRouter();
   const { login } = useAuth();
   const addItem = useCartStore((state) => state.addItem);
   const [submitState, setSubmitState] = useState<AuthSubmissionState>("idle");
   const [demoSubmitState, setDemoSubmitState] = useState<AuthSubmissionState>("idle");
   const [error, setError] = useState<string | null>(null);
+  const resumeDemoStartedRef = useRef(false);
 
   const safeReturnTo = sanitizeReturnTo(returnTo);
   const isSubmitting = submitState !== "idle";
@@ -39,7 +50,7 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
    * own returnTo still matches this page's returnTo, so a stale action left
    * over from an abandoned flow never silently reappears in a later cart.
    */
-  function completeReturnAfterAuth() {
+  const completeReturnAfterAuth = useCallback(() => {
     const pending = readPendingCartAction();
     if (pending && sanitizeReturnTo(pending.returnTo) === safeReturnTo) {
       addItem(pending.product, pending.quantity, pending.color);
@@ -48,18 +59,28 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
 
     router.push(safeReturnTo);
     router.refresh();
-  }
+  }, [addItem, router, safeReturnTo]);
 
-  async function handleDemoLogin() {
+  const handleDemoLogin = useCallback(async (options: DemoLoginOptions = {}) => {
     if (isAuthBusy) {
       return;
     }
+
+    const allowColdStartRedirect = options.allowColdStartRedirect ?? true;
 
     setError(null);
     setDemoSubmitState("waking");
 
     try {
-      await ensureBackendReady();
+      const isReady = allowColdStartRedirect
+        ? await waitForBackendReady(SNAPDEPLOY_DEMO_WAKE_GRACE_MS)
+        : await ensureBackendReady().then(() => true);
+
+      if (!isReady) {
+        window.location.assign(SNAPDEPLOY_WAKE_URL);
+        return;
+      }
+
       setDemoSubmitState("submitting");
       await login("demo@elevate.dev", "Password123!");
       completeReturnAfterAuth();
@@ -72,7 +93,23 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
     } finally {
       setDemoSubmitState("idle");
     }
-  }
+  }, [completeReturnAfterAuth, isAuthBusy, login]);
+
+  useEffect(() => {
+    if (!resumeDemo || resumeDemoStartedRef.current) {
+      return;
+    }
+
+    resumeDemoStartedRef.current = true;
+
+    const params = new URLSearchParams(window.location.search);
+    params.delete("resumeDemo");
+    const nextSearch = params.toString();
+    const nextUrl = `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ""}${window.location.hash}`;
+
+    router.replace(nextUrl, { scroll: false });
+    void handleDemoLogin({ allowColdStartRedirect: false });
+  }, [handleDemoLogin, resumeDemo, router]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -130,7 +167,7 @@ export function LoginForm({ returnTo }: { returnTo?: string }) {
           aria-busy={isDemoSubmitting}
           className="mt-6 w-full"
           disabled={isAuthBusy}
-          onClick={handleDemoLogin}
+          onClick={() => void handleDemoLogin()}
           size="lg"
           type="button"
         >

@@ -23,6 +23,8 @@ const BACKEND_READY_TIMEOUT_MS = 90_000;
 const BACKEND_READY_RETRY_MS = 4_000;
 const BACKEND_HEALTH_ATTEMPT_TIMEOUT_MS = 8_000;
 const BACKEND_READY_CACHE_MS = 60_000;
+export const SNAPDEPLOY_WAKE_URL = "https://elevate2-80ef9.containers.snapdeploy.app/wake";
+export const SNAPDEPLOY_DEMO_WAKE_GRACE_MS = 15_000;
 
 let backendReadyAt = 0;
 let backendReadyPromise: Promise<void> | null = null;
@@ -97,6 +99,25 @@ export async function ensureBackendReady(): Promise<void> {
   } finally {
     backendReadyPromise = null;
   }
+}
+
+export async function waitForBackendReady(timeoutMs: number): Promise<boolean> {
+  if (isBackendReadinessFresh()) {
+    return true;
+  }
+
+  const readiness = ensureBackendReady()
+    .then(() => true)
+    .catch(() => false);
+
+  if (timeoutMs <= 0) {
+    return readiness;
+  }
+
+  return Promise.race([
+    readiness,
+    wait(timeoutMs).then(() => false)
+  ]);
 }
 
 export function warmBackend(): void {

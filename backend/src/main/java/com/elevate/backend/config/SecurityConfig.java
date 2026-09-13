@@ -64,6 +64,7 @@ public class SecurityConfig {
                         .authenticationEntryPoint(authEntryPointJwt)
                         .accessDeniedHandler(restAccessDeniedHandler))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.GET, "/wake").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/health").permitAll()
                         .requestMatchers(HttpMethod.GET,
